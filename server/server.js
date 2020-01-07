@@ -1,9 +1,9 @@
 const dotenv = require('dotenv').config() /** access environment variable */
 const path = require('path')    /** For path binding */
 const express = require('express') /** Framework used */
-const config = require(path.join(__dirname, './app/config')) /** App configuration */
-const router = require(path.join(__dirname, './app/router')) /** Route gestion */
-const firebaseSetup = require(path.join(__dirname, './app/firebase')) /** Firebase initialize */
+const config = require(path.join(__dirname, './setup/env')) /** App setup */
+const router = require(path.join(__dirname, './setup/router')) /** Route gestion */
+const firebaseSetup = require(path.join(__dirname, './setup/firebase')) /** Firebase initialize */
 
 /**  setup firebase configuration */
 /** Create server instance */

@@ -22,10 +22,6 @@ function createUser(email, id) {
 
 /** display Login Form */
 exports.loginPage = (req, res) => {
-  if (req.cookies.error) {
-    res.clearCookie('error')
-    res.render('login', { error: true })
-  }
   res.render('login')
 }
 
