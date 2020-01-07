@@ -5,14 +5,14 @@ require('firebase/firestore')
 /** InitializeRoutes initialize app routes */
 exports.InitializeFirebase = () => {
     const firebaseConfig = {
-        apiKey: 'AIzaSyBjUA-UCKXTpvDfg10Yu99KHIO8xD1sxGA',
-        authDomain: 'dashboard-ccc.firebaseapp.com',
-        databaseURL: 'https://dashboard-ccc.firebaseio.com',
-        projectId: 'dashboard-ccc',
-        storageBucket: 'dashboard-ccc.appspot.com',
-        messagingSenderId: '354289342941',
-        appId: '1:354289342941:web:b6047f1c0a6d8e1585fe34',
-        measurementId: 'G-Y0MF0WDKYV'
-      }
-      firebase.initializeApp(firebaseConfig)
+      apiKey: "AIzaSyDGo9AJU-AxcnDLp1fB06jFWwmAYRYyrQw",
+      authDomain: "area-epitech59.firebaseapp.com",
+      databaseURL: "https://area-epitech59.firebaseio.com",
+      projectId: "area-epitech59",
+      storageBucket: "area-epitech59.appspot.com",
+      messagingSenderId: "220501398447",
+      appId: "1:220501398447:web:1dd4615e689ce34e1f555a",
+      measurementId: "G-GSC4PFXQSJ"
+    };
+    firebase.initializeApp(firebaseConfig)
 };
