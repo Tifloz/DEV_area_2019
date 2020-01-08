@@ -3,9 +3,11 @@ const path = require('path')    /** For path binding */
 const express = require('express') /** Framework used */
 const config = require(path.join(__dirname, './setup/env')) /** App setup */
 const router = require(path.join(__dirname, './setup/router')) /** Route gestion */
+const firebaseSetup = require(path.join(__dirname, './setup/firebase')) /** Firebase initialize */
 
 /**  setup firebase configuration */
-const firebaseSetup = require(path.join(__dirname, './setup/firebase')) /** Firebase initialize */
+firebaseSetup.InitializeFirebase()
+
 
 /** Create server instance */
 const server = express()
