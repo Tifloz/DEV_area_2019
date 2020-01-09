@@ -13,6 +13,7 @@ import Container from '@material-ui/core/Container';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import PropTypes from "prop-types";
 import {Redirect} from 'react-router-dom'
+import api from '../api'
 
 function Copyright() {
     return (
@@ -73,31 +74,13 @@ class SignIn extends React.Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    onSubmit = (e) => {
+    onSubmit = async (e) => {
         e.preventDefault();
         let responseStatus = false;
 
-        fetch('http://localhost:3000/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({password: this.state.password, username: this.state.username})
-        }).then(function(result) {
-            if (result.ok) {
-                responseStatus = true;
-            }
-            return result.json();
-        }).then((data)  => {
-            if (!responseStatus) {
-                this.setState({ errorMessage:  data.message });
-            }
-            else {
-                localStorage.setItem('jwt', data.token);
-                this.setState({ redirect:  true});
-            }
-            });
+        const { data } = await api.login(this.state.email, this.state.password).then(function(result) {
+            console.log(result)
+        });
     };
 
     render() {
