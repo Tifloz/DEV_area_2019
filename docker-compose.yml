@@ -1,0 +1,32 @@
+version: '3'
+services:
+  server:
+    env_file:
+      - dashboard/.env
+    build: server
+    ports:
+      - "8080:80"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    restart: on-failure
+  client_web:
+    build: client
+    ports:
+      - "8081:80"
+    logging:
+      driver: "json-file"
+      options:
+      max-size: "200k"
+      max-file: "10"
+      restart: on-failure
+  client_mobile:
+    build: mobile
+    logging:
+      driver: "json-file"
+      options:
+      max-size: "200k"
+      max-file: "10"
+      restart: on-failure
