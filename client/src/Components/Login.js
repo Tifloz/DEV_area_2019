@@ -53,6 +53,9 @@ const styles = theme => ({
     error: {
         backgroundColor: theme.palette.error.dark,
     },
+    noAccountLink: {
+        marginTop: theme.spacing(2),
+    }
 });
 
 //const classes = useStyles();
@@ -157,7 +160,7 @@ class SignIn extends React.Component {
                         Sign In
                     </Button>
                     {errorM}
-                    <Grid container>
+                    <Grid container className={classes.noAccountLink}>
                         <Grid item>
                             <Link href="/SignUp" variant="body2">
                                 {"Don't have an account? Sign Up"}
