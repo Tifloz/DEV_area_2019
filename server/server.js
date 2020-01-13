@@ -6,11 +6,27 @@ const router = require(path.join(__dirname, './setup/router')) /** Route gestion
 const firebaseSetup = require(path.join(__dirname, './setup/firebase')) /** Firebase initialize */
 
 /**  setup firebase configuration */
+firebaseSetup.InitializeFirebase()
+
+
 /** Create server instance */
 const server = express()
 
-/** Set Default view engine */
-server.set('view engine', 'ejs')
+/** define CORS */
+//Définition des CORS
+server.use(function(req, res, next) {
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 /** Route creation */
 router.InitializeRoutes(server)
