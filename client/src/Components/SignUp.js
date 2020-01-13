@@ -1,4 +1,3 @@
-import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles} from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
+
+import React from 'react';
+
 import PropTypes from "prop-types";
 import {Redirect} from 'react-router-dom'
 import api from '../api'
@@ -62,7 +64,7 @@ const styles = theme => ({
 //const classes = useStyles();
 
 
-class SignIn extends React.Component {
+class SignUp extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -70,20 +72,19 @@ class SignIn extends React.Component {
             password: '',
             errorMessage: '',
             redirect: false,
-           // email: '',
+            email: '',
         };
     }
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    onSubmit = async (e) => {
+    onSubmit = (e) => {
         e.preventDefault();
-        let responseStatus = false;
-
-        const { data } = await api.login(this.state.email, this.state.password).then(function(result) {
-            console.log(result)
-        });
+        api.signup(this.state.username, this.state.password)
+            .then((result) => {
+                this.setState({redirect: true });
+            });
     };
 
     render() {
@@ -104,11 +105,11 @@ class SignIn extends React.Component {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    Sign Up
                 </Typography>
                 <form
                     className={classes.form}
-                    id="main-login"
+                    id="main-signUp"
                     onSubmit={this.onSubmit}>
                     <TextField
                         variant="outlined"
@@ -140,16 +141,9 @@ class SignIn extends React.Component {
                         variant="contained"
                         color="primary"
                     >
-                        Sign In
+                        Sign Up
                     </Button>
                     {errorM}
-                    <Grid container className={classes.noAccountLink}>
-                        <Grid item>
-                            <Link href="/SignUp" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
-                    </Grid>
                 </form>
             </div>
             <Box mt={8}>
@@ -160,8 +154,8 @@ class SignIn extends React.Component {
     }
 }
 
-SignIn.propTypes = {
+SignUp.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(SignUp);

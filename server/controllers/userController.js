@@ -10,7 +10,7 @@ require('firebase/firestore')
  */
 function result(res, code, message) {
   return res.status(code).json({
-    text: message
+    text: message,
   })
 }
 
@@ -23,6 +23,7 @@ function createUser(email, id) {
   let db = firebase.firestore()
   let data = {
     email: email,
+    tasks: []
   }
   // create a document instance
   db.collection('Users').doc(id).get()
@@ -53,8 +54,12 @@ exports.SignIn = async (req, res) => {
     return (result(res, 400, 'invalid request'))
   // try signin the user with auth()
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => {
-      return result(res, 200, 'Successfully logged in!')
+    .then((result) => {
+      var user = firebase.auth().currentUser;
+      res.set('token', user.uid);
+      return res.status(200).json({
+        text: "Succesfully logged",
+      })
     })
     .catch((error) => {
       return result(res, 401, error.message)
@@ -86,7 +91,10 @@ exports.SignUp = async (req, res) => {
         .then((user) => {
           user = firebase.auth().currentUser
           createUser(user.email, user.uid)
-          return (result(res, 200, 'Successfully created!'))
+          res.set('token', user.uid);
+          return res.status(200).json({
+            text: "Succesfully sign Up",
+          })
         })
       .catch((error) => {
         return (result(res, 400, error.message))
