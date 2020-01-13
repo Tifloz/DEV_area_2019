@@ -90,7 +90,10 @@ exports.SignUp = async (req, res) => {
         .then((user) => {
           user = firebase.auth().currentUser
           createUser(user.email, user.uid)
-          return (result(res, 200, 'Successfully created!'))
+          res.set('token', user.uid);
+          return res.status(200).json({
+            text: "Succesfully sign Up",
+          })
         })
       .catch((error) => {
         return (result(res, 400, error.message))
