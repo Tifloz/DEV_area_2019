@@ -23,6 +23,7 @@ function createUser(email, id) {
   let db = firebase.firestore()
   let data = {
     email: email,
+    tasks: []
   }
   // create a document instance
   db.collection('Users').doc(id).get()

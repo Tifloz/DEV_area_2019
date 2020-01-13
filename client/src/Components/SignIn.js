@@ -82,9 +82,9 @@ class SignIn extends React.Component {
     onSubmit = (e) => {
         e.preventDefault();
         api.signin(this.state.username, this.state.password)
-            .then(function(result) {
-            this.setState({redirect: true });
-        });
+            .then((result) => {
+                this.setState({redirect: true });
+            });
     };
 
     render() {
