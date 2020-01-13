@@ -7,7 +7,7 @@ const burl = "http://localhost:3000";
 export default {
     login: function(email, password) {
         return axios.post(
-            `${burl}/user/login`,
+            `${burl}/user/signIn`,
             {
                 email,
                 password
