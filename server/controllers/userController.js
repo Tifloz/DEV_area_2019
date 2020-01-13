@@ -6,6 +6,7 @@ require('firebase/firestore')
  * @param {Object}  Result object
  * @param {integer} Code status
  * @param {string}  Message who will be send
+ * @returns {Status}
  * This function return the result formatted
  */
 function result(res, code, message) {
@@ -17,38 +18,48 @@ function result(res, code, message) {
 /**
  * @param {string}  Correspond to user's email
  * @param {string}  Correspond to the id of the firebase.auth() created
+ * @returns {bool} True user generated
+ * @returns {bool} False user not generated
  * This function generate a user document into firestore database
  */
 function createUser(email, id) {
-  let db = firebase.firestore()
-  let data = {
-    email: email,
-    tasks: []
-  }
-  // create a document instance
-  db.collection('Users').doc(id).get()
-    .then(() => {
-      // set data into document instant to make it permanent
-      db.collection('Users').doc(id).set(data)
-        .catch((error) => {
-          console.log('error Create User:'+ error.message)
-        })
-    })
+    let db = firebase.firestore()
+    let data = {
+      email: email,
+      tasks: []
+    }
+    // create a document instance
+    db.collection('Users').doc(id).get()
+      .then(() => {
+        // set data into document instant to make it permanent
+        db.collection('Users').doc(id).set(data)
+          .then(() => { return true } )
+          .catch((error) => {
+            console.log('error Create User:'+ error.message)
+            return false
+          })
+      })
 }
 
 /**
+ * @param {Object} Request Object
+ * @param {Object} Response Object
+ * @returns {status} json response
  * Display login Page
  */
-exports.SignInPage = async (req, res) => {
+exports.SignInPage = (req, res) => {
   return (result(res, 200))
 }
 
 /**
  * @param {Object}  Result object
  * @param {Object}  Request object
+ * @return {status} 200 ok
+ * @return {status} 400 Bad Request
+ * @return {status} 401 User pass wrong / not existing
  * Try SignIn the user
  */
-exports.SignIn = async (req, res) => {
+exports.SignIn = (req, res) => {
   const { password, email } = req.body
   if (!email || !password)
     return (result(res, 400, 'invalid request'))
@@ -69,18 +80,21 @@ exports.SignIn = async (req, res) => {
 /**
  * @param {Object}  Result object
  * @param {Object}  Request object
+ * @return {status} 200 ok
  * Display register form
  */
-exports.SignUpPage = async (req, res) => {
+exports.SignUpPage = (req, res) => {
   return (result(res, 200))
 }
 
 /**
  * @param {Object}  Result object
  * @param {Object}  Request object
+ * @return {status} 200 ok
+ * @returns {status} 400 error
  * Creation of user, in firebase auth() and firestore()
  */
-exports.SignUp = async (req, res) => {
+exports.SignUp = (req, res) => {
   const { password, email } = req.body
 
   // try adding new user inside auth()
@@ -108,6 +122,7 @@ exports.SignUp = async (req, res) => {
 /**
  * @param {Object}  Result object
  * @param {Object}  Request object
+ * @return {status} Json object
  * SignOut the user
  */
 exports.signOut = (req, res) => {
@@ -121,6 +136,8 @@ exports.signOut = (req, res) => {
 /**
  * @param {Object}  Result object
  * @param {Object}  Request object
+ * @returns {status} 400 error
+ * @returns {status} 200 ok
  * SignIn the user with the user's token passed as parameter
  */
 exports.signInWithGoogle = (req, res) => {
