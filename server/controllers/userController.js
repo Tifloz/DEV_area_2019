@@ -10,7 +10,7 @@ require('firebase/firestore')
  */
 function result(res, code, message) {
   return res.status(code).json({
-    text: message
+    text: message,
   })
 }
 
@@ -53,8 +53,12 @@ exports.SignIn = async (req, res) => {
     return (result(res, 400, 'invalid request'))
   // try signin the user with auth()
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => {
-      return result(res, 200, 'Successfully logged in!')
+    .then((result) => {
+      var user = firebase.auth().currentUser;
+      res.set('token', user.uid);
+      return res.status(200).json({
+        text: "Succesfully logged",
+      })
     })
     .catch((error) => {
       return result(res, 401, error.message)

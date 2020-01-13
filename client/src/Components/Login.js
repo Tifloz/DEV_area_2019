@@ -70,7 +70,7 @@ class SignIn extends React.Component {
             password: '',
             errorMessage: '',
             redirect: false,
-           // email: '',
+            email: '',
         };
     }
     onChange = (e) => {
@@ -81,7 +81,7 @@ class SignIn extends React.Component {
         e.preventDefault();
         let responseStatus = false;
 
-        const { data } = await api.login(this.state.email, this.state.password).then(function(result) {
+        await api.login(this.state.username, this.state.password).then(function(result) {
             console.log(result)
         });
     };
