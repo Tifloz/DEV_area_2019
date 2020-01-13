@@ -3,7 +3,7 @@ services:
   server:
     build: server
     ports:
-      - "8080:80"
+      - "8080:8080"
     logging:
       driver: "json-file"
       options:
@@ -12,6 +12,9 @@ services:
     restart: on-failure
   client_web:
     build: client
+    depends_on:
+#      - client_mobile
+      - server
     ports:
       - "8081:80"
     volumes:
@@ -22,16 +25,16 @@ services:
         max-size: "200k"
         max-file: "10"
     restart: on-failure
-  client_mobile:
-    build: mobile
-    volumes:
-      - client:/usr/share/nginx/html:ro
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
-    restart: on-failure
+#  client_mobile:
+#    build: mobile
+#    volumes:
+#      - client:/usr/share/nginx/html:ro
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "200k"
+#        max-file: "10"
+#    restart: on-failure
 
 volumes:
   client:
