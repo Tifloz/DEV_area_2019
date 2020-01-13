@@ -1,18 +1,17 @@
 # AREA
 
-Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardi
+Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardy
 
 ### Informations :
- - Nombers of personnes : 6
+ - Members in the team : 6
  - Repository : DEV_area_2019
- - Languages : React native, Node.js, React.js
+ - Languages : Node.js, React.js
  - Compilation : docker-compose build && docker-compose up
  
  
 ### Environnement fonctionnel :
 
  - Project management with [Trello](https://trello.com/b/opGjBwdh/area).
- - Documentation with [Dillinger](https://dillinger.io/)
 
 ### What is AREA ?
     - Area is a software application throught the creation of a business application.
@@ -78,5 +77,5 @@ AREA is currently extended with the following plugins. Instructions on how to us
 
 ### Development
 
-What to contribute? Great!
+What to contribute? Make a pull request!
 
