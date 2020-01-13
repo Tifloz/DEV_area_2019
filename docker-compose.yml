@@ -1,8 +1,6 @@
 version: '3'
 services:
   server:
-    env_file:
-      - dashboard/.env
     build: server
     ports:
       - "8080:80"
@@ -16,17 +14,25 @@ services:
     build: client
     ports:
       - "8081:80"
+    volumes:
+      - client:/usr/share/nginx/html:ro
     logging:
       driver: "json-file"
       options:
-      max-size: "200k"
-      max-file: "10"
-      restart: on-failure
+        max-size: "200k"
+        max-file: "10"
+    restart: on-failure
   client_mobile:
     build: mobile
+    volumes:
+      - client:/usr/share/nginx/html:ro
     logging:
       driver: "json-file"
       options:
-      max-size: "200k"
-      max-file: "10"
-      restart: on-failure
+        max-size: "200k"
+        max-file: "10"
+    restart: on-failure
+
+volumes:
+  client:
+
