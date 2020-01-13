@@ -20,17 +20,17 @@ Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Ga
     - Area is a software application throught the creation of a business application.
     - A software application suite that functions similar to IFTTT and/or Zapier.
     - An application server to implement all the features.
-    - A web client to use the application from your browser by querying theapplication server.
+    - A web client to use the application from your browser by querying the application server.
     - A mobile client to use the application from your phone by querying theapplication server.
 
 ### The Features !
 
-  - The user registers are on the application in order to obtain an account.
+  - The user registers are on the application can obtain an account by registering.
   - The registered user then confirms their enrollment on the application before being able to use it.
   - The application then asks the authenticated user to subscribe to Services.
-  - The authenticated user composes AREA by interconnecting an Action to a REAction previously con-figured.
-  - The application triggers AREA automatically thanks to triggers.
-
+  - The authenticated user composes AREA by interconnecting an Action to a REAction previously configured for service.
+  - The action set on a service is triggered automaticaly and due the reaction.
+  - The user can login within an account.
 
 ### MarkDown
 Markdown
@@ -72,9 +72,11 @@ AREA requires [React Native](https://facebook.github.io/react-native/) to run th
 $ npm install -g expo-cli
 ```
 
+// See with Florian pour lancement Docker & docker-compose 
+
 ### Technologies Use
 
-AREA is currently extended with the following plugins. Instructions on how to use them in your own application are linked below.
+AREA is currently extended with the following technologies. Instructions on how to use them in your own application are linked below.
 
 | Plugin | Getting started |
 | ------ | ------ |
