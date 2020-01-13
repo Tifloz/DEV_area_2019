@@ -73,7 +73,7 @@ exports.SignIn = (req, res) => {
       })
     })
     .catch((error) => {
-      return result(res, 401, error.message)
+      return result(res, 401, 'Unauthorized')
     })
 }
 
