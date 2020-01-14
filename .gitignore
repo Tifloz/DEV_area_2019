@@ -1,3 +1,4 @@
 server/node_modules
+wa-client/node_modules
 client/node_modules
 .idea/
