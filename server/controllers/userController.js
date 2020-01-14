@@ -45,7 +45,7 @@ function createUser(email, id) {
  * @param {Object} Request Object
  * @param {Object} Response Object
  * @returns {status} json response
- * Display login Page
+ * Display auth Page
  */
 exports.SignInPage = (req, res) => {
   return (result(res, 200))
