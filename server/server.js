@@ -13,7 +13,7 @@ firebaseSetup.InitializeFirebase()
 const server = express()
 
 /** define CORS */
-//Définition des CORS
+// Définition des CORS
 server.use(function(req, res, next) {
   res.setHeader(
     "Access-Control-Allow-Headers",
