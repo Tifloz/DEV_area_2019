@@ -7,8 +7,8 @@ Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Ga
  - Repository : DEV_area_2019
  - Languages : React, Node.js
  - Compilation : docker-compose build && docker-compose up
- - Server port : 3000
- - Client port : 8080
+ - Server port : 8080
+ - Client port : 8081
  
  
 ### Environnement fonctionnel :
