@@ -1,6 +1,8 @@
 version: '3'
 services:
   server:
+    networks:
+      - main
     build: server
     ports:
       - "8080:8080"
@@ -11,9 +13,11 @@ services:
         max-file: "10"
     restart: on-failure
   client_web:
+    networks:
+      - main
     build: client
     depends_on:
-#      - client_mobile
+      #      - client_mobile
       - server
     ports:
       - "8081:80"
@@ -38,4 +42,5 @@ services:
 
 volumes:
   client:
-
+networks:
+  main:

@@ -9,7 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles} from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+import { Alert } from '@material-ui/lab';
 
 import React from 'react';
 
@@ -58,7 +58,11 @@ const styles = theme => ({
     },
     noAccountLink: {
         marginTop: theme.spacing(2),
-    }
+    },
+    errorAlert: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+    },
 });
 
 //const classes = useStyles();
@@ -82,16 +86,23 @@ class SignIn extends React.Component {
     onSubmit = (e) => {
         e.preventDefault();
         api.signin(this.state.username, this.state.password)
-            .then(function(result) {
-            this.setState({redirect: true });
-        });
+            .then((result) => {
+                console.log(result)
+                this.setState({redirect: true });
+            }).catch((error) => {
+                console.log(error.response.status)
+                if (error && error.response && error.response.status === 401)
+                    this.setState({errorMessage: 'Invalid username or password !'})
+                else
+                    this.setState({errorMessage: 'An error as occur when communicate with server ! #' + error.response.status})
+            });
     };
 
     render() {
         let errorM = <div> </div>;
         const { classes } = this.props;
         if (this.state.errorMessage)
-            errorM = <SnackbarContent message= {this.state.errorMessage} />;
+            errorM = <Alert severity="error" className={classes.errorAlert}>{this.state.errorMessage}</Alert>;
 
         if (this.state.redirect) {
             //Affichage de la redirection
