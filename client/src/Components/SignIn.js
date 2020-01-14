@@ -84,15 +84,17 @@ class SignIn extends React.Component {
     }
 
     onSubmit = (e) => {
-        console.log('submit auth')
         e.preventDefault();
         api.signin(this.state.username, this.state.password)
             .then((result) => {
                 console.log(result)
                 this.setState({redirect: true });
             }).catch((error) => {
-                console.log(error)
-                this.setState({errorMessage: 'Invalid username or password !'})
+                console.log(error.response.status)
+                if (error && error.response && error.response.status === 401)
+                    this.setState({errorMessage: 'Invalid username or password !'})
+                else
+                    this.setState({errorMessage: 'An error as occur when communicate with server ! #' + error.response.status})
             });
     };
 

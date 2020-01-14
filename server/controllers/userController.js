@@ -62,7 +62,7 @@ exports.SignInPage = (req, res) => {
 exports.SignIn = (req, res) => {
   const { password, email } = req.body
   if (!email || !password)
-    return (result(res, 400, 'invalid request'))
+    return (result(res, 400, 'Bad Request'))
   // try signin the user with auth()
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then((result) => {
