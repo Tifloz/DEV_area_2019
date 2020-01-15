@@ -1,9 +1,9 @@
 # AREA
 
-Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardi
+Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardy
 
 ### Informations :
- - Nombers of personnes : 6
+ - Members in the team : 6
  - Repository : DEV_area_2019
  - Languages : React, Node.js
  - Compilation : docker-compose build && docker-compose up
@@ -14,7 +14,6 @@ Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Ga
 ### Environnement fonctionnel :
 
  - Project management with [Trello](https://trello.com/b/opGjBwdh/area).
- - Documentation with [Dillinger](https://dillinger.io/)
 
 ### What is AREA ?
     - Area is a software application throught the creation of a business application.
@@ -33,11 +32,6 @@ Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Ga
   - The user can login within an account.
 
 ### MarkDown
-Markdown
-Toggle Zen Mode
-Preview
-Toggle Mode
-
 
 Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
 
@@ -74,7 +68,7 @@ $ npm install -g expo-cli
 
 // See with Florian pour lancement Docker & docker-compose 
 
-### Technologies Use
+### Technologies Used
 
 AREA is currently extended with the following technologies. Instructions on how to use them in your own application are linked below.
 
@@ -87,5 +81,5 @@ AREA is currently extended with the following technologies. Instructions on how 
 
 ### Development
 
-What to contribute? Great!
+What to contribute? Make a pull request!
 
