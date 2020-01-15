@@ -2,6 +2,8 @@ const firebase = require('firebase/app')
 require('firebase/auth')
 require('firebase/firestore')
 
+const database = require('./firebaseTools.js')
+
 /**
  * @param {Object}  Result object
  * @param {integer} Code status
@@ -44,42 +46,6 @@ exports.createTask = (req, res) => {
 }
 
 /**
- * @param {uid} User uid
- * @returns {Array} tasks id for user
- * @returns {null} no tasks
- */
-function getUserTasks(uid)
-{
-    let db = firebase.firestore()
-    let result = db.collection('Users').doc(uid).get()
-        .then((result) => {
-            const tasks = result.data().tasks
-            if (tasks) {
-                return (tasks);
-            }
-        })
-        .catch ((err) => {
-            console.log('no documents');
-            return (null);
-        })
-}
-
-/**
- * @param {Object}  Request object
- * @param {Object}  Result object
- * @returns {status}  400 not logged
- * @returns {status}  200 task generated
- * @returns {status}  401 task not generated
- * Create Task for user logged
- */
-exports.createTask = (req, res) => {
-    const user = firebase.auth().currentUser
-    if (!user)
-        return result(res, 401, 'Error user not logged')
-    return result(res, 200, 'welcome to home page!')
-}
-
-/**
  * @param {Object}  Request object
  * @param {Object}  Result object
  * @returns {Json Object}  Services formatted in Json
@@ -92,23 +58,17 @@ exports.getAllServices = (req, res) => {
     const user = firebase.auth().currentUser
     if (!user)
         return result(res, 401, 'Error user not logged')
-    let services = []
-    let db = firebase.firestore()
-    let servicesRef = db.collection('Services');
-    servicesRef.get()
-        .then(snapshot => {
-            if (snapshot.empty) {
-                return (result(res, 400, "No Services"))
-            }
-            snapshot.forEach(doc => {
-                services.push(doc.data());
-            });
+    database.getAllDocuments('Services')
+        .then((services) => {
+            if (services === [])
+                return (result(res, 200, "No Services"))
             jsonServices = JSON.stringify(services)
-            res.setHeader('Content-Type', 'application/json');
+            res.setHeader('Content-Type', 'application/json')
             res.write(jsonServices)
-            return (result(res, 200, "Matching Service list"))
+            return (result(res, 200, 'Matching Service list'))
         })
-        .catch(err => {
-            return (result(res, 400, "No Services"))
-        });
+        .catch((e) => {
+            console.log('An error occur in getAllServices: ', e.message)
+            return (result(res, 200, 'No services'))
+        })
 }

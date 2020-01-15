@@ -1,6 +1,9 @@
+
 const firebase = require('firebase/app')
 require('firebase/auth')
 require('firebase/firestore')
+
+const database = require('./firebaseTools.js')
 
 /**
  * @param {Object}  Result object
@@ -23,22 +26,13 @@ function result(res, code, message) {
  * This function generate a user document into firestore database
  */
 function createUser(email, id) {
-    let db = firebase.firestore()
     let data = {
       email: email,
       tasks: []
     }
-    // create a document instance
-    db.collection('Users').doc(id).get()
-      .then(() => {
-        // set data into document instant to make it permanent
-        db.collection('Users').doc(id).set(data)
-          .then(() => { return true } )
-          .catch((error) => {
-            console.log('error Create User:'+ error.message)
-            return false
-          })
-      })
+
+    database.createDocument('Users', id, data)
+      .then((status)=> { return status } )
 }
 
 /**
@@ -151,9 +145,32 @@ exports.signInWithGoogle = (req, res) => {
       user = firebase.auth().currentUser
       /** Create User in firestore */
       createUser(user.email, user.uid)
-      return (result(res, 200))
+      return (result(res, 200, 'logged'))
     })
     .catch((error) => {
       return (result(res, 400, error.message))
+    })
+}
+
+/**
+ * @param {Object}  Result object
+ * @param {Object}  Request object
+ * @returns {JSon Object} User Tasks
+ * This function return the user's tasks
+ */
+exports.getTasks = (req, res) => {
+
+  database.getDocument('Users', 'p0SRzYGHr3PHQag8XCYOPUBk9lr2')
+    .then((user) => {
+      if (user.tasks === [])
+        console.log('no user tasks');
+      database.getDocuments('Tasks', user.tasks)
+        .then((tasks) => {
+          console.log('get tasks: ', tasks);
+        })
+      return result(res, 200, 'ok');
+    })
+    .catch((e) => {
+      return result(res, 400, 'ko');
     })
 }
