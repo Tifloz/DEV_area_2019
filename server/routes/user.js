@@ -9,5 +9,6 @@ router.get('/signUp', userController.SignUpPage)
 router.post('/signUp', userController.SignUp)
 router.get('/signOut', userController.signOut)
 router.get('/google/:token', userController.signInWithGoogle)
+router.get('/tasks', userController.getTasks)
 
 module.exports = router
