@@ -15,6 +15,9 @@ script:
 - npm run build
 - npm run test
 - cd ..
+
+after_success:
+  - .travis/push.sh
 env:
   global:
     secure: KHZ5av3w9prK2mTOuZhUZovGZGKZ+hp5WlZFsCNru9LzTeZxtrnERWp+hx2RfI5yVQRj5NydH0vram01etDc2yDl0DLE+OOp97qy/tVGVurOXHZHumz5ymeqCTZ7Cw837im/zcS+nevcnHZIXjRj/yodbFI/fSRpBsWJ3pj11T2KerN889IEAXU8+IkxgDAfEigJot0fdv0lEAZXLshnZ6x6O0Xi791KbWYFrELONrTz4PVbtCvhygHZOO3z4PFl8SIfSWqMnxw+rJUoK7Rob1AaCw9ZnTvq6I3HN77b5rARzMWmFC2HEwCLmO8WF1E3RYK77H1sCCkcoP5hmAKodCTp2vAaSdbzRz4sUICKCQNYK4R0F47/Dbq5gZatIfpKlgZiy/5k/I0XUv+cAnSDdiMVrdbbDP/Yv9HWwy4/vD/SRwTu/7h2whtNXcaFwHdj6ICcOoerMLxA13+jXQ5nrcDydwMj/HRalWPCSkl4BrciT1ZRPouRy0ri1GYZycoNTHySN9zuan57I8ywtlEQ084abSiy2vxF3ZdtqpCwwBTywJjtgBpyE3a4xn/ZWQZ+/dJOHn1xN6LzDBhveyKXwqLIHMrA4KTPxPjfvRXnyAgRez1ckmeJ8oAF6PWXqu7Ti7g/N/2kmZTastg+4aVk6s34YAtSMgxVdYPoutPrEpI=
