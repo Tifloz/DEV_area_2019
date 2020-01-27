@@ -6,8 +6,6 @@ setup_git() {
 }
 
 commit_website_files() {
-  git checkout -b master
-  git pull origin dev
   git add .
   git commit --message "Travis validated build: $TRAVIS_BUILD_NUMBER"
 }
