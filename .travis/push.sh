@@ -11,8 +11,7 @@ commit_website_files() {
 }
 
 upload_files() {
-  git remote update origin https://${GH_TOKEN}@github.com/Tifloz/DEV_area_2019.git
-  git push --set-upstream origin master
+  git push origin master
 }
 
 setup_git
