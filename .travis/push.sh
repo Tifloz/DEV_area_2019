@@ -6,13 +6,15 @@ setup_git() {
 }
 
 commit_website_files() {
+  git checkout -b master
+  git pull origin dev
   git add .
   git commit --message "Travis validated build: $TRAVIS_BUILD_NUMBER"
 }
 
 upload_files() {
-  git remote add origin-2 https://${GH_TOKEN}@github.com/Tifloz/DEV_area_2019.git
-  git push --set-upstream origin-2 master
+  git remote update origin https://${GH_TOKEN}@github.com/Tifloz/DEV_area_2019.git
+  git push --set-upstream origin master
 }
 
 setup_git
