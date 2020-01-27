@@ -20,7 +20,7 @@ services:
       #      - client_mobile
       - server
     ports:
-      - "8080:3000"
+      - "8080:8080"
     volumes:
       - client:/usr/share/nginx/html:ro
     logging:
@@ -32,7 +32,8 @@ services:
 #  client_mobile:
 #    build: mobile
 #    volumes:
-#      - client:/usr/share/nginx/html:ro
+#      - ./:/client
+#      - /client/node_modules
 #    logging:
 #      driver: "json-file"
 #      options:
