@@ -12,8 +12,8 @@ commit_website_files() {
 }
 
 upload_files() {
-  git remote add origin https://${GH_TOKEN}@github.com/Tifloz/DEV_area_2019.git > /dev/null 2>&1
-  git push --quiet --set-upstream origin master
+  git remote add origin https://${GH_TOKEN}@github.com/Tifloz/DEV_area_2019.git
+  git push --set-upstream origin master
 }
 
 setup_git
