@@ -4,6 +4,6 @@ const homeController = require('../controllers/homeController')
 
 /** Set Up user routes */
 router.get('/home', homeController.homePage)
-router.get('/services', homeController.getAllServices)
+router.get('/services', homeController.Services)
 
 module.exports = router

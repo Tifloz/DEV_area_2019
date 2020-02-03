@@ -1,8 +1,4 @@
-const firebase = require('firebase/app')
-require('firebase/auth')
-require('firebase/firestore')
-
-const database = require('./firebaseTools.js')
+const database = require('./database.js')
 
 /**
  * @param {Object}  Result object
@@ -25,23 +21,10 @@ function result(res, code, message) {
  * Display home page
  */
 exports.homePage = (req, res) => {
-    const user = firebase.auth().currentUser
+    console.log('Home Page')
+    const user = database.currentUser()
     if (!user)
         return result(res, 400, 'Please SignIn')
-    return result(res, 200, 'welcome to home page!')
-}
-
-/**
- * @param {Object}  Request object
- * @param {Object}  Result object
- * @returns {status} 200 Success
- * @returns {status} 400 Error not logged
- * Create Task for user logged
- */
-exports.createTask = (req, res) => {
-    const user = firebase.auth().currentUser
-    if (!user)
-        return result(res, 401, 'Error user not logged');
     return result(res, 200, 'welcome to home page!')
 }
 
@@ -54,10 +37,11 @@ exports.createTask = (req, res) => {
  * @returns {status}  400 service not getted
  * Get all services in collection firestore
  */
-exports.getAllServices = (req, res) => {
-    const user = firebase.auth().currentUser
-    if (!user)
-        return result(res, 401, 'Error user not logged')
+exports.Services = (req, res) => {
+    // const user = database.currentUser()
+    // if (!user)
+        // return result(res, 401, 'Error user not logged')
+    console.log("inside get All services")
     database.getAllDocuments('Services')
         .then((services) => {
             if (services === [])
