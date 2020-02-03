@@ -1,22 +1,5 @@
 const database = require('./database.js')
-let message = []
-
-message[200] = "ok"
-message[400] = "Bad request"
-message[401] = "User not logged"
-
-/**
- * @param {Object}  Result object
- * @param {integer} Code status
- * @param {string}  Message who will be send
- * @returns {Status}
- * This function return the result formatted
- */
-function result(res, code, message) {
-  return res.status(code).json({
-    text: message,
-  })
-}
+const data = require('./data.js')
 
 /**
  * @param {Object} Request Object
@@ -25,7 +8,7 @@ function result(res, code, message) {
  * Display login Page
  */
 exports.SignInPage = (req, res) => {
-  return result(res, 200)
+  return data.result(res, 200)
 }
 
 /**
@@ -40,8 +23,7 @@ exports.SignIn = (req, res) => {
   const { password, email } = req.body
 
   database.SignIn(email, password).then((status) => {
-    console.log("status ", status)
-    return result(res, status, message[status])
+    return data.result(res, status, message[status])
   }).catch((e) => {
     console.log("error message: ", e.message)
   })
@@ -54,7 +36,7 @@ exports.SignIn = (req, res) => {
  * Display register form
  */
 exports.SignUpPage = (req, res) => {
-  return result(res, 200)
+  return data.result(res, 200)
 }
 
 /**
@@ -72,13 +54,12 @@ exports.SignUp = (req, res) => {
   }
   database.SignUp(email, password)
     .then((status) => {
-      // if error send error
       if (status === false)
-        return result(res, 400)
+        return data.result(res, 400)
       database.SignIn(email, password).then(() => {
         let user = database.currentUser();
         database.createDocument('Users', user.uid, data)
-        return result(res, 200, message[200])
+        return data.result(res, 200, message[200])
       })
     })
 }
@@ -92,6 +73,6 @@ exports.SignUp = (req, res) => {
 exports.signOut = (req, res) => {
   database.signOut()
     .then((status) => {
-      return result(res, status, message[status])
+      return data.result(res, status, message[status])
     });
 }

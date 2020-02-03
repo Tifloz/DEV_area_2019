@@ -1,17 +1,5 @@
 const database = require('./database.js')
-
-/**
- * @param {Object}  Result object
- * @param {integer} Code status
- * @param {string}  Message who will be send
- * @return {status}  Json Response
- * This function return the result formatted
- */
-function result(res, code, message) {
-    return res.status(code).json({
-        text: message
-    });
-}
+const data = require('./data.js')
 
 /**
  * @param {Object}  Request object
@@ -21,11 +9,10 @@ function result(res, code, message) {
  * Display home page
  */
 exports.homePage = (req, res) => {
-    console.log('Home Page')
     const user = database.currentUser()
     if (!user)
-        return result(res, 400, 'Please SignIn')
-    return result(res, 200, 'welcome to home page!')
+        return data.result(res, 400)
+    return data.result(res, 200)
 }
 
 /**
@@ -38,21 +25,17 @@ exports.homePage = (req, res) => {
  * Get all services in collection firestore
  */
 exports.Services = (req, res) => {
-    // const user = database.currentUser()
-    // if (!user)
-        // return result(res, 401, 'Error user not logged')
-    console.log("inside get All services")
+    const user = database.currentUser()
+    if (!user)
+        return data.result(res, 401, 'Error user not logged')
     database.getAllDocuments('Services')
         .then((services) => {
             if (services === [])
-                return (result(res, 200, "No Services"))
-            jsonServices = JSON.stringify(services)
-            res.setHeader('Content-Type', 'application/json')
-            res.write(jsonServices)
-            return (result(res, 200, 'Matching Service list'))
+                return (data.result(res, 200))
+            data.result(res, 200, services)
         })
         .catch((e) => {
             console.log('An error occur in getAllServices: ', e.message)
-            return (result(res, 200, 'No services'))
+            return (data.result(res, 200))
         })
 }
