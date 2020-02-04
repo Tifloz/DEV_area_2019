@@ -1,11 +1,6 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,7 +9,9 @@ import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import PropTypes from "prop-types";
-import {Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom"
+import Icon from '@material-ui/core/Icon';
+import AddIcon from '@material-ui/icons/AddBox';
 
 function Copyright() {
     return (
@@ -35,7 +32,7 @@ const styles = theme => ({
     },
     heroContent: {
         backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(8, 0, 6),
+        padding: theme.spacing(4, 0, 4),
     },
     heroButtons: {
         marginTop: theme.spacing(4),
@@ -59,11 +56,32 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(6),
     },
+    bodyContent: {
+        marginRight: '50.00%',
+        marginTop: '20.00%',
+        //display: 'flex',
+        //flexDirection: 'column',
+        //justifyContent: 'flex-start',
+        //backgroundColor: 'rgba(0,0,0,0.07)'
+        // TODO icone = add_box
+
+    },
+    typo: {
+        fontSize: '6.0em',
+        fontWeight: 'bolder',
+        fontFamily: 'helvetica',
+    },
+    typoSelected: {
+        fontSize: '6.0em',
+        fontWeight: 'bolder',
+        fontFamily: 'helvetica',
+        opacity: '0.5',
+    }
 });
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-class Dashboard extends React.Component {
+class CreateArea extends React.Component {
 
     constructor() {
         super();
@@ -80,7 +98,7 @@ class Dashboard extends React.Component {
         const { classes } = this.props;
 
         if (this.state.getMore) {
-            return <Redirect to='/createArea'/>;
+            return <Redirect to='/dashboard'/>;
         }
 
         return (
@@ -95,19 +113,48 @@ class Dashboard extends React.Component {
                 </AppBar>
                 <main>
                     {/* Hero unit */}
-                    <div className={classes.heroContent}>
+                    <div>
                         <Container maxWidth="sm">
                             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                                AREA
+                                Create your own.
                             </Typography>
                             <Typography variant="h5" align="center" color="textSecondary" paragraph>
-                                Start connectiong your world.
+                                Configure a new AREA
                             </Typography>
+                            <div className={classes.bodyContent}>
+                                <Typography component="h1" variant="h2"  color="textPrimary" gutterBottom className={classes.typo}>
+                                    IF
+                                </Typography>
+                                <Button
+                                    align="left"
+                                    startIcon={<AddIcon style={{ fontSize: '90px' }}/>}
+                                    className={classes.typo}
+                                >
+                                    THIS
+                                </Button>
+                                <Typography component="h1" variant="h2" align="left" color="textPrimary" gutterBottom className={classes.typo}>
+                                    THEN
+                                </Typography>
+                                <Button
+                                    align="left"
+                                    startIcon={<AddIcon style={{ fontSize: '90px' }}/>}
+                                    className={classes.typo}
+                                >
+                                    THAT
+                                </Button>
+                            </div>
+
+
                             <div className={classes.heroButtons}>
                                 <Grid container spacing={2} justify="center">
                                     <Grid item>
                                         <Button variant="contained" color="primary" onClick={ this.getMore }>
-                                            Get More
+                                            Cancel
+                                        </Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button variant="contained" color="success" onClick={ this.getMore }>
+                                            Validate
                                         </Button>
                                     </Grid>
                                 </Grid>
@@ -117,33 +164,6 @@ class Dashboard extends React.Component {
                     <Container className={classes.cardGrid} maxWidth="md">
                         {/* End hero unit */}
                         <Grid container spacing={4}>
-                            {cards.map(card => (
-                                <Grid item key={card} xs={12} sm={6} md={4}>
-                                    <Card className={classes.card}>
-                                        <CardMedia
-                                            className={classes.cardMedia}
-                                            image="https://source.unsplash.com/random"
-                                            title="Image title"
-                                        />
-                                        <CardContent className={classes.cardContent}>
-                                            <Typography gutterBottom variant="h5" component="h2">
-                                                Heading
-                                            </Typography>
-                                            <Typography>
-                                                This is a media card. You can use this section to describe the content.
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button size="small" color="primary">
-                                                View
-                                            </Button>
-                                            <Button size="small" color="primary">
-                                                Edit
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                            ))}
                         </Grid>
                     </Container>
                 </main>
@@ -160,8 +180,8 @@ class Dashboard extends React.Component {
     }
 }
 
-Dashboard.propTypes = {
+CreateArea.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(CreateArea);
