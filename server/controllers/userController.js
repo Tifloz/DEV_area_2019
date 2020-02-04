@@ -5,7 +5,7 @@ const data = require('./data.js')
  * @param {Object} Request Object
  * @param {Object} Response Object
  * @returns {status} json response
- * Display login Page
+ * Display auth Page
  */
 exports.SignInPage = (req, res) => {
   return data.result(res, 200)
