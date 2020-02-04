@@ -23,7 +23,7 @@ exports.SignIn = (req, res) => {
   const { password, email } = req.body
 
   database.SignIn(email, password).then((status) => {
-    return data.result(res, status, message[status])
+    return data.result(res, status)
   }).catch((e) => {
     console.log("error message: ", e.message)
   })
@@ -59,7 +59,7 @@ exports.SignUp = (req, res) => {
       database.SignIn(email, password).then(() => {
         let user = database.currentUser();
         database.createDocument('Users', user.uid, data)
-        return data.result(res, 200, message[200])
+        return data.result(res, 200)
       })
     })
 }
@@ -73,6 +73,6 @@ exports.SignUp = (req, res) => {
 exports.signOut = (req, res) => {
   database.signOut()
     .then((status) => {
-      return data.result(res, status, message[status])
+      return data.result(res, status)
     });
 }
