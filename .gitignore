@@ -1,6 +1,6 @@
 server/node_modules
 wa-client/node_modules
 client/node_modules
-.idea/server
+mobile/src/node_modules
+.idea/
 /node_modules/
-/.idea/
