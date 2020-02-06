@@ -1,8 +1,5 @@
 #!/bin/sh
 
-
-function create_all_branches()
-{
     # Keep track of where Travis put us.
     # We are on a detached head, and we need to be able to go back to it.
     local build_head=$(git rev-parse HEAD)
@@ -22,7 +19,6 @@ function create_all_branches()
 
     # finally, go back to where we were at the beginning
     git checkout ${build_head}
-}
 
 setup_git() {
   git config --global user.email "travis@travis-ci.org"
