@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/Tifloz/DEV_area_2019.svg?token=pTcnxC4Rz6TMqaVu5wks&branch=master)](https://travis-ci.com/Tifloz/DEV_area_2019)
 # AREA
 
 Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardy
