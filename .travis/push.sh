@@ -27,4 +27,4 @@ setup_git
 git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* || exit
 git fetch --all || exitgit checkout master || exit
 git merge --no-ff "$TRAVIS_COMMIT" || exit
-git push "https://${GH_TOKEN}@github.com/Tifloz/DEV_area_2019.git master"
+git push "https://${GH_TOKEN}@github.com/Tifloz/DEV_area_2019.git master HEAD:master"
