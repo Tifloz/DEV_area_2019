@@ -14,8 +14,7 @@ upload_files() {
   if  git ls-remote --exit-code origin > /dev/null 2>&1; then
 	  git remote rm origin
   fi
-  git remote get-url origin --all
-  git remote set-url origin https://${GH_TOKEN}@github.com/Tifloz/DEV_area_2019.git
+  git remote add origin https://${GH_TOKEN}@github.com/Tifloz/DEV_area_2019.git
   git push origin master
 }
 
