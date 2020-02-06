@@ -12,8 +12,6 @@ setup_git() {
   # do that.
   git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
   git fetch
-  # optionally, we can also fetch the tags
-  git fetch --tags
 
   # create the tacking branches
   for branch in $(git branch -r|grep -v HEAD) ; do
@@ -29,4 +27,4 @@ setup_git
 git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* || exit
 git fetch --all || exitgit checkout master || exit
 git merge --no-ff "$TRAVIS_COMMIT" || exit
-git push @github.com/">https://${GITHUB_TOKEN}@github.com/Tifloz/DEV_area_2019.git HEAD:master"
+git push "https://${GH_TOKEN}@github.com/Tifloz/DEV_area_2019.git master"
