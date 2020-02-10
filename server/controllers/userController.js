@@ -81,6 +81,7 @@ exports.googleAuth = (req, res) => {
   /** Get token set in url and get credential */
   let token = req.body.tokenId
 
+  console.log('token =>', token)
   database.googleAuth(token).then(() => {
       let user = database.currentUser()
       let data = {
@@ -88,7 +89,7 @@ exports.googleAuth = (req, res) => {
         'facebook_token': "",
         'twitter_token': ""
       }
-      createDocument('Users', user.uid, data).then(() => {
+      database.createDocument('Users', user.uid, data).then(() => {
         return data.result(res, 200)
       }).catch(() => {
         return data.result(res, 400)
