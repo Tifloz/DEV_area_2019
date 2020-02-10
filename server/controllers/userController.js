@@ -1,23 +1,22 @@
 const database = require('./database.js')
-const data = require('./data.js')
+let data = require('./data.js')
 
 /**
- * @param {Object} Request Object
- * @param {Object} Response Object
  * @returns {status} json response
  * Display auth Page
+ * @param req
+ * @param res
  */
 exports.SignInPage = (req, res) => {
   return data.result(res, 200)
 }
-
 /**
- * @param {Object}  Result object
- * @param {Object}  Request object
  * @return {status} 200 ok
  * @return {status} 400 Bad Request
  * @return {status} 401 User pass wrong / not existing
  * Try SignIn the user
+ * @param req
+ * @param res
  */
 exports.SignIn = (req, res) => {
   const { password, email } = req.body
@@ -30,21 +29,21 @@ exports.SignIn = (req, res) => {
 }
 
 /**
- * @param {Object}  Result object
- * @param {Object}  Request object
  * @return {status} 200 ok
  * Display register form
+ * @param req
+ * @param res
  */
 exports.SignUpPage = (req, res) => {
   return data.result(res, 200)
 }
 
 /**
- * @param {Object}  Result object
- * @param {Object}  Request object
  * @return {status} 200 ok
  * @returns {status} 400 error
  * Creation of user, in firebase auth() and firestore()
+ * @param req
+ * @param res
  */
 exports.SignUp = (req, res) => {
   const { password, email } = req.body
@@ -65,10 +64,10 @@ exports.SignUp = (req, res) => {
 }
 
 /**
- * @param {Object}  Result object
- * @param {Object}  Request object
  * @return {status} Json object
  * SignOut the user
+ * @param req
+ * @param res
  */
 exports.signOut = (req, res) => {
   database.signOut()
@@ -80,7 +79,7 @@ exports.signOut = (req, res) => {
 /** SigIn Google Account to firebase with tokenId */
 exports.googleAuth = (req, res) => {
   /** Get token set in url and get credential */
-  let token = req.params.token
+  let token = req.body.tokenId
   let credential = firebase.auth.GoogleAuthProvider.credential(token)
 
   /** sigIn User with credential */
@@ -89,7 +88,7 @@ exports.googleAuth = (req, res) => {
       data.result(res, 400)
     })
     .then(() => {
-      user = firebase.auth().currentUser
+      let user = firebase.auth().currentUser
       /** Create User in firestore */
       data = {
         'email': user.email,
