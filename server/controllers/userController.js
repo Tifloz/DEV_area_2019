@@ -97,3 +97,14 @@ exports.googleAuth = (req, res) => {
     return data.result(res, 400)
   })
 }
+
+exports.getUserAreas = (req, res) => {
+  /** Get token set in url and get credential */
+  let user_id = req.params.user_id
+
+  database.getDocumentWhere("Area", "user_id", user_id).then((result) => {
+    data.result(res, 200, result)
+  }).catch((e) => {
+    data.result(res, 200, [])
+  })
+}
