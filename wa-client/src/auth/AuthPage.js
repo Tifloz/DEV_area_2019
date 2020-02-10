@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { authStyles } from "../styles/styles";
 import LoginForm from "./LoginForm";
 import Box from "@material-ui/core/Box";
-import Copyright from "../Components/Copyright";
+import Copyright from "../components/Copyright";
 
 export default function SignInSide() {
   const classes = authStyles();
