@@ -80,23 +80,19 @@ exports.signOut = (req, res) => {
 exports.googleAuth = (req, res) => {
   /** Get token set in url and get credential */
   let token = req.body.tokenId
-  let credential = firebase.auth.GoogleAuthProvider.credential(token)
-
-  /** sigIn User with credential */
-  firebase.auth().signInWithCredential(credential)
-    .catch(() => {
-      data.result(res, 400)
-    })
-    .then(() => {
-      let user = firebase.auth().currentUser
-      /** Create User in firestore */
-      data = {
-        'email': user.email,
-        'facebook_token': "",
-        'twitter_token': ""
-      }
-      database.createDocument('Users', user.uid, data).then((status) => {
-        return result(res, 200)
+  let data = {
+    'email': user.email,
+    'facebook_token': "",
+    'twitter_token': ""
+  }
+  database.googleAuth(token).then(() => {
+      let user = database.currentUser()
+      createDocument('Users', user.uid, data).then(() => {
+        return data.result(res, 200)
+      }).catch(() => {
+        return data.result(res, 400)
       })
-    })
+  }).catch(() => {
+    return data.result(res, 400)
+  })
 }
