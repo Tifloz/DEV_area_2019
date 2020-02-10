@@ -82,19 +82,21 @@ exports.googleAuth = (req, res) => {
   let token = req.body.tokenId
 
   console.log('token =>', token)
-  database.googleAuth(token).then(() => {
+  database.googleAuth(token).then((status) => {
       let user = database.currentUser()
-      let data = {
+      console.log("user: ", user)
+      let userdata = {
         'email': user.email,
         'facebook_token': "",
         'twitter_token': ""
       }
-      database.createDocument('Users', user.uid, data).then(() => {
+      database.createDocument('Users', user.uid, userdata).then(() => {
         return data.result(res, 200)
       }).catch(() => {
         return data.result(res, 400)
       })
-  }).catch(() => {
+  }).catch((e) => {
+    console.log("catch err:", e.message)
     return data.result(res, 400)
   })
 }

@@ -287,10 +287,10 @@ exports.googleAuth = (token) => {
 
   /** sigIn User with credential */
   return firebase.auth().signInWithCredential(credential)
-    .catch((e) => {
-      return 400
-    })
-    .then((status) => {
+    .then(() => {
       return 200
+    })
+    .catch(() => {
+      return 400
     })
 }
