@@ -225,3 +225,16 @@ exports.signOut = async () =>
 exports.currentUser = () => {
   return firebase.auth().currentUser
 }
+
+exports.googleAuth = (token) => {
+  let credential = firebase.auth.GoogleAuthProvider.credential(token)
+
+  /** sigIn User with credential */
+  firebase.auth().signInWithCredential(credential)
+    .catch((e) => {
+      return 400
+    })
+    .then((status) => {
+      return 200
+    })
+}
