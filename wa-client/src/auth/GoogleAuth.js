@@ -8,7 +8,8 @@ export default class GoogleAuth extends React.Component {
     console.log('Success => ', response);
     api.googleSign(response.tokenId)
       .then(response => {
-        return <Redirect to={'home'}/>
+        console.log('Successfull connected');
+        return <Redirect to={'dashboard'}/>
       }).catch(reject => {
         console.log(reject);
     })

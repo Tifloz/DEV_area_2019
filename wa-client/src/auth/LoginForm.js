@@ -21,6 +21,7 @@ export default class LoginForm extends React.Component {
       email: '',
       password: '',
       errorMessage: '',
+      redirect: false,
     };
   }
 
@@ -34,9 +35,11 @@ export default class LoginForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    api.signin(this.state.email, this.state.password)
+    api.signIn(this.state.email, this.state.password)
       .then((result) => {
-        return <Redirect to={'home'}/>
+        this.setState({
+          redirect: true,
+        })
       }).catch(reject => {
       console.log(reject);
       this.setState({
@@ -47,6 +50,8 @@ export default class LoginForm extends React.Component {
   };
 
   render() {
+    if (this.state.redirect)
+      return <Redirect to='/dashboard' />;
     return (
       <form className={this.styles.form} onSubmit={this.handleSubmit}>
         <TextField
@@ -105,7 +110,7 @@ export default class LoginForm extends React.Component {
             </Link>
           </Grid>
           <Grid item>
-            <Link href="#" variant="body2">
+            <Link href="/signUp" variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
