@@ -76,3 +76,28 @@ exports.signOut = (req, res) => {
       return data.result(res, status, message[status])
     });
 }
+
+/** SigIn Google Account to firebase with tokenId */
+exports.googleAuth = (req, res) => {
+  /** Get token set in url and get credential */
+  let token = req.params.token
+  let credential = firebase.auth.GoogleAuthProvider.credential(token)
+
+  /** sigIn User with credential */
+  firebase.auth().signInWithCredential(credential)
+    .catch(() => {
+      data.result(res, 400)
+    })
+    .then(() => {
+      user = firebase.auth().currentUser
+      /** Create User in firestore */
+      data = {
+        'email': user.email,
+        'facebook_token': "",
+        'twitter_token': ""
+      }
+      database.createDocument('Users', user.uid, data).then((status) => {
+        return result(res, 200)
+      })
+    })
+}
