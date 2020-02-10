@@ -1,5 +1,6 @@
 const database = require('./database.js')
 const data = require('./data.js')
+const servicesJson = require('../services.json')
 
 /**
  * @param {Object}  Request object
@@ -24,18 +25,6 @@ exports.homePage = (req, res) => {
  * @returns {status}  400 service not getted
  * Get all services in collection firestore
  */
-exports.Services = (req, res) => {
-    const user = database.currentUser()
-    if (!user)
-        return data.result(res, 401, 'Error user not logged')
-    database.getAllDocuments('Services')
-        .then((services) => {
-            if (services === [])
-                return (data.result(res, 200))
-            data.result(res, 200, services)
-        })
-        .catch((e) => {
-            console.log('An error occur in getAllServices: ', e.message)
-            return (data.result(res, 200))
-        })
+exports.getServices = (req, res) => {
+    return data.result(res, 200, servicesJson)
 }
