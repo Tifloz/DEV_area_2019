@@ -111,3 +111,36 @@ exports.getUserAreas = (req, res) => {
     data.result(res, 200, [])
   })
 }
+
+exports.getUserAreaTrigger = (req, res) => {
+  let area_id = req.params.area_id
+  database.getDocument('Area', area_id)
+    .then((doc) => {
+        console.log('found area: ', doc)
+        if (doc.trigger_id === undefined)
+          return data.result(res, 400, "Not founded")
+        database.getDocument('Services', doc.trigger_id)
+        .then((service) => {
+            return data.result(res, 200, service)
+        })
+    })
+    .catch((err) => {
+      return data.result(res, 400, "Not founded")
+    })
+}
+
+exports.getUserAreaEvent = (req, res) => {
+  let area_id = req.params.area_id
+  database.getDocument('Area', area_id)
+    .then((doc) => {
+        if (doc.event_id === undefined)
+          return data.result(res, 400, "Not founded")
+        database.getDocument('Services', doc.event_id)
+        .then((service) => {
+            return data.result(res, 200, service)
+        })
+    })
+    .catch((err) => {
+      return data.result(res, 400, "Not founded")
+    })
+}
