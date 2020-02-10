@@ -9,5 +9,6 @@ router.get('/signUp', userController.SignUpPage)
 router.post('/signUp', userController.SignUp)
 router.get('/signOut', userController.signOut)
 router.post('/google', userController.googleAuth)
+router.get('/:user_id/areas', userController.getUserAreas)
 
 module.exports = router

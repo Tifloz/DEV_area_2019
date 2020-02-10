@@ -72,6 +72,62 @@ exports.getDocuments = async (collection_name, id_array) =>
 
 /**
  * @param {String}  Collection Name
+ * @param {[String]}  Array of documents id
+ * @returns {Array} documents data
+ * Get all documents with the same id as in the array
+ */
+exports.getDocuments = async (collection_name, id_array) =>
+{
+  let db = firebase.firestore()
+  let ref = db.collection(collection_name);
+  let data = [];
+
+  return ref.get()
+    .then(snapshot => {
+        if (snapshot.empty)
+          return data
+        snapshot.forEach(doc => {
+            if (id_array.includes(doc.id))
+              data.push(doc.data());
+        });
+        return data
+    })
+    .catch(e => {
+      console.log("error getDocuments: ", e.message)
+      return []
+    });
+}
+
+/**
+ * @param {String}  Collection Name
+ * @param {String}  Document id
+ * @returns {Array} Document data
+ * Get the document from firebase firestore with his id
+ */
+exports.getDocumentWhere = async (collection_name, where_value, value) =>
+{
+  let db = firebase.firestore()
+  let ref = db.collection(collection_name);
+  let data = []
+
+  if (where_value === undefined || value === undefined)
+    return []
+  return ref.where(where_value, '==', value).get()
+    .then(snapshot => {
+      if (snapshot.empty)
+        return [];
+      snapshot.forEach(doc => {
+        data.push(doc.data())
+      });
+      return data
+    })
+    .catch(err => {
+      return []
+    });
+}
+
+/**
+ * @param {String}  Collection Name
  * @param {String}  Document id
  * @returns {Array} Document data
  * Get the document from firebase firestore with his id
