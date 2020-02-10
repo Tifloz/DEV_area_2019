@@ -79,16 +79,22 @@ export default class LoginForm extends React.Component {
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={this.styles.submit}
-        >
-          Sign In
-        </Button>
-        <GoogleAuth/>
+        <Grid container spacing={2} alignItems={'center'}>
+          <Grid item sm>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={this.styles.submit}
+            >
+              Sign In
+            </Button>
+          </Grid>
+          <Grid item>
+            <GoogleAuth/>
+          </Grid>
+        </Grid>
         { this.state.errorMessage !== '' &&
           <Alert severity="error" className={this.styles.errorAlert}>{this.state.errorMessage}</Alert>
         }
