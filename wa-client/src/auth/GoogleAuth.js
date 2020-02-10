@@ -16,7 +16,7 @@ export default class GoogleAuth extends React.Component {
         buttonText={'Connexion via google'}
         onSuccess={this.handleSuccess}
         onFailure={this.handleFailure}
-        clientId={'220501398447-4kvpeafvebfgk5rt192plqejthiaed8o.apps.googleusercontent.com'}
+        clientId={'220501398447-9ksjr5slfkhj3ddb41mhbf0gbpirav13.apps.googleusercontent.com'}
         cookiePolicy={'single_host_origin'}
       />
     )

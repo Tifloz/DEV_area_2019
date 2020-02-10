@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Dashboard from './Components/Dashboard';
+import Dashboard from './components/Dashboard';
 import SignInSide from "./auth/AuthPage";
-// import SignUp from "./Components/SignUp";
+// import SignUp from "./components/SignUp";
 // import './css/App.css';
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 
