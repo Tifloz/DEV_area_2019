@@ -80,13 +80,14 @@ exports.signOut = (req, res) => {
 exports.googleAuth = (req, res) => {
   /** Get token set in url and get credential */
   let token = req.body.tokenId
-  let data = {
-    'email': user.email,
-    'facebook_token': "",
-    'twitter_token': ""
-  }
+
   database.googleAuth(token).then(() => {
       let user = database.currentUser()
+      let data = {
+        'email': user.email,
+        'facebook_token': "",
+        'twitter_token': ""
+      }
       createDocument('Users', user.uid, data).then(() => {
         return data.result(res, 200)
       }).catch(() => {
