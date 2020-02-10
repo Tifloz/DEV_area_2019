@@ -286,7 +286,7 @@ exports.googleAuth = (token) => {
   let credential = firebase.auth.GoogleAuthProvider.credential(token)
 
   /** sigIn User with credential */
-  firebase.auth().signInWithCredential(credential)
+  return firebase.auth().signInWithCredential(credential)
     .catch((e) => {
       return 400
     })
