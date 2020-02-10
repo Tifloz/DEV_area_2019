@@ -27,8 +27,6 @@ exports.updateDocument = async (collection_name, id, data) =>
 {
   let db = firebase.firestore()
 
-  console.log('for collection ', collection_name, ' with id ', id, ' set data: ', data)
-
   if (data === undefined || id === undefined)
     return false
   db.collection(collection_name).doc(id).update(data)
@@ -59,8 +57,11 @@ exports.getDocuments = async (collection_name, id_array) =>
         if (snapshot.empty)
           return data
         snapshot.forEach(doc => {
-            if (id_array.includes(doc.id))
-              data.push(doc.data());
+            if (id_array.includes(doc.id)) {
+              let tmp = doc.data()
+              tmp['id'] = doc.id
+              data.push(tmp);
+            }
         });
         return data
     })
@@ -87,8 +88,11 @@ exports.getDocuments = async (collection_name, id_array) =>
         if (snapshot.empty)
           return data
         snapshot.forEach(doc => {
-            if (id_array.includes(doc.id))
-              data.push(doc.data());
+            if (id_array.includes(doc.id)) {
+              let tmp = doc.data()
+              tmp['id'] = doc.id
+              data.push(tmp);
+            }
         });
         return data
     })
@@ -117,7 +121,9 @@ exports.getDocumentWhere = async (collection_name, where_value, value) =>
       if (snapshot.empty)
         return [];
       snapshot.forEach(doc => {
-        data.push(doc.data())
+        let tmp = doc.data()
+        tmp['id'] = doc.id
+        data.push(tmp)
       });
       return data
     })
@@ -167,7 +173,9 @@ exports.getAllDocuments = async (collection_name) =>
               return ([])
           }
           snapshot.forEach(doc => {
-            documents.push(doc.data());
+            let tmp = doc.data()
+            tmp['id'] = doc.id
+            documents.push(tmp);
           });
           return (documents)
       })
