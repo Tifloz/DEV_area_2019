@@ -1,6 +1,5 @@
 import * as React from "react";
 import api from "../api";
-import {Redirect} from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import {Button} from "@material-ui/core";
 
@@ -8,7 +7,6 @@ export default class RegisterForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.styles = this.props.styles;
     this.regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     this.state = {
       email: '',
@@ -28,8 +26,8 @@ export default class RegisterForm extends React.Component {
     e.preventDefault();
     api.signUp(this.state.email, this.state.password)
       .then((result) => {
-        console.log('success sign up')
-        return <Redirect to={'login'}/>
+        console.log('success sign up');
+        this.props.onRedirect();
       }).catch(reject => {
         console.log(reject);
       });
@@ -38,7 +36,7 @@ export default class RegisterForm extends React.Component {
   render() {
     return (
       <form
-        className={this.styles.form}
+        className={this.props.classes.form}
         id="main-signUp"
         onSubmit={this.handleSubmit}>
         <TextField
@@ -57,7 +55,7 @@ export default class RegisterForm extends React.Component {
         />
         <TextField
           // error={(this.state.password.length < 4)}
-          helperText={'4 caractères minimum'}
+          helperText={'6 caractères minimum'}
           variant="outlined"
           margin="normal"
           required
@@ -74,7 +72,7 @@ export default class RegisterForm extends React.Component {
           fullWidth
           variant="contained"
           color="primary"
-          disabled={!(this.regex.test(this.state.email) && this.state.password.length >= 4)}
+          disabled={!(this.regex.test(this.state.email) && this.state.password.length >= 6)}
         >
           Sign Up
         </Button>

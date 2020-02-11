@@ -1,10 +1,13 @@
 [![Build Status](https://travis-ci.com/Tifloz/DEV_area_2019.svg?token=pTcnxC4Rz6TMqaVu5wks&branch=master)](https://travis-ci.com/Tifloz/DEV_area_2019)
 # AREA
 
-Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardy
+// documentation utilisateur
+// documentation API
+
+Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardi
 
 ### Informations :
- - Members in the team : 6
+ - Nombers of personnes : 6
  - Repository : DEV_area_2019
  - Languages : React, Node.js
  - Compilation : docker-compose build && docker-compose up
@@ -15,13 +18,14 @@ Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Ga
 ### Environnement fonctionnel :
 
  - Project management with [Trello](https://trello.com/b/opGjBwdh/area).
+ - Documentation with [Dillinger](https://dillinger.io/)
 
 ### What is AREA ?
     - Area is a software application throught the creation of a business application.
     - A software application suite that functions similar to IFTTT and/or Zapier.
     - An application server to implement all the features.
     - A web client to use the application from your browser by querying the application server.
-    - A mobile client to use the application from your phone by querying theapplication server.
+    - A mobile client to use the application from your phone by querying the application server.
 
 ### The Features !
 
@@ -31,22 +35,6 @@ Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Ga
   - The authenticated user composes AREA by interconnecting an Action to a REAction previously configured for service.
   - The action set on a service is triggered automaticaly and due the reaction.
   - The user can login within an account.
-
-### MarkDown
-
-Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
-
-> The overriding design goal for Markdown's
-> formatting syntax is to make it as readable
-> as possible. The idea is that a
-> Markdown-formatted document should be
-> publishable as-is, as plain text, without
-> looking like it's been marked up with tags
-> or formatting instructions.
-
-This text you see here is *actually* written in Markdown! To get a feel for Markdown's syntax, type some text into the left window and watch the results in the right.
-
-
 
 ### Installation
 
@@ -69,7 +57,7 @@ $ npm install -g expo-cli
 
 // See with Florian pour lancement Docker & docker-compose 
 
-### Technologies Used
+### Technologies Use
 
 AREA is currently extended with the following technologies. Instructions on how to use them in your own application are linked below.
 
@@ -82,5 +70,30 @@ AREA is currently extended with the following technologies. Instructions on how 
 
 ### Development
 
-What to contribute? Make a pull request!
+The project consist two interfaces :
 
+ - A web view :
+    - Technoligies Uses :
+      - We used Node JS for the Web server background.*
+      - And for the front side, we used React.
+
+ - A mobile view :
+
+### MarkDown
+Markdown
+Toggle Zen Mode
+Preview
+Toggle Mode
+
+
+Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
+
+> The overriding design goal for Markdown's
+> formatting syntax is to make it as readable
+> as possible. The idea is that a
+> Markdown-formatted document should be
+> publishable as-is, as plain text, without
+> looking like it's been marked up with tags
+> or formatting instructions.
+
+This text you see here is *actually* written in Markdown! To get a feel for Markdown's syntax, type some text into the left window and watch the results in the right.

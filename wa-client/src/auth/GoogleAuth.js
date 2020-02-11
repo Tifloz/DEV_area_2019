@@ -1,15 +1,17 @@
 import * as React from "react";
 import GoogleLogin from 'react-google-login';
 import api from '../api'
-import {Redirect} from "react-router-dom";
 
 export default class GoogleAuth extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+
   handleSuccess = (response) => {
-    console.log('Success => ', response);
     api.googleSign(response.tokenId)
       .then(response => {
         console.log('Successfull connected');
-        return <Redirect to={'dashboard'}/>
+        this.props.onRedirect();
       }).catch(reject => {
         console.log(reject);
     })
