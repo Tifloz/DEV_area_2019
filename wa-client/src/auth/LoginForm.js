@@ -1,13 +1,10 @@
 import * as React from "react";
-import {
-  Button,
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
-import { Redirect } from "react-router-dom";
 import api from "../api";
 import Alert from "@material-ui/lab/Alert";
 import GoogleAuth from "./GoogleAuth";
@@ -16,12 +13,10 @@ export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.styles = this.props.styles;
     this.state = {
       email: '',
       password: '',
       errorMessage: '',
-      redirect: false,
     };
   }
 
@@ -37,9 +32,7 @@ export default class LoginForm extends React.Component {
     e.preventDefault();
     api.signIn(this.state.email, this.state.password)
       .then((result) => {
-        this.setState({
-          redirect: true,
-        })
+        this.props.onRedirect();
       }).catch(reject => {
       console.log(reject);
       this.setState({
@@ -50,10 +43,8 @@ export default class LoginForm extends React.Component {
   };
 
   render() {
-    if (this.state.redirect)
-      return <Redirect to='/dashboard' />;
     return (
-      <form className={this.styles.form} onSubmit={this.handleSubmit}>
+      <form className={this.props.classes.form} onSubmit={this.handleSubmit}>
         <TextField
           value={this.state.email}
           onChange={this.handleChange}
@@ -84,24 +75,29 @@ export default class LoginForm extends React.Component {
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
         />
-        <Grid container spacing={2} alignItems={'center'}>
+        <Grid
+          container
+          spacing={2}
+          alignItems={'center'}
+          style={{marginBottom: 10}}
+        >
           <Grid item sm>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              className={this.styles.submit}
+              className={this.props.classes.submit}
             >
               Sign In
             </Button>
           </Grid>
           <Grid item>
-            <GoogleAuth/>
+            <GoogleAuth onRedirect={this.props.onRedirect}/>
           </Grid>
         </Grid>
         { this.state.errorMessage !== '' &&
-          <Alert severity="error" className={this.styles.errorAlert}>{this.state.errorMessage}</Alert>
+          <Alert severity="error" className={this.props.classes.errorAlert}>{this.state.errorMessage}</Alert>
         }
         <Grid container>
           <Grid item xs>
