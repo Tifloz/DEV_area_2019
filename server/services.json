@@ -1,0 +1,26 @@
+{
+    "facebook": {
+        "name": "facebook",
+        "logo":"url",
+        "actions": {
+            "0": "receive_message",
+            "1": "receive_notification"
+        },
+        "reactions": {
+            "0": "send",
+            "1": "publish"
+        }
+    },
+    "twitter": {
+        "name": "twitter",
+        "logo":"url",
+        "actions": {
+            "0": "receive_message",
+            "1": "receive_notification"
+        },
+        "reactions": {
+            "0": "send",
+            "1": "publish"
+        }
+    }
+  }

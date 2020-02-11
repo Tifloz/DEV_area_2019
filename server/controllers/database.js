@@ -27,8 +27,6 @@ exports.updateDocument = async (collection_name, id, data) =>
 {
   let db = firebase.firestore()
 
-  console.log('for collection ', collection_name, ' with id ', id, ' set data: ', data)
-
   if (data === undefined || id === undefined)
     return false
   db.collection(collection_name).doc(id).update(data)
@@ -59,13 +57,77 @@ exports.getDocuments = async (collection_name, id_array) =>
         if (snapshot.empty)
           return data
         snapshot.forEach(doc => {
-            if (id_array.includes(doc.id))
-              data.push(doc.data());
+            if (id_array.includes(doc.id)) {
+              let tmp = doc.data()
+              tmp['id'] = doc.id
+              data.push(tmp);
+            }
         });
         return data
     })
     .catch(e => {
       console.log("error getDocuments: ", e.message)
+      return []
+    });
+}
+
+/**
+ * @param {String}  Collection Name
+ * @param {[String]}  Array of documents id
+ * @returns {Array} documents data
+ * Get all documents with the same id as in the array
+ */
+exports.getDocuments = async (collection_name, id_array) =>
+{
+  let db = firebase.firestore()
+  let ref = db.collection(collection_name);
+  let data = [];
+
+  return ref.get()
+    .then(snapshot => {
+        if (snapshot.empty)
+          return data
+        snapshot.forEach(doc => {
+            if (id_array.includes(doc.id)) {
+              let tmp = doc.data()
+              tmp['id'] = doc.id
+              data.push(tmp);
+            }
+        });
+        return data
+    })
+    .catch(e => {
+      console.log("error getDocuments: ", e.message)
+      return []
+    });
+}
+
+/**
+ * @param {String}  Collection Name
+ * @param {String}  Document id
+ * @returns {Array} Document data
+ * Get the document from firebase firestore with his id
+ */
+exports.getDocumentWhere = async (collection_name, where_value, value) =>
+{
+  let db = firebase.firestore()
+  let ref = db.collection(collection_name);
+  let data = []
+
+  if (where_value === undefined || value === undefined)
+    return []
+  return ref.where(where_value, '==', value).get()
+    .then(snapshot => {
+      if (snapshot.empty)
+        return [];
+      snapshot.forEach(doc => {
+        let tmp = doc.data()
+        tmp['id'] = doc.id
+        data.push(tmp)
+      });
+      return data
+    })
+    .catch(err => {
       return []
     });
 }
@@ -111,7 +173,9 @@ exports.getAllDocuments = async (collection_name) =>
               return ([])
           }
           snapshot.forEach(doc => {
-            documents.push(doc.data());
+            let tmp = doc.data()
+            tmp['id'] = doc.id
+            documents.push(tmp);
           });
           return (documents)
       })
@@ -224,4 +288,17 @@ exports.signOut = async () =>
  */
 exports.currentUser = () => {
   return firebase.auth().currentUser
+}
+
+exports.googleAuth = (token) => {
+  let credential = firebase.auth.GoogleAuthProvider.credential(token)
+
+  /** sigIn User with credential */
+  return firebase.auth().signInWithCredential(credential)
+    .then(() => {
+      return 200
+    })
+    .catch(() => {
+      return 400
+    })
 }
