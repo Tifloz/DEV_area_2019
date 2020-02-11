@@ -258,11 +258,10 @@ exports.SignIn =  async (email, password) =>
 exports.SignUp = async (email, password) => {
   return firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(() => {
-          return true
+      return true
     })
     .catch((e) => {
-        console.log('error signUp: ', e.message)
-        return (false)
+      return (false)
     })
 }
 

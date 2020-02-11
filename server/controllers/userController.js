@@ -47,19 +47,24 @@ exports.SignUpPage = (req, res) => {
  */
 exports.SignUp = (req, res) => {
   const { password, email } = req.body
-  let data = {
+  let data_user = {
     'email': email,
     'tasks': []
   }
   database.SignUp(email, password)
     .then((status) => {
-      if (status === false)
-        return data.result(res, 400)
+      if (status === false) {
+        return data.result(res, 400, "User already existing" )
+      }
       database.SignIn(email, password).then(() => {
         let user = database.currentUser();
-        database.createDocument('Users', user.uid, data)
-        return data.result(res, 200, message[200])
+        database.createDocument('Users', user.uid, data_user).then((status) => {
+          return data.result(res, 200, "Succefully created")
+        })
       })
+    })
+    .catch((e) => {
+      return data.result(res, 400, e.message)
     })
 }
 
@@ -143,4 +148,26 @@ exports.getUserAreaEvent = (req, res) => {
     .catch((err) => {
       return data.result(res, 400, "Not founded")
     })
+}
+
+exports.createUserAreaEvent = (req, res) => {
+
+  // let user = database.currentUser()
+  // if (user === undefined)
+  //   return data.result(res, 400, "User not logged")
+
+  // let data_area = {
+  //   'user_id': user.uid,
+  //   "event_id": "id"
+  //   "trigger_id": "id"
+  // }
+  // let data_trigger = {
+
+  // }
+  // let data_event = {
+
+  // }
+
+  // let ser
+  // database.createDocument('Services',, data)
 }
