@@ -28,12 +28,14 @@ export default {
             }
         );
     },
-    signUp: function(email, password) {
+    signUp: function(userInfos) {
         return axios.post(
             `${burl}/user/signUp`,
             {
-                email,
-                password
+                email: userInfos.email,
+                password: userInfos.password,
+                fName: userInfos.fName,
+                lName: userInfos.lName,
             },
             {
                  headers: headers
