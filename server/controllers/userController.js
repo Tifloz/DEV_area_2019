@@ -22,7 +22,7 @@ exports.SignIn = (req, res) => {
   const { password, email } = req.body
 
   database.SignIn(email, password).then((status) => {
-    return data.result(res, status, message[status])
+    return data.result(res, status, "Logged")
   }).catch((e) => {
     console.log("error message: ", e.message)
   })
@@ -78,7 +78,7 @@ exports.SignUp = (req, res) => {
 exports.signOut = (req, res) => {
   database.signOut()
     .then((status) => {
-      return data.result(res, status, message[status])
+      return data.result(res, status, "signed Out")
     });
 }
 
@@ -100,7 +100,6 @@ exports.googleAuth = (req, res) => {
         return data.result(res, 400, "User already created")
       })
   }).catch((e) => {
-    console.log("catch err:", e.message)
     return data.result(res, 400)
   })
 }
