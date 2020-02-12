@@ -17,11 +17,13 @@ export default {
             }
         );
     },
-    googleSign: function(tokenId) {
+    googleSign: function(tokenId, fName, lName) {
         return axios.post(
             `${burl}/user/google`,
             {
                 tokenId,
+                fName,
+                lName,
             },
             {
                 headers: headers
