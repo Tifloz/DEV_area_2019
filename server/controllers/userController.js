@@ -21,7 +21,7 @@ exports.SignInPage = (req, res) => {
 exports.SignIn = (req, res) => {
   const { password, email } = req.body
   let message = {
-    401: "wrong username or password",
+    401: "Wrong username or password",
     200: "Successfully logged"
   }
 
