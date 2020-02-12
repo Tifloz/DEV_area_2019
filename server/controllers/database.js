@@ -221,7 +221,7 @@ exports.deleteUser = async () =>
   let id = user.uid;
 
   return user.delete().then(function() {
-    deleteDocument('Users', id)
+    deleteDocument('User', id)
     return true;
   }).catch((e) => {
     console.log('error deleteUser: ', e.message)
