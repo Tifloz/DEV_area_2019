@@ -49,7 +49,8 @@ exports.SignUp = (req, res) => {
   const { password, email } = req.body
   let data_user = {
     'email': email,
-    'name': "Fixed Name"
+    'first_name': req.body.fName,
+    'last_name': req.body.lName
   }
   database.SignUp(email, password)
     .then((status) => {
@@ -86,19 +87,17 @@ exports.googleAuth = (req, res) => {
   /** Get token set in url and get credential */
   let token = req.body.tokenId
 
-  console.log('token =>', token)
   database.googleAuth(token).then((status) => {
       let user = database.currentUser()
-      console.log("user: ", user)
       let userdata = {
         'email': user.email,
-        'facebook_token': "",
-        'twitter_token': ""
+        'first_name': req.body.fName,
+        'last_name': req.body.lName
       }
-      database.createDocument('Users', user.uid, userdata).then(() => {
+      database.createDocument('User', user.uid, userdata).then(() => {
         return data.result(res, 200)
       }).catch(() => {
-        return data.result(res, 400)
+        return data.result(res, 400, "User already created")
       })
   }).catch((e) => {
     console.log("catch err:", e.message)
@@ -121,7 +120,6 @@ exports.getUserAreaTrigger = (req, res) => {
   let area_id = req.params.area_id
   database.getDocument('Area', area_id)
     .then((doc) => {
-        console.log('found area: ', doc)
         if (doc.trigger_id === undefined)
           return data.result(res, 400, "Not founded")
         database.getDocument('Service', doc.trigger_id)
@@ -151,23 +149,4 @@ exports.getUserAreaEvent = (req, res) => {
 }
 
 exports.createUserAreaEvent = (req, res) => {
-
-  // let user = database.currentUser()
-  // if (user === undefined)
-  //   return data.result(res, 400, "User not logged")
-
-  // let data_area = {
-  //   'user_id': user.uid,
-  //   "event_id": "id"
-  //   "trigger_id": "id"
-  // }
-  // let data_trigger = {
-
-  // }
-  // let data_event = {
-
-  // }
-
-  // let ser
-  // database.createDocument('Service',, data)
 }
