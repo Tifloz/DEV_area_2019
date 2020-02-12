@@ -20,9 +20,13 @@ exports.SignInPage = (req, res) => {
  */
 exports.SignIn = (req, res) => {
   const { password, email } = req.body
+  let message = {
+    401: "wrong username or password",
+    200: "Successfully logged"
+  }
 
   database.SignIn(email, password).then((status) => {
-    return data.result(res, status, "Logged")
+    return data.result(res, status, message[status])
   }).catch((e) => {
     console.log("error message: ", e.message)
   })
@@ -52,6 +56,8 @@ exports.SignUp = (req, res) => {
     'first_name': req.body.fName,
     'last_name': req.body.lName
   }
+  console.log("inside sign up")
+
   database.SignUp(email, password)
     .then((status) => {
       if (status === false) {
@@ -61,6 +67,8 @@ exports.SignUp = (req, res) => {
         let user = database.currentUser();
         database.createDocument('User', user.uid, data_user).then((status) => {
           return data.result(res, 200, "Succefully created")
+        }).catch((e) => {
+          return data.result(res, 400, e.message)
         })
       })
     })

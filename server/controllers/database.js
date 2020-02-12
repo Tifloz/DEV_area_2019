@@ -244,7 +244,6 @@ exports.SignIn =  async (email, password) =>
     .then(() => {
       return 200
     }).catch((e) => {
-      console.log('error signIn: ', e.message)
       return 401
     })
 }
