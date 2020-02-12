@@ -49,7 +49,7 @@ exports.SignUp = (req, res) => {
   const { password, email } = req.body
   let data_user = {
     'email': email,
-    'tasks': []
+    'name': "Fixed Name"
   }
   database.SignUp(email, password)
     .then((status) => {
@@ -58,7 +58,7 @@ exports.SignUp = (req, res) => {
       }
       database.SignIn(email, password).then(() => {
         let user = database.currentUser();
-        database.createDocument('Users', user.uid, data_user).then((status) => {
+        database.createDocument('User', user.uid, data_user).then((status) => {
           return data.result(res, 200, "Succefully created")
         })
       })
@@ -124,7 +124,7 @@ exports.getUserAreaTrigger = (req, res) => {
         console.log('found area: ', doc)
         if (doc.trigger_id === undefined)
           return data.result(res, 400, "Not founded")
-        database.getDocument('Services', doc.trigger_id)
+        database.getDocument('Service', doc.trigger_id)
         .then((service) => {
             return data.result(res, 200, service)
         })
@@ -140,7 +140,7 @@ exports.getUserAreaEvent = (req, res) => {
     .then((doc) => {
         if (doc.event_id === undefined)
           return data.result(res, 400, "Not founded")
-        database.getDocument('Services', doc.event_id)
+        database.getDocument('Service', doc.event_id)
         .then((service) => {
             return data.result(res, 200, service)
         })
@@ -169,5 +169,5 @@ exports.createUserAreaEvent = (req, res) => {
   // }
 
   // let ser
-  // database.createDocument('Services',, data)
+  // database.createDocument('Service',, data)
 }
