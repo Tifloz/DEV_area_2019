@@ -3,6 +3,7 @@ import api from "../api";
 import TextField from "@material-ui/core/TextField";
 import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import Alert from "@material-ui/lab/Alert";
 
 export default class RegisterForm extends React.Component {
   constructor(props) {
@@ -10,10 +11,11 @@ export default class RegisterForm extends React.Component {
 
     this.regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     this.state = {
-      email: '',
-      password: '',
-      fName: '',
-      lName: '',
+      email: "",
+      password: "",
+      fName: "",
+      lName: "",
+      errorMessage: "",
     };
   }
 
@@ -29,10 +31,11 @@ export default class RegisterForm extends React.Component {
     e.preventDefault();
     api.signUp(this.state)
       .then((result) => {
-        console.log('success sign up');
         this.props.onRedirect();
       }).catch(reject => {
-        console.log(reject);
+        this.setState({
+          errorMessage: reject.response.data,
+        });
       });
   };
 
@@ -99,6 +102,9 @@ export default class RegisterForm extends React.Component {
           autoComplete="current-password"
           onChange={this.handleChange}
         />
+        { this.state.errorMessage !== "" &&
+        <Alert severity="error" className={this.props.classes.errorAlert}>{this.state.errorMessage}</Alert>
+        }
         <Button
           type="submit"
           fullWidth
