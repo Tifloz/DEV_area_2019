@@ -6,44 +6,47 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import React from 'react';
 import Copyright from "../components/Copyright";
-import {authStyles} from "../styles/styles";
 import RegisterForm from "./RegisterForm";
+import { Redirect } from "react-router-dom"
 
-export default function() {
-  const classes = authStyles();
+export default class SignUp extends React.Component{
+  constructor(props) {
+    super(props);
 
-  // render()
-  // {
-    // let errorM = <div> </div>;
-    // const { classes } = this.props;
-    // if (this.state.errorMessage)
-    //   errorM = <SnackbarContent message= {this.state.errorMessage} />;
-    //
-    // if (this.state.redirect) {
-    //   //Affichage de la redirection
-    //   return <Redirect to='/dashboard'/>;
-    // }
+    this.state = {
+      redirect: false,
+    }
+  }
+
+  handleRedirect = () => {
+    console.log('handleRedirect');
+    this.setState({
+      redirect: true,
+    })
+  };
+
+  render() {
+    if (this.state.redirect)
+      return (<Redirect to={"/dashboard"}/>);
     return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="sm">
         <CssBaseline/>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
+        <div className={this.props.classes.paper}>
+          <Avatar className={this.props.classes.avatar}>
             <LockOutlinedIcon/>
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <RegisterForm styles={classes}/>
+          <RegisterForm
+            classes={this.props.classes}
+            onRedirect={this.handleRedirect}
+          />
         </div>
         <Box mt={8}>
           <Copyright/>
         </Box>
       </Container>
     )
+  }
 }
-
-// SignUp.propTypes = {
-//   classes: PropTypes.object.isRequired,
-// };
-
-// export default withStyles(styles)(SignUp);

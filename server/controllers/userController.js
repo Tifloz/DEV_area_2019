@@ -20,9 +20,13 @@ exports.SignInPage = (req, res) => {
  */
 exports.SignIn = (req, res) => {
   const { password, email } = req.body
+  let message = {
+    401: "wrong username or password",
+    200: "Successfully logged"
+  }
 
   database.SignIn(email, password).then((status) => {
-    return data.result(res, status)
+    return data.result(res, status, message[status])
   }).catch((e) => {
     console.log("error message: ", e.message)
   })
@@ -47,19 +51,29 @@ exports.SignUpPage = (req, res) => {
  */
 exports.SignUp = (req, res) => {
   const { password, email } = req.body
-  let data = {
+  let data_user = {
     'email': email,
-    'tasks': []
+    'first_name': req.body.fName,
+    'last_name': req.body.lName
   }
+  console.log("inside sign up")
+
   database.SignUp(email, password)
     .then((status) => {
-      if (status === false)
-        return data.result(res, 400)
+      if (status === false) {
+        return data.result(res, 400, "User already existing" )
+      }
       database.SignIn(email, password).then(() => {
         let user = database.currentUser();
-        database.createDocument('Users', user.uid, data)
-        return data.result(res, 200)
+        database.createDocument('User', user.uid, data_user).then((status) => {
+          return data.result(res, 200, "Succefully created")
+        }).catch((e) => {
+          return data.result(res, 400, e.message)
+        })
       })
+    })
+    .catch((e) => {
+      return data.result(res, 400, e.message)
     })
 }
 
@@ -72,7 +86,7 @@ exports.SignUp = (req, res) => {
 exports.signOut = (req, res) => {
   database.signOut()
     .then((status) => {
-      return data.result(res, status)
+      return data.result(res, status, "signed Out")
     });
 }
 
@@ -81,22 +95,19 @@ exports.googleAuth = (req, res) => {
   /** Get token set in url and get credential */
   let token = req.body.tokenId
 
-  console.log('token =>', token)
   database.googleAuth(token).then((status) => {
       let user = database.currentUser()
-      console.log("user: ", user)
       let userdata = {
         'email': user.email,
-        'facebook_token': "",
-        'twitter_token': ""
+        'first_name': req.body.fName,
+        'last_name': req.body.lName
       }
-      database.createDocument('Users', user.uid, userdata).then(() => {
+      database.createDocument('User', user.uid, userdata).then(() => {
         return data.result(res, 200)
       }).catch(() => {
-        return data.result(res, 400)
+        return data.result(res, 400, "User already created")
       })
   }).catch((e) => {
-    console.log("catch err:", e.message)
     return data.result(res, 400)
   })
 }
@@ -116,10 +127,9 @@ exports.getUserAreaTrigger = (req, res) => {
   let area_id = req.params.area_id
   database.getDocument('Area', area_id)
     .then((doc) => {
-        console.log('found area: ', doc)
         if (doc.trigger_id === undefined)
           return data.result(res, 400, "Not founded")
-        database.getDocument('Services', doc.trigger_id)
+        database.getDocument('Service', doc.trigger_id)
         .then((service) => {
             return data.result(res, 200, service)
         })
@@ -135,7 +145,7 @@ exports.getUserAreaEvent = (req, res) => {
     .then((doc) => {
         if (doc.event_id === undefined)
           return data.result(res, 400, "Not founded")
-        database.getDocument('Services', doc.event_id)
+        database.getDocument('Service', doc.event_id)
         .then((service) => {
             return data.result(res, 200, service)
         })
@@ -143,4 +153,7 @@ exports.getUserAreaEvent = (req, res) => {
     .catch((err) => {
       return data.result(res, 400, "Not founded")
     })
+}
+
+exports.createUserAreaEvent = (req, res) => {
 }

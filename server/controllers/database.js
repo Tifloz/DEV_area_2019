@@ -221,7 +221,7 @@ exports.deleteUser = async () =>
   let id = user.uid;
 
   return user.delete().then(function() {
-    deleteDocument('Users', id)
+    deleteDocument('User', id)
     return true;
   }).catch((e) => {
     console.log('error deleteUser: ', e.message)
@@ -244,7 +244,6 @@ exports.SignIn =  async (email, password) =>
     .then(() => {
       return 200
     }).catch((e) => {
-      console.log('error signIn: ', e.message)
       return 401
     })
 }
@@ -258,11 +257,10 @@ exports.SignIn =  async (email, password) =>
 exports.SignUp = async (email, password) => {
   return firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(() => {
-          return true
+      return true
     })
     .catch((e) => {
-        console.log('error signUp: ', e.message)
-        return (false)
+      return (false)
     })
 }
 

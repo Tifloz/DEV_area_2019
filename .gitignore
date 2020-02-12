@@ -3,3 +3,4 @@ wa-client/node_modules
 client/node_modules
 mobile/src/node_modules
 .idea/
+/node_modules/

@@ -4,13 +4,16 @@ const express = require('express') /** Framework used */
 const config = require(path.join(__dirname, './setup/env')) /** App setup */
 const router = require(path.join(__dirname, './setup/router')) /** Route gestion */
 const firebaseSetup = require(path.join(__dirname, './setup/firebase')) /** Firebase initialize */
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./api.json');
 
 /**  setup firebase configuration */
 firebaseSetup.InitializeFirebase()
 
-
 /** Create server instance */
 const server = express()
+
+server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 /** define CORS */
 // Définition des CORS
