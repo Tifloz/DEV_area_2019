@@ -3,14 +3,11 @@ import GoogleLogin from 'react-google-login';
 import api from '../api'
 
 export default class GoogleAuth extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   handleSuccess = (response) => {
-    api.googleSign(response.tokenId)
+    const [fName, lName] = response.w3.ig.split(' ');
+
+    api.googleSign(response.tokenId, fName, lName)
       .then(response => {
-        console.log('Successfull connected');
         this.props.onRedirect();
       }).catch(reject => {
         console.log(reject);

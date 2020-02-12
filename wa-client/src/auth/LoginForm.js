@@ -14,9 +14,9 @@ export default class LoginForm extends React.Component {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
-      errorMessage: '',
+      email: "",
+      password: "",
+      errorMessage: "",
     };
   }
 
@@ -36,8 +36,8 @@ export default class LoginForm extends React.Component {
       }).catch(reject => {
       console.log(reject);
       this.setState({
-        password: '',
-        errorMessage: 'errorMessage: \'Invalid username or password !\'',
+        password: "",
+        errorMessage: reject.response.data,
       })
     });
   };
@@ -96,7 +96,7 @@ export default class LoginForm extends React.Component {
             <GoogleAuth onRedirect={this.props.onRedirect}/>
           </Grid>
         </Grid>
-        { this.state.errorMessage !== '' &&
+        { this.state.errorMessage !== "" &&
           <Alert severity="error" className={this.props.classes.errorAlert}>{this.state.errorMessage}</Alert>
         }
         <Grid container>
