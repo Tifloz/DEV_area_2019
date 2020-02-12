@@ -37,7 +37,7 @@ export default class LoginForm extends React.Component {
       console.log(reject);
       this.setState({
         password: "",
-        errorMessage: reject.response.data,
+        errorMessage: reject.response.data ? reject.response.data : "",
       })
     });
   };
@@ -97,7 +97,7 @@ export default class LoginForm extends React.Component {
           </Grid>
         </Grid>
         { this.state.errorMessage !== "" &&
-          <Alert severity="error" className={this.props.classes.errorAlert}>{this.state.errorMessage}</Alert>
+        <Alert severity="error" className={this.props.classes.errorAlert}>{this.state.errorMessage}</Alert>
         }
         <Grid container>
           <Grid item xs>

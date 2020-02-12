@@ -34,7 +34,7 @@ export default class RegisterForm extends React.Component {
         this.props.onRedirect();
       }).catch(reject => {
         this.setState({
-          errorMessage: reject.response.data,
+          errorMessage: reject.response.data ? reject.response.data : "",
         });
       });
   };
