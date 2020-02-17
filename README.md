@@ -4,7 +4,7 @@
 // documentation utilisateur
 // documentation API
 
-Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardi
+Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardy
 
 ### Informations :
  - Nombers of personnes : 6
