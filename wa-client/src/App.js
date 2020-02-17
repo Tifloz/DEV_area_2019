@@ -3,6 +3,7 @@ import React from 'react';
 import Dashboard from './dashboard/Dashboard';
 import SignIn from "./auth/AuthPage";
 import SignUp from "./register/RegisterPage";
+import CreateArea from "./components/CreateArea";
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { authStyles } from "./styles/styles"
 
@@ -35,6 +36,7 @@ function App() {
           )
         }}
         />
+        <Route exact path="/createArea" component={CreateArea} />
       </Router>
   );
 }

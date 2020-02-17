@@ -20,6 +20,10 @@ exports.SignInPage = (req, res) => {
  */
 exports.SignIn = (req, res) => {
   const { password, email } = req.body
+  let message = {
+    401: "Wrong username or password",
+    200: "Successfully logged"
+  }
 
   database.SignIn(email, password).then((status) => {
     return data.result(res, status, message[status])
@@ -49,8 +53,11 @@ exports.SignUp = (req, res) => {
   const { password, email } = req.body
   let data_user = {
     'email': email,
-    'name': "Fixed Name"
+    'first_name': req.body.fName,
+    'last_name': req.body.lName
   }
+  console.log("inside sign up")
+
   database.SignUp(email, password)
     .then((status) => {
       if (status === false) {
@@ -60,6 +67,8 @@ exports.SignUp = (req, res) => {
         let user = database.currentUser();
         database.createDocument('User', user.uid, data_user).then((status) => {
           return data.result(res, 200, "Succefully created")
+        }).catch((e) => {
+          return data.result(res, 400, e.message)
         })
       })
     })
@@ -77,7 +86,7 @@ exports.SignUp = (req, res) => {
 exports.signOut = (req, res) => {
   database.signOut()
     .then((status) => {
-      return data.result(res, status, message[status])
+      return data.result(res, status, "signed Out")
     });
 }
 
@@ -86,22 +95,19 @@ exports.googleAuth = (req, res) => {
   /** Get token set in url and get credential */
   let token = req.body.tokenId
 
-  console.log('token =>', token)
   database.googleAuth(token).then((status) => {
       let user = database.currentUser()
-      console.log("user: ", user)
       let userdata = {
         'email': user.email,
-        'facebook_token': "",
-        'twitter_token': ""
+        'first_name': req.body.fName,
+        'last_name': req.body.lName
       }
-      database.createDocument('Users', user.uid, userdata).then(() => {
+      database.createDocument('User', user.uid, userdata).then(() => {
         return data.result(res, 200)
       }).catch(() => {
-        return data.result(res, 400)
+        return data.result(res, 400, "User already created")
       })
   }).catch((e) => {
-    console.log("catch err:", e.message)
     return data.result(res, 400)
   })
 }
@@ -121,7 +127,6 @@ exports.getUserAreaTrigger = (req, res) => {
   let area_id = req.params.area_id
   database.getDocument('Area', area_id)
     .then((doc) => {
-        console.log('found area: ', doc)
         if (doc.trigger_id === undefined)
           return data.result(res, 400, "Not founded")
         database.getDocument('Service', doc.trigger_id)
@@ -151,23 +156,4 @@ exports.getUserAreaEvent = (req, res) => {
 }
 
 exports.createUserAreaEvent = (req, res) => {
-
-  // let user = database.currentUser()
-  // if (user === undefined)
-  //   return data.result(res, 400, "User not logged")
-
-  // let data_area = {
-  //   'user_id': user.uid,
-  //   "event_id": "id"
-  //   "trigger_id": "id"
-  // }
-  // let data_trigger = {
-
-  // }
-  // let data_event = {
-
-  // }
-
-  // let ser
-  // database.createDocument('Service',, data)
 }

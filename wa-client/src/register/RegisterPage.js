@@ -29,7 +29,7 @@ export default class SignUp extends React.Component{
     if (this.state.redirect)
       return (<Redirect to={"/dashboard"}/>);
     return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="sm">
         <CssBaseline/>
         <div className={this.props.classes.paper}>
           <Avatar className={this.props.classes.avatar}>

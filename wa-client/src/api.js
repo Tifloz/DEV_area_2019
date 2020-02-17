@@ -17,23 +17,27 @@ export default {
             }
         );
     },
-    googleSign: function(tokenId) {
+    googleSign: function(tokenId, fName, lName) {
         return axios.post(
             `${burl}/user/google`,
             {
                 tokenId,
+                fName,
+                lName,
             },
             {
                 headers: headers
             }
         );
     },
-    signUp: function(email, password) {
+    signUp: function(userInfos) {
         return axios.post(
             `${burl}/user/signUp`,
             {
-                email,
-                password
+                email: userInfos.email,
+                password: userInfos.password,
+                fName: userInfos.fName,
+                lName: userInfos.lName,
             },
             {
                  headers: headers

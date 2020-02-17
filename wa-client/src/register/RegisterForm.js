@@ -2,6 +2,8 @@ import * as React from "react";
 import api from "../api";
 import TextField from "@material-ui/core/TextField";
 import {Button} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Alert from "@material-ui/lab/Alert";
 
 export default class RegisterForm extends React.Component {
   constructor(props) {
@@ -9,8 +11,11 @@ export default class RegisterForm extends React.Component {
 
     this.regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
+      fName: "",
+      lName: "",
+      errorMessage: "",
     };
   }
 
@@ -24,12 +29,13 @@ export default class RegisterForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    api.signUp(this.state.email, this.state.password)
+    api.signUp(this.state)
       .then((result) => {
-        console.log('success sign up');
         this.props.onRedirect();
       }).catch(reject => {
-        console.log(reject);
+        this.setState({
+          errorMessage: reject.response.data ? reject.response.data : "",
+        });
       });
   };
 
@@ -39,9 +45,40 @@ export default class RegisterForm extends React.Component {
         className={this.props.classes.form}
         id="main-signUp"
         onSubmit={this.handleSubmit}>
+        <Grid
+          container
+          direction={"row"}
+          spacing={1}
+        >
+          <Grid item>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="fName"
+              label="First name"
+              name="fName"
+              autoComplete="First name"
+              autoFocus
+              onChange={this.handleChange}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="lName"
+              label="Last name"
+              name="lName"
+              autoComplete="Last name"
+              onChange={this.handleChange}
+            />
+          </Grid>
+        </Grid>
         <TextField
-          // error={!this.regex.test(this.state.email)}
-          // helperText={'Adresse mail invalide'}
           variant="outlined"
           margin="normal"
           required
@@ -50,11 +87,9 @@ export default class RegisterForm extends React.Component {
           label="Email"
           name="email"
           autoComplete="email"
-          autoFocus
           onChange={this.handleChange}
         />
         <TextField
-          // error={(this.state.password.length < 4)}
           helperText={'6 caractères minimum'}
           variant="outlined"
           margin="normal"
@@ -67,6 +102,9 @@ export default class RegisterForm extends React.Component {
           autoComplete="current-password"
           onChange={this.handleChange}
         />
+        { this.state.errorMessage !== "" &&
+        <Alert severity="error" className={this.props.classes.errorAlert}>{this.state.errorMessage}</Alert>
+        }
         <Button
           type="submit"
           fullWidth

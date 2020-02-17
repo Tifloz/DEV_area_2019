@@ -12,14 +12,14 @@ script:
 - npm install
 - npm run test
 - cd ..
-- cd client
+- cd wa-client
 - npm install
 - npm run build
 - npm run test
 - cd ..
 
 after_failure:
-  - .travis/40_postbuild.sh failure $WEBHOOK_URL
+  - .travis/40_postbuild.sh failure $WEBHOOK_URL $BUILD_OUTPUT_URL
 
 after_success:
   - .travis/push.sh

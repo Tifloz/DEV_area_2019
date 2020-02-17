@@ -15,9 +15,9 @@ services:
   client_web:
     networks:
       - main
-    build: client
+    build: wa-client
     depends_on:
-      #      - client_mobile
+      - client_mobile
       - server
     ports:
       - "8081:8081"
@@ -29,17 +29,17 @@ services:
         max-size: "200k"
         max-file: "10"
     restart: on-failure
-#  client_mobile:
-#    build: mobile
-#    volumes:
-#      - ./:/client
-#      - /client/node_modules
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-size: "200k"
-#        max-file: "10"
-#    restart: on-failure
+  client_mobile:
+    build: mobile
+    volumes:
+      - ./:/client
+      - /client/node_modules
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    restart: on-failure
 
 volumes:
   client:
