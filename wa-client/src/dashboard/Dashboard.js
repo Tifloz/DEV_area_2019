@@ -14,6 +14,9 @@ import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import PropTypes from "prop-types";
+import api from "../api";
+import {forEachChild} from "typescript";
+
 
 function Copyright() {
     return (
@@ -60,11 +63,41 @@ const styles = theme => ({
     },
 });
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 class Dashboard extends React.Component {
-    render() {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            areas: [],
+            cards: []
+        };
+    }
+
+
+    componentDidMount = () => {
+        let responseStatus = false;
+        api.getAreasByUserId().then(function(result) {
+            return result
+        }).then((result) => {
+            let data = [];
+            let cards_tmp = [];
+            let idx = 0;
+            result.data.forEach((item) => {
+                data.push(item);
+                cards_tmp.push(idx);
+                idx = idx + 1;
+            });
+            this.setState({
+                areas: data,
+                cards: cards_tmp,
+            });
+            console.log("DATA ===>" + this.state.areas[0].img)
+        });
+    }
+
+    render = () => {
         const { classes } = this.props;
+        let default_img = "https://previews.123rf.com/images/boxerx/boxerx1611/boxerx161100008/68882650-t%C3%A9l%C3%A9charger-le-signe-sur-fond-transparent-charger-l-ic%C3%B4ne-barre-de-chargement-de-donn%C3%A9es-stock-vector-il.jpg";
         return (
             <React.Fragment>
                 <CssBaseline/>
@@ -99,20 +132,22 @@ class Dashboard extends React.Component {
                     <Container className={classes.cardGrid} maxWidth="md">
                         {/* End hero unit */}
                         <Grid container spacing={4}>
-                            {cards.map(card => (
+                            {this.state.cards ? this.state.cards.map(card => (
                                 <Grid item key={card} xs={12} sm={6} md={4}>
                                     <Card className={classes.card}>
                                         <CardMedia
                                             className={classes.cardMedia}
-                                            image="https://source.unsplash.com/random"
+                                            image= {
+                                                this.state.areas[card] ? this.state.areas[card].img : default_img
+                                            }
                                             title="Image title"
                                         />
                                         <CardContent className={classes.cardContent}>
                                             <Typography gutterBottom variant="h5" component="h2">
-                                                Heading
+                                                {this.state.areas[card] ? this.state.areas[card].name : ""}
                                             </Typography>
                                             <Typography>
-                                                This is a media card. You can use this section to describe the content.
+                                                {this.state.areas[card] ? this.state.areas[card].description : ""}
                                             </Typography>
                                         </CardContent>
                                         <CardActions>
@@ -125,7 +160,7 @@ class Dashboard extends React.Component {
                                         </CardActions>
                                     </Card>
                                 </Grid>
-                            ))}
+                            )): <div> Loading </div>}
                         </Grid>
                     </Container>
                 </main>
