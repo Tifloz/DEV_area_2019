@@ -44,6 +44,14 @@ export default {
             });
     },
 
+    getAreasByUserId: function() {
+        return axios.get(
+            `${burl}/user/4rNDRwj7ZYNI8QgazGK2I9cJvo22/areas`,
+            {
+                 headers: headers
+            });
+    },
+
     isAuth: function() {
         return localStorage.getItem("token") !== null;
     },
