@@ -16,6 +16,7 @@ import Link from '@material-ui/core/Link';
 import PropTypes from "prop-types";
 import api from "../api";
 import {forEachChild} from "typescript";
+import {Redirect} from "react-router-dom";
 
 
 function Copyright() {
@@ -69,7 +70,8 @@ class Dashboard extends React.Component {
         super(props);
         this.state = {
             areas: [],
-            cards: []
+            cards: [],
+            createArea: false,
         };
     }
 
@@ -93,11 +95,20 @@ class Dashboard extends React.Component {
             });
             console.log("DATA ===>" + this.state.areas[0].img)
         });
-    }
+    };
+
+    handleRedirect = () => {
+        console.log('handleRedirect');
+        this.setState({
+            createArea: true,
+        })
+    };
 
     render = () => {
         const { classes } = this.props;
         let default_img = "https://previews.123rf.com/images/boxerx/boxerx1611/boxerx161100008/68882650-t%C3%A9l%C3%A9charger-le-signe-sur-fond-transparent-charger-l-ic%C3%B4ne-barre-de-chargement-de-donn%C3%A9es-stock-vector-il.jpg";
+        if (this.state.createArea)
+            return (<Redirect to={"/createArea"}/>);
         return (
             <React.Fragment>
                 <CssBaseline/>
@@ -121,7 +132,9 @@ class Dashboard extends React.Component {
                             <div className={classes.heroButtons}>
                                 <Grid container spacing={2} justify="center">
                                     <Grid item>
-                                        <Button variant="contained" color="primary">
+                                        <Button variant="contained" color="primary" onClick={
+                                            this.handleRedirect
+                                        }>
                                             Get More
                                         </Button>
                                     </Grid>
