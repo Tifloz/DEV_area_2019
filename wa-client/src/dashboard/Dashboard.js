@@ -17,20 +17,8 @@ import PropTypes from "prop-types";
 import api from "../api";
 import {forEachChild} from "typescript";
 import {Redirect} from "react-router-dom";
-
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import Copyright from "../components/Copyright";
+import Box from "@material-ui/core/Box";
 
 const styles = theme => ({
     icon: {
@@ -62,6 +50,26 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(6),
     },
+    title: {
+        fontSize: '6.0em',
+        fontWeight: 'bolder',
+        fontFamily: 'helvetica',
+    },
+
+    appBar: {
+        color: 'White',
+        fontWeight: '900',
+        fontFamily: 'helvetica',
+        backgroundColor: 'black',
+        fontStyle: 'bold'
+    },
+
+    button: {
+        color: 'White',
+        fontFamily: 'helvetica',
+        backgroundColor: 'black',
+        fontWeight: '900',
+    }
 });
 
 class Dashboard extends React.Component {
@@ -112,9 +120,9 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline/>
-                <AppBar position="relative">
+                <AppBar position="relative" className={classes.appBar}>
                     <Toolbar>
-                        <Typography variant="h6" color="inherit" noWrap>
+                        <Typography variant="h6" style={{fontWeight: 900}} color="inherit" noWrap>
                             AREA
                         </Typography>
                     </Toolbar>
@@ -123,7 +131,7 @@ class Dashboard extends React.Component {
                     {/* Hero unit */}
                     <div className={classes.heroContent}>
                         <Container maxWidth="sm">
-                            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom className={classes.title}>
                                 AREA
                             </Typography>
                             <Typography variant="h5" align="center" color="textSecondary" paragraph>
@@ -132,7 +140,7 @@ class Dashboard extends React.Component {
                             <div className={classes.heroButtons}>
                                 <Grid container spacing={2} justify="center">
                                     <Grid item>
-                                        <Button variant="contained" color="primary" onClick={
+                                        <Button variant="contained" className={classes.button} onClick={
                                             this.handleRedirect
                                         }>
                                             Get More
