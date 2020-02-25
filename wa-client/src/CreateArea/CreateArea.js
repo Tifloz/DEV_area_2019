@@ -26,82 +26,10 @@ function Copyright() {
     );
 }
 
-const styles = theme => ({
-    icon: {
-        marginRight: theme.spacing(2),
-    },
-    heroContent: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(4, 0, 4),
-    },
-    heroButtons: {
-        marginTop: theme.spacing(4),
-    },
-    cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
-    },
-    card: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    cardMedia: {
-        paddingTop: '56.25%', // 16:9
-    },
-    cardContent: {
-        flexGrow: 1,
-    },
-    footer: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(6),
-    },
-    bodyContent: {
-        marginRight: '50.00%',
-        marginTop: '20.00%',
-        //display: 'flex',
-        //flexDirection: 'column',
-        //justifyContent: 'flex-start',
-        //backgroundColor: 'rgba(0,0,0,0.07)'
-        // TODO icone = add_box
-
-    },
-    typo: {
-        fontSize: '6.0em',
-        fontWeight: 'bolder',
-        fontFamily: 'helvetica',
-    },
-    typoSelected: {
-        fontSize: '6.0em',
-        fontWeight: 'bolder',
-        fontFamily: 'helvetica',
-        opacity: '0.5',
-    },
-    title: {
-        fontSize: '4.0em',
-        fontWeight: 'bolder',
-        fontFamily: 'helvetica',
-        marginTop: '20px'
-    },
-    appBar: {
-        color: 'White',
-        fontWeight: '900',
-        fontFamily: 'helvetica',
-        backgroundColor: 'black',
-        fontStyle: 'bold'
-    },
-    button: {
-        color: 'White',
-        fontFamily: 'helvetica',
-        backgroundColor: 'black',
-        fontWeight: '900',
-    }
-});
-
 class CreateArea extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             getMore: false,
         };
@@ -201,4 +129,4 @@ CreateArea.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CreateArea);
+export default (CreateArea);

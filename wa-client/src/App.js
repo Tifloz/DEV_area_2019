@@ -5,10 +5,12 @@ import SignIn from "./auth/AuthPage";
 import SignUp from "./register/RegisterPage";
 import CreateArea from "./CreateArea/CreateArea";
 import { Route, BrowserRouter as Router } from 'react-router-dom'
-import { authStyles } from "./styles/styles"
+import { authStyles, dashboardStyles, createAreaStyles } from "./styles/styles"
 
 function App() {
   const classes = authStyles();
+  const dashboardClasses = dashboardStyles();
+  const createAreaClasses = createAreaStyles();
 
   return (
       <Router>
@@ -32,11 +34,17 @@ function App() {
         />
         <Route exact path="/dashboard" component={() => {
           return (
-            <Dashboard classes={classes}/>
+            <Dashboard classes={dashboardClasses}/>
           )
         }}
         />
-        <Route exact path="/createArea" component={CreateArea} />
+
+        <Route exact path="/createArea" component={() => {
+          return (
+            <CreateArea classes={createAreaClasses}/>
+          )
+        }}
+        />
       </Router>
   );
 }

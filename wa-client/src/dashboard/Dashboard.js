@@ -20,58 +20,6 @@ import {Redirect} from "react-router-dom";
 import Copyright from "../components/Copyright";
 import Box from "@material-ui/core/Box";
 
-const styles = theme => ({
-    icon: {
-        marginRight: theme.spacing(2),
-    },
-    heroContent: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(8, 0, 6),
-    },
-    heroButtons: {
-        marginTop: theme.spacing(4),
-    },
-    cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
-    },
-    card: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    cardMedia: {
-        paddingTop: '56.25%', // 16:9
-    },
-    cardContent: {
-        flexGrow: 1,
-    },
-    footer: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(6),
-    },
-    title: {
-        fontSize: '6.0em',
-        fontWeight: 'bolder',
-        fontFamily: 'helvetica',
-    },
-
-    appBar: {
-        color: 'White',
-        fontWeight: '900',
-        fontFamily: 'helvetica',
-        backgroundColor: 'black',
-        fontStyle: 'bold'
-    },
-
-    button: {
-        color: 'White',
-        fontFamily: 'helvetica',
-        backgroundColor: 'black',
-        fontWeight: '900',
-    }
-});
-
 class Dashboard extends React.Component {
 
     constructor(props) {
@@ -202,4 +150,4 @@ Dashboard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+export default (Dashboard);
