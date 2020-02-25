@@ -84,7 +84,17 @@ const dashboardStyles = makeStyles(theme => ({
     fontFamily: 'helvetica',
     backgroundColor: 'black',
     fontWeight: '900',
-  }
+  },
+
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  grow: {
+    flexGrow: 1,
+  },
 }));
 
 const createAreaStyles = makeStyles(theme => ({
@@ -156,7 +166,16 @@ const createAreaStyles = makeStyles(theme => ({
     fontFamily: 'helvetica',
     backgroundColor: 'black',
     fontWeight: '900',
-  }
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  grow: {
+    flexGrow: 1,
+  },
 }));
 
 export { authStyles, dashboardStyles, createAreaStyles};
