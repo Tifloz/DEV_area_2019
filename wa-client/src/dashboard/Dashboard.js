@@ -1,23 +1,16 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 import PropTypes from "prop-types";
 import api from "../api";
-import {forEachChild} from "typescript";
 import {Redirect} from "react-router-dom";
-import Copyright from "../components/Copyright";
-import Box from "@material-ui/core/Box";
 import AreaAppBar from "../components/AppBar"
 import AreaFooter from "../components/Footer";
 
@@ -34,7 +27,6 @@ class Dashboard extends React.Component {
 
 
     componentDidMount = () => {
-        let responseStatus = false;
         api.getAreasByUserId().then(function(result) {
             return result
         }).then((result) => {
@@ -50,7 +42,6 @@ class Dashboard extends React.Component {
                 areas: data,
                 cards: cards_tmp,
             });
-            console.log("DATA ===>" + this.state.areas[0].img)
         });
     };
 
