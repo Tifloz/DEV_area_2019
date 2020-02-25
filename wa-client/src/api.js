@@ -3,6 +3,7 @@ const headers = {
     "Content-Type": "application/json"
 };
 const burl = "http://localhost:8080";
+const user_id = "4rNDRwj7ZYNI8QgazGK2I9cJvo22";
 
 export default {
     signIn: function(email, password) {
@@ -39,6 +40,30 @@ export default {
                 fName: userInfos.fName,
                 lName: userInfos.lName,
             },
+            {
+                 headers: headers
+            });
+    },
+
+    getAreasByUserId: function() {
+        return axios.get(
+            `${burl}/user/${user_id}/areas`,
+            {
+                 headers: headers
+            });
+    },
+
+    getAllServices: function() {
+        return axios.get(
+            `${burl}/services`,
+            {
+                 headers: headers
+            });
+    },
+
+    getAllTasks: function(area_id) {
+        return axios.get(
+            `${burl}/user/area/${area_id}/event`,
             {
                  headers: headers
             });

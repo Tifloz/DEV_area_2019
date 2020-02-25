@@ -76,6 +76,25 @@ const styles = theme => ({
         fontWeight: 'bolder',
         fontFamily: 'helvetica',
         opacity: '0.5',
+    },
+    title: {
+        fontSize: '4.0em',
+        fontWeight: 'bolder',
+        fontFamily: 'helvetica',
+        marginTop: '20px'
+    },
+    appBar: {
+        color: 'White',
+        fontWeight: '900',
+        fontFamily: 'helvetica',
+        backgroundColor: 'black',
+        fontStyle: 'bold'
+    },
+    button: {
+        color: 'White',
+        fontFamily: 'helvetica',
+        backgroundColor: 'black',
+        fontWeight: '900',
     }
 });
 
@@ -102,9 +121,9 @@ class CreateArea extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline/>
-                <AppBar position="relative">
+                <AppBar position="relative" className={classes.appBar}>
                     <Toolbar>
-                        <Typography variant="h6" color="inherit" noWrap>
+                        <Typography variant="h6" style={{fontWeight: 900}} color="inherit" noWrap>
                             AREA
                         </Typography>
                     </Toolbar>
@@ -113,7 +132,7 @@ class CreateArea extends React.Component {
                     {/* Hero unit */}
                     <div>
                         <Container maxWidth="sm">
-                            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                            <Typography component="h1" variant="h2" align="center" className={classes.title} gutterBottom>
                                 Create your own.
                             </Typography>
                             <Typography variant="h5" align="center" color="textSecondary" paragraph>
@@ -146,7 +165,7 @@ class CreateArea extends React.Component {
                             <div className={classes.heroButtons}>
                                 <Grid container spacing={2} justify="center">
                                     <Grid item>
-                                        <Button variant="contained" color="primary" onClick={ this.getMore }>
+                                        <Button variant="contained" onClick={ this.getMore } className={classes.button} >
                                             Cancel
                                         </Button>
                                     </Grid>

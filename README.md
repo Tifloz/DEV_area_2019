@@ -4,7 +4,7 @@
 // documentation utilisateur
 // documentation API
 
-Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardi
+Team Work : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gautier Plancq - Sebastien Nardy
 
 ### Informations :
  - Nombers of personnes : 6
@@ -68,16 +68,32 @@ AREA is currently extended with the following technologies. Instructions on how 
 | Node JS | [Node js Tutorial](https://nodejs.org/en/docs/guides/getting-started-guide/) |
 
 
+### API Documentation
+
+We used [Swagger](https://swagger.io/) that is an open-source software framework backed by a large ecosystem of tools that helps developers design, build, document, and consume RESTful web services.
+The following link provides the API Structure for our project AREA : http://localhost:8080/api-docs/#/Users/post_user_signUp
+
+
 ### Development
 
 The project consist two interfaces :
 
- - A web view :
+ - #### A web view :
     - Technoligies Uses :
-      - We used Node JS for the Web server background.*
-      - And for the front side, we used React.
+      - We used Node JS foswaggerr the Web server background.
+      - And for the front side, we used ReactJS.
 
- - A mobile view :
+ - #### A mobile view :
+    - Technologies Uses :
+      - We used Node JS for the Web server background, same as the web view.
+      - And for the front side, we used React Native.
+
+#### Authentifications
+
+The project consist three ways of authentification for the Web view :
+  - A Google Authentification (a way to sign in with a Google Account).
+  - A Login Form that we created with an error handling, if you put an error to the login or password.
+
 
 ### MarkDown
 Markdown

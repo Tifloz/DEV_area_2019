@@ -14,19 +14,11 @@ import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import PropTypes from "prop-types";
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import api from "../api";
+import {forEachChild} from "typescript";
+import {Redirect} from "react-router-dom";
+import Copyright from "../components/Copyright";
+import Box from "@material-ui/core/Box";
 
 const styles = theme => ({
     icon: {
@@ -58,19 +50,79 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(6),
     },
+    title: {
+        fontSize: '6.0em',
+        fontWeight: 'bolder',
+        fontFamily: 'helvetica',
+    },
+
+    appBar: {
+        color: 'White',
+        fontWeight: '900',
+        fontFamily: 'helvetica',
+        backgroundColor: 'black',
+        fontStyle: 'bold'
+    },
+
+    button: {
+        color: 'White',
+        fontFamily: 'helvetica',
+        backgroundColor: 'black',
+        fontWeight: '900',
+    }
 });
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 class Dashboard extends React.Component {
-    render() {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            areas: [],
+            cards: [],
+            createArea: false,
+        };
+    }
+
+
+    componentDidMount = () => {
+        let responseStatus = false;
+        api.getAreasByUserId().then(function(result) {
+            return result
+        }).then((result) => {
+            let data = [];
+            let cards_tmp = [];
+            let idx = 0;
+            result.data.forEach((item) => {
+                data.push(item);
+                cards_tmp.push(idx);
+                idx = idx + 1;
+            });
+            this.setState({
+                areas: data,
+                cards: cards_tmp,
+            });
+            console.log("DATA ===>" + this.state.areas[0].img)
+        });
+    };
+
+    handleRedirect = () => {
+        console.log('handleRedirect');
+        this.setState({
+            createArea: true,
+        })
+    };
+
+    render = () => {
         const { classes } = this.props;
+        let default_img = "https://previews.123rf.com/images/boxerx/boxerx1611/boxerx161100008/68882650-t%C3%A9l%C3%A9charger-le-signe-sur-fond-transparent-charger-l-ic%C3%B4ne-barre-de-chargement-de-donn%C3%A9es-stock-vector-il.jpg";
+        if (this.state.createArea)
+            return (<Redirect to={"/createArea"}/>);
         return (
             <React.Fragment>
                 <CssBaseline/>
-                <AppBar position="relative">
+                <AppBar position="relative" className={classes.appBar}>
                     <Toolbar>
-                        <Typography variant="h6" color="inherit" noWrap>
+                        <Typography variant="h6" style={{fontWeight: 900}} color="inherit" noWrap>
                             AREA
                         </Typography>
                     </Toolbar>
@@ -79,7 +131,7 @@ class Dashboard extends React.Component {
                     {/* Hero unit */}
                     <div className={classes.heroContent}>
                         <Container maxWidth="sm">
-                            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom className={classes.title}>
                                 AREA
                             </Typography>
                             <Typography variant="h5" align="center" color="textSecondary" paragraph>
@@ -88,7 +140,9 @@ class Dashboard extends React.Component {
                             <div className={classes.heroButtons}>
                                 <Grid container spacing={2} justify="center">
                                     <Grid item>
-                                        <Button variant="contained" color="primary">
+                                        <Button variant="contained" className={classes.button} onClick={
+                                            this.handleRedirect
+                                        }>
                                             Get More
                                         </Button>
                                     </Grid>
@@ -99,20 +153,22 @@ class Dashboard extends React.Component {
                     <Container className={classes.cardGrid} maxWidth="md">
                         {/* End hero unit */}
                         <Grid container spacing={4}>
-                            {cards.map(card => (
+                            {this.state.cards ? this.state.cards.map(card => (
                                 <Grid item key={card} xs={12} sm={6} md={4}>
                                     <Card className={classes.card}>
                                         <CardMedia
                                             className={classes.cardMedia}
-                                            image="https://source.unsplash.com/random"
+                                            image= {
+                                                this.state.areas[card] ? this.state.areas[card].img : default_img
+                                            }
                                             title="Image title"
                                         />
                                         <CardContent className={classes.cardContent}>
                                             <Typography gutterBottom variant="h5" component="h2">
-                                                Heading
+                                                {this.state.areas[card] ? this.state.areas[card].name : ""}
                                             </Typography>
                                             <Typography>
-                                                This is a media card. You can use this section to describe the content.
+                                                {this.state.areas[card] ? this.state.areas[card].description : ""}
                                             </Typography>
                                         </CardContent>
                                         <CardActions>
@@ -125,7 +181,7 @@ class Dashboard extends React.Component {
                                         </CardActions>
                                     </Card>
                                 </Grid>
-                            ))}
+                            )): <div> Loading </div>}
                         </Grid>
                     </Container>
                 </main>
