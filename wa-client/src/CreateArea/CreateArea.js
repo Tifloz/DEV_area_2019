@@ -12,19 +12,8 @@ import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom"
 import Icon from '@material-ui/core/Icon';
 import AddIcon from '@material-ui/icons/AddBox';
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import AreaAppBar from "../components/AppBar";
+import AreaFooter from "../components/Footer";
 
 class CreateArea extends React.Component {
 
@@ -49,13 +38,7 @@ class CreateArea extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline/>
-                <AppBar position="relative" className={classes.appBar}>
-                    <Toolbar>
-                        <Typography variant="h6" style={{fontWeight: 900}} color="inherit" noWrap>
-                            AREA
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
+                <AreaAppBar classes={classes}/>
                 <main>
                     {/* Hero unit */}
                     <div>
@@ -112,14 +95,7 @@ class CreateArea extends React.Component {
                         </Grid>
                     </Container>
                 </main>
-                {/* Footer */}
-                <footer className={classes.footer}>
-                    <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                        Coucou ceci est un footer
-                    </Typography>
-                    <Copyright/>
-                </footer>
-                {/* End footer */}
+                <AreaFooter classes={classes}/>
             </React.Fragment>
         );
     }

@@ -1,5 +1,4 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
@@ -19,6 +18,8 @@ import {forEachChild} from "typescript";
 import {Redirect} from "react-router-dom";
 import Copyright from "../components/Copyright";
 import Box from "@material-ui/core/Box";
+import AreaAppBar from "../components/AppBar"
+import AreaFooter from "../components/Footer";
 
 class Dashboard extends React.Component {
 
@@ -68,13 +69,7 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline/>
-                <AppBar position="relative" className={classes.appBar}>
-                    <Toolbar>
-                        <Typography variant="h6" style={{fontWeight: 900}} color="inherit" noWrap>
-                            AREA
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
+                <AreaAppBar classes={classes}/>
                 <main>
                     {/* Hero unit */}
                     <div className={classes.heroContent}>
@@ -133,14 +128,7 @@ class Dashboard extends React.Component {
                         </Grid>
                     </Container>
                 </main>
-                {/* Footer */}
-                <footer className={classes.footer}>
-                    <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                        Coucou ceci est un footer
-                    </Typography>
-                    <Copyright/>
-                </footer>
-                {/* End footer */}
+                <AreaFooter classes={classes}/>
             </React.Fragment>
         );
     }
