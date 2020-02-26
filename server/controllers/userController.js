@@ -20,15 +20,11 @@ exports.SignInPage = (req, res) => {
  */
 exports.SignIn = (req, res) => {
   const { password, email } = req.body
-  let message = {
-    401: "Wrong username or password",
-    200: "Successfully logged"
-  }
 
-  database.SignIn(email, password).then((status) => {
-    return data.result(res, status, message[status])
-  }).catch((e) => {
-    console.log("error message: ", e.message)
+  database.SignIn(email, password).then((token) => {
+    return data.result(res, 200, {"token": token})
+  }).catch(() => {
+    return data.result(res, 401, {'error': "wrong username or password"})
   })
 }
 
@@ -56,21 +52,21 @@ exports.SignUp = (req, res) => {
     'first_name': req.body.fName,
     'last_name': req.body.lName
   }
-  console.log("inside sign up")
-
   database.SignUp(email, password)
     .then((status) => {
       if (status === false) {
         return data.result(res, 400, "User already existing" )
       }
-      database.SignIn(email, password).then(() => {
-        let user = database.currentUser();
-        database.createDocument('User', user.uid, data_user).then((status) => {
-          return data.result(res, 200, "Succefully created")
-        }).catch((e) => {
-          return data.result(res, 400, e.message)
+      database.SignIn(email, password)
+        .then((token) => {
+          if (token) {
+            let user = database.currentUser();
+            database.createDocument('User', user.uid, data_user).then((token) => {
+              return data.result(res, 200, {"token": user.uid })
+            })
+            return data.result(res, 200, {"token": user.uid })
+          }
         })
-      })
     })
     .catch((e) => {
       return data.result(res, 400, e.message)
@@ -94,7 +90,6 @@ exports.signOut = (req, res) => {
 exports.googleAuth = (req, res) => {
   /** Get token set in url and get credential */
   let token = req.body.tokenId
-
   database.googleAuth(token).then((status) => {
       let user = database.currentUser()
       let userdata = {
@@ -103,12 +98,12 @@ exports.googleAuth = (req, res) => {
         'last_name': req.body.lName
       }
       database.createDocument('User', user.uid, userdata).then(() => {
-        return data.result(res, 200)
-      }).catch(() => {
-        return data.result(res, 400, "User already created")
+        return data.result(res, 200,  {'token': user.uid})
+      }).catch((e) => {
+        return data.result(res, 200,  {'token': user.uid})
       })
   }).catch((e) => {
-    return data.result(res, 400)
+    return data.result(res, 400, {'error': e.message })
   })
 }
 
@@ -155,5 +150,31 @@ exports.getUserAreaEvent = (req, res) => {
     })
 }
 
-exports.createUserAreaEvent = (req, res) => {
+/*
+    area : {
+      "description":
+      "img":
+      "name":
+      "user_id":
+      "trigger_id":
+      "event_id":
+    }
+
+    service : {
+      "service": name
+        => logo
+        => name
+      "action"
+      "reaction"
+    }
+
+    "service_action": "name"
+    "service_trigger": "name"
+    "action": "1"
+    "trigger": "0"
+*/
+exports.createUserArea = (req, res) => {
+  req.params.service;
+  req.params.action;
+  req.params.reaction;
 }

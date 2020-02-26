@@ -239,12 +239,12 @@ exports.deleteUser = async () =>
 exports.SignIn =  async (email, password) =>
 {
   if (!email || !password)
-    return 400
+    return null
   return firebase.auth().signInWithEmailAndPassword(email, password)
     .then(() => {
-      return 200
+      return this.currentUser().uid
     }).catch((e) => {
-      return 401
+      return null
     })
 }
 
