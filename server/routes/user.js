@@ -20,4 +20,8 @@ router.get('/:user_id/areas', userController.getUserAreas)
 router.get('/user/:user_id/area/:area_id', userController.getUserArea)
 router.post('/user/:user_id/create-area', userController.createUserArea)
 
+
+router.get('/user/:user_id/twitter', userController.getUserTwitterToken)
+    .put('/user/:user_id/twitter', userController.putUserTwitterToken)
+
 module.exports = router
