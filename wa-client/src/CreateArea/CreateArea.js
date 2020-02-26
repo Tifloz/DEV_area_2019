@@ -3,105 +3,18 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom"
-import Icon from '@material-ui/core/Icon';
 import AddIcon from '@material-ui/icons/AddBox';
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-const styles = theme => ({
-    icon: {
-        marginRight: theme.spacing(2),
-    },
-    heroContent: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(4, 0, 4),
-    },
-    heroButtons: {
-        marginTop: theme.spacing(4),
-    },
-    cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
-    },
-    card: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    cardMedia: {
-        paddingTop: '56.25%', // 16:9
-    },
-    cardContent: {
-        flexGrow: 1,
-    },
-    footer: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(6),
-    },
-    bodyContent: {
-        marginRight: '50.00%',
-        marginTop: '20.00%',
-        //display: 'flex',
-        //flexDirection: 'column',
-        //justifyContent: 'flex-start',
-        //backgroundColor: 'rgba(0,0,0,0.07)'
-        // TODO icone = add_box
-
-    },
-    typo: {
-        fontSize: '6.0em',
-        fontWeight: 'bolder',
-        fontFamily: 'helvetica',
-    },
-    typoSelected: {
-        fontSize: '6.0em',
-        fontWeight: 'bolder',
-        fontFamily: 'helvetica',
-        opacity: '0.5',
-    },
-    title: {
-        fontSize: '4.0em',
-        fontWeight: 'bolder',
-        fontFamily: 'helvetica',
-        marginTop: '20px'
-    },
-    appBar: {
-        color: 'White',
-        fontWeight: '900',
-        fontFamily: 'helvetica',
-        backgroundColor: 'black',
-        fontStyle: 'bold'
-    },
-    button: {
-        color: 'White',
-        fontFamily: 'helvetica',
-        backgroundColor: 'black',
-        fontWeight: '900',
-    }
-});
+import AreaAppBar from "../components/AppBar";
+import AreaFooter from "../components/Footer";
 
 class CreateArea extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             getMore: false,
         };
@@ -121,13 +34,7 @@ class CreateArea extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline/>
-                <AppBar position="relative" className={classes.appBar}>
-                    <Toolbar>
-                        <Typography variant="h6" style={{fontWeight: 900}} color="inherit" noWrap>
-                            AREA
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
+                <AreaAppBar classes={classes}/>
                 <main>
                     {/* Hero unit */}
                     <div>
@@ -184,14 +91,7 @@ class CreateArea extends React.Component {
                         </Grid>
                     </Container>
                 </main>
-                {/* Footer */}
-                <footer className={classes.footer}>
-                    <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                        Coucou ceci est un footer
-                    </Typography>
-                    <Copyright/>
-                </footer>
-                {/* End footer */}
+                <AreaFooter classes={classes}/>
             </React.Fragment>
         );
     }
@@ -201,4 +101,4 @@ CreateArea.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CreateArea);
+export default (CreateArea);

@@ -1,76 +1,18 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 import PropTypes from "prop-types";
 import api from "../api";
-import {forEachChild} from "typescript";
 import {Redirect} from "react-router-dom";
-import Copyright from "../components/Copyright";
-import Box from "@material-ui/core/Box";
-
-const styles = theme => ({
-    icon: {
-        marginRight: theme.spacing(2),
-    },
-    heroContent: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(8, 0, 6),
-    },
-    heroButtons: {
-        marginTop: theme.spacing(4),
-    },
-    cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
-    },
-    card: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    cardMedia: {
-        paddingTop: '56.25%', // 16:9
-    },
-    cardContent: {
-        flexGrow: 1,
-    },
-    footer: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(6),
-    },
-    title: {
-        fontSize: '6.0em',
-        fontWeight: 'bolder',
-        fontFamily: 'helvetica',
-    },
-
-    appBar: {
-        color: 'White',
-        fontWeight: '900',
-        fontFamily: 'helvetica',
-        backgroundColor: 'black',
-        fontStyle: 'bold'
-    },
-
-    button: {
-        color: 'White',
-        fontFamily: 'helvetica',
-        backgroundColor: 'black',
-        fontWeight: '900',
-    }
-});
+import AreaAppBar from "../components/AppBar"
+import AreaFooter from "../components/Footer";
 
 class Dashboard extends React.Component {
 
@@ -85,7 +27,6 @@ class Dashboard extends React.Component {
 
 
     componentDidMount = () => {
-        let responseStatus = false;
         api.getAreasByUserId().then(function(result) {
             return result
         }).then((result) => {
@@ -101,7 +42,6 @@ class Dashboard extends React.Component {
                 areas: data,
                 cards: cards_tmp,
             });
-            console.log("DATA ===>" + this.state.areas[0].img)
         });
     };
 
@@ -120,13 +60,7 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline/>
-                <AppBar position="relative" className={classes.appBar}>
-                    <Toolbar>
-                        <Typography variant="h6" style={{fontWeight: 900}} color="inherit" noWrap>
-                            AREA
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
+                <AreaAppBar classes={classes}/>
                 <main>
                     {/* Hero unit */}
                     <div className={classes.heroContent}>
@@ -185,14 +119,7 @@ class Dashboard extends React.Component {
                         </Grid>
                     </Container>
                 </main>
-                {/* Footer */}
-                <footer className={classes.footer}>
-                    <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                        Coucou ceci est un footer
-                    </Typography>
-                    <Copyright/>
-                </footer>
-                {/* End footer */}
+                <AreaFooter classes={classes}/>
             </React.Fragment>
         );
     }
@@ -202,4 +129,4 @@ Dashboard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+export default (Dashboard);
