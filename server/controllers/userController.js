@@ -161,7 +161,6 @@ exports.createUserArea = (req, res) => {
     let area = {
       "name": req.body.area_name,
       "description": req.body.description,
-      "img": servicesJson[service_a]["url"],
       "user_id": req.params.user_id,
       "event": {
         "service": req.body.service_action,
