@@ -22,8 +22,8 @@ exports.SignInPage = (req, res) => {
 exports.SignIn = (req, res) => {
   const { password, email } = req.body
 
-  database.SignIn(email, password).then((token) => {
-    return data.result(res, 200, {"token": token})
+  database.SignIn(email, password).then(() => {
+    return data.result(res, 200, {"token": database.currentUser().uid})
   }).catch(() => {
     return data.result(res, 401, {'error': "wrong username or password"})
   })
@@ -60,14 +60,12 @@ exports.SignUp = (req, res) => {
         return data.result(res, 400, "User already existing" )
       }
       database.SignIn(email, password)
-        .then((token) => {
-          if (token) {
+        .then(() => {
             let user = database.currentUser();
             database.createDocument('User', user.uid, data_user).then(() => {
               return data.result(res, 200, {"token": user.uid })
             })
             return data.result(res, 200, {"token": user.uid })
-          }
         })
     })
     .catch((e) => {
@@ -188,5 +186,24 @@ exports.getUserArea = (req, res) =>  {
     })
     .catch((err) => {
       return data.result(res, 400, {"area": [], "error": "Area not founded"})
+    })
+}
+
+exports.getUserTwitterToken = (req, res) =>
+{
+  database.getDocument('User', req.params.user_id).then((user) => {
+    return data.result(res, 200, {'twitter_token': user['twitter_token']})
+  })
+  .catch((e) => {
+    return data.result(res, 200, {'twitter_token': ""})
+  })
+}
+
+exports.putUserTwitterToken = (req, res) => {
+  database.getDocument('User', req.params.user_id)
+    .then((user) => {
+      user['twitter_token'] = req.body.twitter_token
+      database.updateDocument('User', req.params.user_id, user)
+      return data.result(res, 200, "User twitter token updated")
     })
 }
