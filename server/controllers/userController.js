@@ -181,3 +181,13 @@ exports.createUserArea = (req, res) => {
     return data.result(res, 400, {'error': 'An error occur while creating area'})
   })
 }
+
+exports.getUserArea = (req, res) =>  {
+  database.getDocument('Area', req.params.area_id)
+    .then((area) => {
+      return data.result(res, 200, {"area": area})
+    })
+    .catch((err) => {
+      return data.result(res, 400, {"area": [], "error": "Area not founded"})
+    })
+}
