@@ -190,3 +190,22 @@ exports.getUserArea = (req, res) =>  {
       return data.result(res, 400, {"area": [], "error": "Area not founded"})
     })
 }
+
+exports.getUserTwitterToken = (req, res) =>
+{
+  database.getDocument('User', req.params.user_id).then((user) => {
+    return data.result(res, 200, {'twitter_token': user['twitter_token']})
+  })
+  .catch((e) => {
+    return data.result(res, 200, {'twitter_token': ""})
+  })
+}
+
+exports.putUserTwitterToken = (req, res) => {
+  database.getDocument('User', req.params.user_id)
+    .then((user) => {
+      user['twitter_token'] = req.body.twitter_token
+      database.updateDocument('User', req.params.user_id, user)
+      return data.result(res, 200, "User twitter token updated")
+    })
+}
