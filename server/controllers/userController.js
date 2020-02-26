@@ -51,7 +51,8 @@ exports.SignUp = (req, res) => {
   let data_user = {
     'email': email,
     'first_name': req.body.fName,
-    'last_name': req.body.lName
+    'last_name': req.body.lName,
+    'twitter_token': ""
   }
   database.SignUp(email, password)
     .then((status) => {
@@ -62,7 +63,7 @@ exports.SignUp = (req, res) => {
         .then((token) => {
           if (token) {
             let user = database.currentUser();
-            database.createDocument('User', user.uid, data_user).then((token) => {
+            database.createDocument('User', user.uid, data_user).then(() => {
               return data.result(res, 200, {"token": user.uid })
             })
             return data.result(res, 200, {"token": user.uid })
@@ -96,7 +97,8 @@ exports.googleAuth = (req, res) => {
       let userdata = {
         'email': user.email,
         'first_name': req.body.fName,
-        'last_name': req.body.lName
+        'last_name': req.body.lName,
+        'twitter_token': ""
       }
       database.createDocument('User', user.uid, userdata).then(() => {
         return data.result(res, 200,  {'token': user.uid})
