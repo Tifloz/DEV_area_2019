@@ -12,5 +12,6 @@ router.post('/google', userController.googleAuth)
 router.get('/:user_id/areas', userController.getUserAreas)
 router.get('/area/:area_id/trigger', userController.getUserAreaTrigger)
 router.get('/area/:area_id/event', userController.getUserAreaEvent)
+router.post('/user/:user_id/create-area', userController.createUserArea)
 
 module.exports = router
