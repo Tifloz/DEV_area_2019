@@ -4,6 +4,8 @@ branches:
 language: node_js
 node_js:
 - node
+addons:
+  ssh_known_hosts: git.epitech.eu
 warnings_are_errors: false
 before_install:
   - .travis/10_prebuild.sh $WEBHOOK_URL
