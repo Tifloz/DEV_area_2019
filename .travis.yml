@@ -10,6 +10,7 @@ warnings_are_errors: false
 before_install:
   - .travis/10_prebuild.sh $WEBHOOK_URL
 script:
+- echo 'git.epitech.eu,163.5.42.53 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFaM0VzHyyfdlVU43JdzwPKPwPyQ4SigxblHQpFP9GXP' >> $HOME/.ssh/known_hosts
 - cd server
 - npm install
 - npm run test
