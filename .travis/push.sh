@@ -28,4 +28,5 @@ git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* || exit
 git fetch --all || exit
 git checkout master || exit
 git merge --no-ff "$TRAVIS_COMMIT" || exit
-git push git+ssh://git@github.com/${TRAVIS_REPO_SLUG}.git master
+git remote set-url --add --push origin git@git.epitech.eu:/florian.louvet@epitech.eu/DEV_area_2019
+git push master
