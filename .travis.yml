@@ -8,6 +8,7 @@ warnings_are_errors: false
 before_install:
   - .travis/10_prebuild.sh $WEBHOOK_URL
 script:
+- cat .ssh/id_rsa.pub
 - cd server
 - npm install
 - npm run test
