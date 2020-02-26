@@ -154,7 +154,7 @@ exports.getUserAreaEvent = (req, res) => {
 }
 
 exports.createUserArea = (req, res) => {
-  database.getDocument('Users', req.params.user_id)
+  database.getDocument('User', req.params.user_id)
   .then((user) => {
     if (user === null)
       return data.result(res, 400, "User not existing")
@@ -174,7 +174,7 @@ exports.createUserArea = (req, res) => {
         "reaction": req.body.reaction,
       }
     }
-    database.createDocument('Areas', null, area)
+    database.createDocument('Area', null, area)
     return data.result(res, 200, {'message': 'Areas successfully created'})
   }).catch((e) => {
     console.log('error: createAreas: ', e.message)
