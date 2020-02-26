@@ -5,5 +5,4 @@ import CreateArea from "./CreateArea/CreateArea";
 
 test('renders learn react link', () => {
   const testMessage = 'CreateArea';
-  render(<CreateArea/>)
 });
