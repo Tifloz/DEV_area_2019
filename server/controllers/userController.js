@@ -1,5 +1,6 @@
 const database = require('./database.js')
 let data = require('./data.js')
+const servicesJson = require('../services.json');
 
 /**
  * @returns {status} json response
@@ -50,7 +51,8 @@ exports.SignUp = (req, res) => {
   let data_user = {
     'email': email,
     'first_name': req.body.fName,
-    'last_name': req.body.lName
+    'last_name': req.body.lName,
+    'twitter_token': ""
   }
   database.SignUp(email, password)
     .then((status) => {
@@ -61,7 +63,7 @@ exports.SignUp = (req, res) => {
         .then((token) => {
           if (token) {
             let user = database.currentUser();
-            database.createDocument('User', user.uid, data_user).then((token) => {
+            database.createDocument('User', user.uid, data_user).then(() => {
               return data.result(res, 200, {"token": user.uid })
             })
             return data.result(res, 200, {"token": user.uid })
@@ -95,7 +97,8 @@ exports.googleAuth = (req, res) => {
       let userdata = {
         'email': user.email,
         'first_name': req.body.fName,
-        'last_name': req.body.lName
+        'last_name': req.body.lName,
+        'twitter_token': ""
       }
       database.createDocument('User', user.uid, userdata).then(() => {
         return data.result(res, 200,  {'token': user.uid})
@@ -150,31 +153,31 @@ exports.getUserAreaEvent = (req, res) => {
     })
 }
 
-/*
-    area : {
-      "description":
-      "img":
-      "name":
-      "user_id":
-      "trigger_id":
-      "event_id":
-    }
-
-    service : {
-      "service": name
-        => logo
-        => name
-      "action"
-      "reaction"
-    }
-
-    "service_action": "name"
-    "service_trigger": "name"
-    "action": "1"
-    "trigger": "0"
-*/
 exports.createUserArea = (req, res) => {
-  req.params.service;
-  req.params.action;
-  req.params.reaction;
+  database.getDocument('Users', req.params.user_id)
+  .then((user) => {
+    if (user === null)
+      return data.result(res, 400, "User not existing")
+    let area = {
+      "name": req.body.area_name,
+      "description": req.body.description,
+      "img": servicesJson[service_a]["url"],
+      "user_id": req.params.user_id,
+      "event": {
+        "service": req.body.service_action,
+        "logo": servicesJson[req.body.service_action]["url"],
+        "action": req.body.action,
+      },
+      "trigger": {
+        "logo": servicesJson[req.body.service_trigger]["url"],
+        "service": req.body.service_trigger,
+        "reaction": req.body.reaction,
+      }
+    }
+    database.createDocument('Areas', null, area)
+    return data.result(res, 200, {'message': 'Areas successfully created'})
+  }).catch((e) => {
+    console.log('error: createAreas: ', e.message)
+    return data.result(res, 400, {'error': 'An error occur while creating area'})
+  })
 }
