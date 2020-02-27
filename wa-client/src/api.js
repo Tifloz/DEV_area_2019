@@ -3,7 +3,6 @@ const headers = {
     "Content-Type": "application/json"
 };
 const burl = "http://localhost:8080";
-const user_id = "4rNDRwj7ZYNI8QgazGK2I9cJvo22";
 
 export default {
     signIn: function(email, password) {
@@ -46,6 +45,7 @@ export default {
     },
 
     getAreasByUserId: function() {
+        const user_id = localStorage.getItem("token");
         return axios.get(
             `${burl}/user/${user_id}/areas`,
             {
@@ -74,5 +74,6 @@ export default {
     },
     logout: function() {
         localStorage.clear();
+        window.location.reload();
     },
 };
