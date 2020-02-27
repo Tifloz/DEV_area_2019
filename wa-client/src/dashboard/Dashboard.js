@@ -26,6 +26,13 @@ class Dashboard extends React.Component {
     }
 
 
+    handleRedirect = () => {
+        console.log('handleRedirect');
+        this.setState({
+            createArea: true,
+        })
+    };
+
     componentDidMount = () => {
         api.getAreasByUserId().then(function(result) {
             return result
@@ -45,16 +52,11 @@ class Dashboard extends React.Component {
         });
     };
 
-    handleRedirect = () => {
-        console.log('handleRedirect');
-        this.setState({
-            createArea: true,
-        })
-    };
-
     render = () => {
         const { classes } = this.props;
-        let default_img = "https://previews.123rf.com/images/boxerx/boxerx1611/boxerx161100008/68882650-t%C3%A9l%C3%A9charger-le-signe-sur-fond-transparent-charger-l-ic%C3%B4ne-barre-de-chargement-de-donn%C3%A9es-stock-vector-il.jpg";
+        if (!api.isAuth()) {
+            return (<Redirect to={"/"}/>);
+        }
         if (this.state.createArea)
             return (<Redirect to={"/createArea"}/>);
         return (
@@ -93,7 +95,7 @@ class Dashboard extends React.Component {
                                         <CardMedia
                                             className={classes.cardMedia}
                                             image= {
-                                                this.state.areas[card] ? this.state.areas[card].img : default_img
+                                                this.state.areas[card] ? this.state.areas[card].img : ""
                                             }
                                             title="Image title"
                                         />
