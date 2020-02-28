@@ -126,6 +126,25 @@
            }
         }
       },
+      "/user/{user_id}/create-area": {
+        "post": {
+          "tags": [
+             "Areas"
+           ],
+           "summary": "Create user area",
+           "responses": {
+             "200": {
+               "description": "Areas",
+               "schema": {
+                  "$ref": "#/definitions/Area"
+                }
+             },
+             "400": {
+               "description": "Missing params in post"
+             }
+           }
+        }
+      },
       "/user/{user_id}/areas": {
         "get": {
           "tags": [
@@ -145,42 +164,53 @@
            }
         }
       },
-      "/area/{area_id}/trigger": {
+      "/user/{user_id}/area/{area_id}": {
         "get": {
           "tags": [
-             "Services"
+             "Areas"
            ],
-           "summary": "Area's Trigger",
+           "summary": "get user specific area",
            "responses": {
              "200": {
-               "description": "Service trigger",
+               "description": "Areas",
                "schema": {
-                  "$ref": "#/definitions/Services"
+                  "$ref": "#/definitions/Area"
                 }
              },
              "400": {
-               "description": "Area's id not found"
+               "description": "Area's id or User's id not found"
              }
            }
         }
       },
-      "/area/{area_id}/event": {
+      "/user/{user_id}/twitter": {
         "get": {
           "tags": [
-             "Services"
+             "Users"
            ],
-           "summary": "Area's Event",
+           "summary": "get user twitter token",
            "responses": {
              "200": {
-               "description": "Service Event",
-               "schema": {
-                  "$ref": "#/definitions/Services"
-                }
+               "description": "Twitter token"
              },
              "400": {
-               "description": "Area's id not found"
+               "description": "Server error"
              }
            }
+        },
+        "put": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Set user twitter token",
+          "responses": {
+            "200": {
+              "description": "Twitter token setted"
+            },
+            "400": {
+              "description": "Empty params"
+            }
+          }
         }
       },
       "/services": {
@@ -243,6 +273,9 @@
       "Area": {
         "required": [
           "id",
+          "name",
+          "event",
+          "trigger",
           "description",
           "user_id",
           "event_id",
@@ -253,18 +286,27 @@
             "type": "string",
             "uniqueItems": true
           },
+          "name": {
+            "type": "string"
+          },
+          "event": {
+            "type": "map",
+            "params": {
+              "service": "string",
+              "action": "string"
+            }
+          },
+          "trigger": {
+            "type": "map",
+            "params": {
+              "service": "string",
+              "reaction": "string"
+            }
+          },
           "description": {
             "type": "string"
           },
           "user_id": {
-            "type": "string",
-            "uniqueItems": true
-          },
-          "event_id": {
-            "type": "string",
-            "uniqueItems": true
-          },
-          "trigger_id": {
             "type": "string",
             "uniqueItems": true
           }
