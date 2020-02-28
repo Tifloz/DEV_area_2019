@@ -10,6 +10,7 @@ import {Redirect} from "react-router-dom"
 import AddIcon from '@material-ui/icons/AddBox';
 import AreaAppBar from "../components/AppBar";
 import AreaFooter from "../components/Footer";
+import api from "../api";
 
 class CreateArea extends React.Component {
 
@@ -29,6 +30,9 @@ class CreateArea extends React.Component {
 
         if (this.state.getMore) {
             return <Redirect to='/dashboard'/>;
+        }
+        if (!api.isAuth()) {
+            return (<Redirect to={"/"}/>);
         }
 
         return (
