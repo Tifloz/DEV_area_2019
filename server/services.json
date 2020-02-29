@@ -3,12 +3,24 @@
         "name": "twitter",
         "logo":"url",
         "actions": {
-            "0": "receive_message",
-            "1": "receive_notification"
+            "0": {
+                "value": "receive_message",
+                "label": "Receive a message"
+            },
+            "1": {
+                "value": "receive_notification",
+                "label": "Receive a notification"
+            }
         },
         "reactions": {
-            "0": "send",
-            "1": "publish"
+            "0": {
+                "value": "send",
+                "label": "Send a message"
+            },
+            "1": {
+                "value": "publish",
+                "label": "Publish a message"
+            }
         }
     }
   }
