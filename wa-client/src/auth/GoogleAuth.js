@@ -4,15 +4,16 @@ import api from '../api'
 
 export default class GoogleAuth extends React.Component {
   handleSuccess = (response) => {
-    console.log(response);
-    // const [fName, lName] = response.w3.ig.split(' ');
-    //
-    // api.googleSign(response.tokenId, fName, lName)
-    //   .then(response => {
-    //     this.props.onRedirect();
-    //   }).catch(reject => {
-    //     console.log(reject);
-    // })
+    const fName = response.profileObj.givenName;
+    const lName = response.profileObj.familyName;
+
+    api.googleSign(response.tokenId, fName, lName)
+      .then(response => {
+        localStorage.setItem('token', response.data.token);
+        this.props.onRedirect();
+      }).catch(reject => {
+        console.log(reject);
+    })
   };
 
   handleFailure = (response) => {
