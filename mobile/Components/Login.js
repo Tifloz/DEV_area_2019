@@ -1,29 +1,32 @@
-import React from 'react';
-import
-{
-  View, TextInput, Button, Text, ScrollView,
+import React, {Component} from 'react';
+import {WebView} from 'react-native-webview';
+import {
+  View,
 } from 'react-native';
 
-// eslint-disable-next-line react/prefer-stateless-function
-export default class Login extends React.Component {
+class Login extends Component {
   render() {
     return (
-      // eslint-disable-next-line react/jsx-filename-extension
-      <ScrollView style={{ padding: 20 }}>
-        <Text
-          style={{ fontSize: 27 }}
-        >
-          Login
-        </Text>
-        <TextInput placeholder="Username" />
-        <TextInput placeholder="Password" />
-        <View style={{ margin: 7 }} />
-        <Button
-          /* eslint-disable-next-line react/prop-types,react/destructuring-assignment */
-          onPress={this.props.onLoginPress}
-          title="Submit"
+      <View style={{flex: 1}}>
+        <WebView
+          source={{uri: 'https://api.imgur.com/oauth2/authorize?client_id=4024d2a2fe8e4ce&response_type=token\n'}}
+          onNavigationStateChange={(webViewState) => this._onNavigationStateChange(webViewState)}
         />
-      </ScrollView>
+      </View>
     );
   }
+
+  _onNavigationStateChange(webViewState) {
+    let i = 0;
+    let tab = webViewState.url.split("&");
+    while (i !== tab.length) {
+      tab[i].split("&");
+      i += 1;
+    }
+    if (webViewState.url.includes("access_token")) {
+      this.props.navigation.replace('NavBar');
+    }
+  }
 }
+
+export default Login;

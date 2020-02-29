@@ -16,7 +16,6 @@ router.get('/signOut', userController.signOut)
 router.post('/google', userController.googleAuth)
 
 router.get('/:user_id/areas', userController.getUserAreas)
-
 router.get('/:user_id/area/:area_id', userController.getUserArea)
 router.post('/:user_id/create-area', userController.createUserArea)
 
