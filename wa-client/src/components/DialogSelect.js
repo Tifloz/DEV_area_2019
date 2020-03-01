@@ -44,6 +44,7 @@ export default function DialogSelect(props) {
   };
 
   const handleClickOpen = () => {
+    console.log(services[props.type]);
     setOpen(true);
   };
 
@@ -73,8 +74,9 @@ export default function DialogSelect(props) {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={services[props.type][0].value}>{services[props.type][0].label}</MenuItem>
-            <MenuItem value={services[props.type][1].value}>{services[props.type][1].label}</MenuItem>
+            { Object.keys(services[props.type]).map(key => (
+              <MenuItem value={services[props.type][key].value}>{services[props.type][key].label}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </form>;

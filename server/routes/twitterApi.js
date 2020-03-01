@@ -14,11 +14,4 @@ router.route('/auth')
   twitterApiController.generateToken,
   twitterApiController.sendToken)
 
-/** Twitter webhook **/
-router.route('/webhook')
-  .get((req, res) => {
-    console.log(req)
-    return res.send(200, "OK")
-  })
-
 module.exports = router;
