@@ -46,7 +46,7 @@ export default class Main extends React.Component {
               name="New Area"
               component={New}
               options={{
-                tabBarLabel: 'My Areas',
+                tabBarLabel: 'New',
                 tabBarIcon: ({ tintColor }) => (
                   <Icon name="add" size={25} color={tintColor} />
                 ),
@@ -56,7 +56,7 @@ export default class Main extends React.Component {
               name="quit"
               component={this.handleLogout}
               options={{
-                tabBarLabel: 'My Areas',
+                tabBarLabel: 'Quit',
                 tabBarIcon: ({ tintColor }) => (
                   <Icon name="exit" size={25} color={tintColor} />
                 ),
