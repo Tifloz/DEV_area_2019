@@ -36,7 +36,7 @@ export default function DialogSelect(props) {
       setIsLogged(true);
     else
       setIsLogged(false);
-  });
+  }, []);
 
   const handleChange = event => {
     setResult(event.target.value);

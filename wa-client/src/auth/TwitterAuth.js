@@ -9,6 +9,8 @@ export default function TwitterAuth(props) {
     const token = response.headers.get('x-auth-token');
     response.json().then(user => {
       localStorage.setItem('twitter_token', token);
+      console.log('token =>', token);
+      console.log('user =>', user);
       if (token) {
         setToken(token);
         setUser(user);
@@ -23,10 +25,10 @@ export default function TwitterAuth(props) {
 
   return (
       <TwitterLogin
-        loginUrl="http://localhost:8080/auth/twitter"
+        loginUrl="http://localhost:8080/twitter/auth"
         onFailure={onFailed}
         onSuccess={onSuccess}
-        requestTokenUrl="http://localhost:8080/auth/twitter/reverse"
+        requestTokenUrl="http://localhost:8080/twitter/auth/reverse"
       />
   );
 }

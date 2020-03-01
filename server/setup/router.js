@@ -16,5 +16,5 @@ exports.InitializeRoutes = function (app)
   app.use(cookieParser())
   app.use('/user', userController)
   app.use('/', homeController)
-  app.use('/auth', twitterApiController)
+  app.use('/twitter', twitterApiController)
 }
