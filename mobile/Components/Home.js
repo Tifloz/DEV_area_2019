@@ -5,7 +5,7 @@ import {
 import api from './api';
 import styles from '../styles/Home';
 import { Card, CardItem, Body, Text } from 'native-base';
-
+import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-community/google-signin';
 
 //Exemple Cards
 let getCard = () => {
@@ -16,13 +16,23 @@ let getCard = () => {
     </CardItem>
     <CardItem bordered>
       <Body>
-        <Text>
-          NativeBase is a free and open source framework that enable
-          developers to build
-          high-quality mobile apps using React Native iOS and Android
-          apps
-          with a fusion of ES6.
-        </Text>
+        <View>
+          <Text>
+            NativeBase is a free and open source framework that enable
+            developers to build
+            high-quality mobile apps using React Native iOS and Android
+            apps
+            with a fusion of ES6.
+          </Text>
+            <View style={{alignItems: 'center', }}>
+              <GoogleSigninButton
+                style={{ width: 192, height: 60 }}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Dark}
+                onPress={() => {console.log('ok')}}
+              />
+            </View>
+          </View>
       </Body>
     </CardItem>
     <CardItem footer bordered>
