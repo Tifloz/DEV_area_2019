@@ -1,4 +1,4 @@
-package com.dev_epicture_2019;
+package com.dev_area_2019;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "DEV_epicture_2019";
+    return "DEV_area_2019";
   }
 }

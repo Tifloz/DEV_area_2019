@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import api from './api';
 import Home from './Home';
+import New from './New';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -29,7 +30,7 @@ export default class Main extends React.Component {
           <Tab.Navigator
             initialRouteName="My Areas"
             tabBarOptions={{
-            activeTintColor: '#e91e63',
+            activeTintColor: 'black',
           }}>
             <Tab.Screen
               name="My Areas"
@@ -39,7 +40,7 @@ export default class Main extends React.Component {
               }}/>
             <Tab.Screen
               name="New Area"
-              component={Home}
+              component={New}
             />
             <Tab.Screen
               name="quit"

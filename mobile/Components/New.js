@@ -3,10 +3,10 @@ import {
   Text, View, Button, StatusBar
 } from 'react-native';
 import api from './api';
-import styles from '../styles/Home';
+import styles from '../styles/New';
 
 // eslint-disable-next-line react/prefer-stateless-function
-export default class Home extends React.Component {
+export default class New extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -20,7 +20,7 @@ export default class Home extends React.Component {
           <Text
             style={{ fontSize: 27 }}
           >
-            Welcome
+            New
           </Text>
           <View style={{ margin: 20 }} />
         </View>
