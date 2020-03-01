@@ -5,7 +5,7 @@ import {
 import api from './api';
 import styles from '../styles/Home';
 import { Card, CardItem, Body, Text } from 'native-base';
-
+import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-community/google-signin';
 
 //Exemple Cards
 let getCard = () => {
@@ -23,6 +23,12 @@ let getCard = () => {
           apps
           with a fusion of ES6.
         </Text>
+          <GoogleSigninButton
+            style={{ width: 192, height: 52 }}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={() => {console.log('ok')}}
+          />
       </Body>
     </CardItem>
     <CardItem footer bordered>
