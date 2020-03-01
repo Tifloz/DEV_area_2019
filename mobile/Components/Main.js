@@ -7,6 +7,7 @@ import Home from './Home';
 import New from './New';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {Icon} from 'native-base'
 
 const Tab = createBottomTabNavigator(); 
 
@@ -29,7 +30,9 @@ export default class Main extends React.Component {
       <NavigationContainer>
           <Tab.Navigator
             initialRouteName="My Areas"
-            tabBarOptions={{
+            tabBarOptions={{tabBarIcon: ({ tintColor }) => (
+              <Icon name="person" size={25} color={tintColor} />
+            ),
             activeTintColor: 'black',
           }}>
             <Tab.Screen
