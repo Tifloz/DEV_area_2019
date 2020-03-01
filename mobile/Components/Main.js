@@ -38,18 +38,18 @@ export default class Main extends React.Component {
               component={Home}
               options={{
                 tabBarLabel: 'My Areas',
-                tabBarIcon: ({ tintColor }) => (
-                  <Icon name="albums" size={25} color={tintColor} />
-                ),
+                tabBarIcon: ({ focused }) => {
+                  return (focused) ? (<Icon name="albums" size={25} style={{color: 'black'}} />) : (<Icon name="albums" size={25} style={{color: 'grey'}}/>)
+                },
               }}/>
             <Tab.Screen
               name="New Area"
               component={New}
               options={{
                 tabBarLabel: 'New',
-                tabBarIcon: ({ tintColor }) => (
-                  <Icon name="add" size={25} color={tintColor} />
-                ),
+                tabBarIcon: ({ focused }) => {
+                  return (focused) ? (<Icon name="add" size={25} style={{color: 'black'}} />) : (<Icon name="add" size={25} style={{color: 'grey'}}/>)
+              },
               }}
             />
             <Tab.Screen
@@ -57,9 +57,9 @@ export default class Main extends React.Component {
               component={this.handleLogout}
               options={{
                 tabBarLabel: 'Quit',
-                tabBarIcon: ({ tintColor }) => (
-                  <Icon name="exit" size={25} color={tintColor} />
-                ),
+                tabBarIcon: ({ focused }) => {
+                  return (focused) ? (<Icon name="exit" size={25} style={{color: 'black'}} />) : (<Icon name="exit" size={25} style={{color: 'grey'}}/>)
+              },
               }}
             />
           </Tab.Navigator>
