@@ -4,8 +4,26 @@ const express = require('express') /** Framework used */
 const config = require(path.join(__dirname, './setup/env')) /** App setup */
 const router = require(path.join(__dirname, './setup/router')) /** Route gestion */
 const firebaseSetup = require(path.join(__dirname, './setup/firebase')) /** Firebase initialize */
-const swaggerUi = require('swagger-ui-express')
+const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./api.json');
+const cors = require('cors');
+
+/** Twitter require **/
+const passport = require('passport');
+const TwitterTokenStrategy = require('passport-twitter-token');
+
+/** Twitter keys **/
+const TWITTER_CONSUMER_KEY = "bXqO9wUB8OhAohA0ZFDS67B2I";
+const TWITTER_CONSUMER_SECRET = "cdcNS9TEfB4qJ2rsrjIP3eK5LfPPhHeQ5V9zzFx9pmjMFAI03P";
+
+/** Init passport for Twitter **/
+passport.use(new TwitterTokenStrategy({
+  consumerKey: TWITTER_CONSUMER_KEY,
+  consumerSecret: TWITTER_CONSUMER_SECRET,
+  includeEmail: true,
+}, function(token, tokenSecret, profile, done) {
+  done(null, profile);
+}));
 
 /**  setup firebase configuration */
 firebaseSetup.InitializeFirebase()
@@ -31,8 +49,17 @@ server.use(function(req, res, next) {
   next();
 });
 
+/** Define cors for Twitter **/
+const corsOption = {
+  origin: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  exposedHeaders: ['x-auth-token']
+};
+server.use(cors(corsOption));
+
 /** Route creation */
-router.InitializeRoutes(server)
+router.InitializeRoutes(server);
 
 /** Try to start server */
 server.listen(config.server.port, () => {

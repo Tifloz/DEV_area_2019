@@ -1,0 +1,4 @@
+#Fri Feb 28 16:01:32 CET 2020
+base.0=/home/georgio/Epitech/Tek3/AREA/NewApp/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

@@ -1,5 +1,4 @@
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
 import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
@@ -8,13 +7,8 @@ import Badge from '@material-ui/core/Badge';
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
 import LineWeightIcon from '@material-ui/icons/LineWeight';
 import api from '../api'
-import {Redirect} from "react-router-dom";
 
 export default class AreaAppBar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render = () => {
         const { classes } = this.props;
         return (
