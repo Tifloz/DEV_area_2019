@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import ReactJson from 'react-json-view';
-import BrowserRouter from "react-router-dom/modules/BrowserRouter";
-import Switch from "@material-ui/core/Switch";
-import Route from "react-router-dom/es/Route";
-import App from "../App";
 
-class AboutContent extends Component {
+class AboutContent extends React.Component {
     constructor(props) {
         super(props);
         document.title = 'About.json';
@@ -40,20 +36,8 @@ class AboutContent extends Component {
             },
         };
         return (
-            <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
-                <Switch>
-                    <Route path="/about.json" exact>
-                        <ReactJson src={jsonData}/>
-
-                    </Route>
-
-                    <Route>
-                        <App/>
-                    </Route>
-                </Switch>
-            </BrowserRouter>
+            <ReactJson src={jsonData}/>
         );
-
     }
 }
 
