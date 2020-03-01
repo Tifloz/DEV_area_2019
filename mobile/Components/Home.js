@@ -9,7 +9,8 @@ import { Card, CardItem, Body, Text } from 'native-base';
 
 //Exemple Cards
 let getCard = () => {
-  let card = (i) => (<Card key={i}>
+  let services = ['Twitter', 'Amazon', 'Facebook', 'Gmail', 'Outlook', 'Intra Epitech']
+  let card = (i, service) => (<Card key={i}>
     <CardItem header bordered>
       <Text>Area n°{i}</Text>
     </CardItem>
@@ -25,13 +26,13 @@ let getCard = () => {
       </Body>
     </CardItem>
     <CardItem footer bordered>
-      <Text>GeekyAnts</Text>
+      <Text>{service}</Text>
     </CardItem>
   </Card>);
   let res = [];
 
   for (let i = 1; i <= 10; i++ ) {
-    res.push(card(i));
+    res.push(card(i, services[Math.floor(Math.random() * Math.floor(services.length))]));
   }
   return res
 }
