@@ -29,25 +29,38 @@ export default class Main extends React.Component {
       <>
       <NavigationContainer>
           <Tab.Navigator
-            initialRouteName="My Areas"
-            tabBarOptions={{tabBarIcon: ({ tintColor }) => (
-              <Icon name="person" size={25} color={tintColor} />
-            ),
+            initialRouteName="MyAreas"
+            tabBarOptions={{
             activeTintColor: 'black',
           }}>
             <Tab.Screen
-              name="My Areas"
+              name="MyAreas"
               component={Home}
               options={{
-                tabBarLabel: 'My Areas'
+                tabBarLabel: 'My Areas',
+                tabBarIcon: ({ tintColor }) => (
+                  <Icon name="albums" size={25} color={tintColor} />
+                ),
               }}/>
             <Tab.Screen
               name="New Area"
               component={New}
+              options={{
+                tabBarLabel: 'My Areas',
+                tabBarIcon: ({ tintColor }) => (
+                  <Icon name="add" size={25} color={tintColor} />
+                ),
+              }}
             />
             <Tab.Screen
               name="quit"
               component={this.handleLogout}
+              options={{
+                tabBarLabel: 'My Areas',
+                tabBarIcon: ({ tintColor }) => (
+                  <Icon name="exit" size={25} color={tintColor} />
+                ),
+              }}
             />
           </Tab.Navigator>
       </NavigationContainer>
