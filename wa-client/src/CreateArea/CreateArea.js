@@ -33,9 +33,11 @@ class CreateArea extends React.Component {
     };
 
     handleSubmit = (e) => {
-        console.log(this.state);
         api.createArea(localStorage.token, this.state.actions, this.state.reactions).then(r => {
-            console.log(r);
+            this.setState({getMore: true});
+            alert('Area created');
+        }).catch(err => {
+            alert('Area creation failed');
         })
     };
 
