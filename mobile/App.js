@@ -8,6 +8,7 @@
 
 import React from 'react';
 
+import 'react-native-gesture-handler';
 import Login from './Components/Login';
 import Main from './Components/Main';
 
