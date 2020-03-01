@@ -20,7 +20,6 @@ export default class SignIn extends React.Component {
   }
 
   handleRedirect = () => {
-    console.log('handleRedirect');
     this.setState({
       redirect: true,
     })

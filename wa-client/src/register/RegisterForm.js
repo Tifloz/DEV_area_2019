@@ -30,7 +30,7 @@ export default class RegisterForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     api.signUp(this.state)
-      .then((result) => {
+      .then(() => {
         this.props.onRedirect();
       }).catch(reject => {
         this.setState({

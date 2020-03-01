@@ -128,7 +128,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.dev_epicture_2019"
+        applicationId "com.newapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

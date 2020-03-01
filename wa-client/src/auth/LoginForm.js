@@ -32,7 +32,6 @@ export default class LoginForm extends React.Component {
     e.preventDefault();
     api.signIn(this.state.email, this.state.password)
       .then((result) => {
-        console.log("TOKEN ? ===> " + JSON.stringify(result));
         localStorage.setItem('token', result.data.token);
         this.props.onRedirect();
       }).catch(reject => {
