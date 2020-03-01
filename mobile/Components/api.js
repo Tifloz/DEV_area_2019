@@ -1,8 +1,10 @@
 import axios from "axios";
+import AsyncStorage from '@react-native-community/async-storage';
+
 const headers = {
     "Content-Type": "application/json"
 };
-const burl = "http://localhost:8080";
+const burl = "http://192.168.43.137:8080";
 
 export default {
     signIn: function(email, password) {
@@ -56,8 +58,8 @@ export default {
         );
     },
 
-    getAreasByUserId: function() {
-        const user_id = localStorage.getItem("token");
+    getAreasByUserId: function(user_id) {
+        console.log(AsyncStorage.getItem("token"))
         return axios.get(
             `${burl}/user/${user_id}/areas`,
             {
@@ -82,10 +84,9 @@ export default {
     },
 
     isAuth: function() {
-        return localStorage.getItem("token") !== null;
+        return AsyncStorage.getItem("token") !== null;
     },
     logout: function() {
-        localStorage.clear();
-        window.location.reload();
+        AsyncStorage.clear();
     },
 };
