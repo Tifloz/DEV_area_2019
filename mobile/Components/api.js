@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const headers = {
     "Content-Type": "application/json"
 };
-const burl = "http://192.168.43.137:8080";
+const burl = "http://localhost:8080";
 
 export default {
     signIn: function(email, password) {
