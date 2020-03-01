@@ -40,6 +40,7 @@ export default function DialogSelect(props) {
 
   const handleChange = event => {
     setResult(event.target.value);
+    props.onValueChange(event)
   };
 
   const handleClickOpen = () => {
@@ -52,7 +53,7 @@ export default function DialogSelect(props) {
 
   const onTwitterSuccess = () => {
     setIsLogged(true);
-  }
+  };
 
   let content;
 
@@ -64,6 +65,7 @@ export default function DialogSelect(props) {
           <Select
             labelId="twitter_services"
             id="twitter_services"
+            name={props.type}
             value={result}
             onChange={handleChange}
             input={<Input />}

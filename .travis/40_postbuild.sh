@@ -13,7 +13,7 @@ fi
 
 WEBHOOK_DATA='{
   "username": "AREA",
-  "content": "@BuildNotify A new build has completed",
+  "content": "@everyone A new build has completed",
   "embeds": [ {
     "color": '$EMBED_COLOR',
     "author": {

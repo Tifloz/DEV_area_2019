@@ -43,6 +43,18 @@ export default {
                  headers: headers
             });
     },
+    createArea: function(userId, action, reaction) {
+        return axios.post(
+            `${burl}/user/${userId}/create-area`,
+            {
+              action: action,
+              reaction: reaction,
+            },
+            {
+              headers: headers
+            }
+        );
+    },
 
     getAreasByUserId: function() {
         const user_id = localStorage.getItem("token");
