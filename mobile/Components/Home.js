@@ -5,52 +5,68 @@ import {
 import api from './api';
 import styles from '../styles/Home';
 import { Card, CardItem, Body, Text } from 'native-base';
-import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-community/google-signin';
+import AsyncStorage from '@react-native-community/async-storage';
+import { act } from 'react-test-renderer';
+import { ThemeProvider } from '@react-navigation/native';
 
-//Exemple Cards
-let getCard = () => {
-  let services = ['Twitter', 'Amazon', 'Facebook', 'Gmail', 'Outlook', 'Intra Epitech']
-  let card = (i, service) => (<Card key={i}>
-    <CardItem header bordered>
-      <Text>Area n°{i}</Text>
-    </CardItem>
-    <CardItem bordered>
-      <Body>
-        <View>
-          <Text>
-            NativeBase is a free and open source framework that enable
-            developers to build
-            high-quality mobile apps using React Native iOS and Android
-            apps
-            with a fusion of ES6.
-          </Text>
-            <View style={{alignItems: 'center', }}>
-              <GoogleSigninButton
-                style={{ width: 192, height: 60 }}
-                size={GoogleSigninButton.Size.Wide}
-                color={GoogleSigninButton.Color.Dark}
-                onPress={() => {console.log('ok')}}
-              />
-            </View>
-          </View>
-      </Body>
-    </CardItem>
-    <CardItem footer bordered>
-      <Text>{service}</Text>
-    </CardItem>
-  </Card>);
-  let res = [];
-
-  for (let i = 1; i <= 10; i++ ) {
-    res.push(card(i, services[Math.floor(Math.random() * Math.floor(services.length))]));
-  }
-  return res
+async function getToken() {
+  const token = await AsyncStorage.getItem('token')
+  return token
 }
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class Home extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      areas: []
+    }
+  }
+
+  getAreaCard(i, id, action, aservice, reaction, rservice) {
+    let card =  <Card key={id}>
+                  <CardItem header bordered>
+                    <Text>Area n°{i}</Text>
+                  </CardItem>
+                  <CardItem bordered>
+                    <Body>
+                      <Text>
+                        Action: {action} [{aservice}]{"\n"}
+                        Reaction: {reaction} [{rservice}]
+                      </Text>
+                    </Body>
+                  </CardItem>
+                  <CardItem footer bordered>
+                    <Text>{id}</Text>
+                  </CardItem>
+                </Card>
+    return card
+  }
+
+  componentDidMount() {
+    let areas = [];
+    let i = 1;
+
+    getToken().then((token) => {
+      api.getAreasByUserId(token).then((result) => {
+        if (!result)
+          return 0;
+        console.log('action: ' + result.data[0].event.action)
+        console.log('service: ' + result.data[0].event.service)
+        console.log('reaction: ' + result.data[0].trigger.reaction)
+        console.log('service: ' + result.data[0].trigger.service)
+        result.data.forEach(area => {
+          console.log('new area')
+          console.log(area)
+          areas.push(this.getAreaCard(i, area.id, area.event.action, area.event.service, area.trigger.reaction, area.trigger.service));
+          i++;
+        })
+        this.setState({areas: areas})
+      }
+      ).catch((error) => {
+        console.log(error)
+      })
+    });
   }
 
   render() {
@@ -67,7 +83,7 @@ export default class Home extends React.Component {
         </View>
         <View style={{ marginTop: 5, flexDirection: 'column', flex: 1}}>
           <ScrollView style={{ marginHorizontal: 5, flexDirection: 'column'}}>
-            {getCard()}
+            { this.state.areas }
           </ScrollView>
         </View>
       </>

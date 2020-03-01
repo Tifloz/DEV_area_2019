@@ -158,6 +158,8 @@ exports.createUserArea = (req, res) => {
       return data.result(res, 400, "User not existing")
     let area = {
       "user_id": req.params.user_id,
+      "name": "Area Twitter",
+      "img": servicesJson.twitter.logo,
       "event": {
         "service": "Twitter",
         "action": req.body.action,
@@ -167,7 +169,7 @@ exports.createUserArea = (req, res) => {
         "reaction": req.body.reaction,
       }
     }
-    database.createDocument('Area', null, area)
+    database.createDocument('Area', undefined, area)
     return data.result(res, 200, {'message': 'Areas successfully created'})
   }).catch((e) => {
     console.log('error: createAreas: ', e.message)
