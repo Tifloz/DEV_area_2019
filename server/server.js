@@ -7,7 +7,6 @@ const firebaseSetup = require(path.join(__dirname, './setup/firebase')) /** Fire
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./api.json');
 const cors = require('cors');
-
 /** Twitter require **/
 const passport = require('passport');
 const TwitterTokenStrategy = require('passport-twitter-token');
