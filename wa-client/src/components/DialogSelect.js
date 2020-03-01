@@ -44,7 +44,6 @@ export default function DialogSelect(props) {
   };
 
   const handleClickOpen = () => {
-    console.log(services[props.type]);
     setOpen(true);
   };
 
@@ -57,6 +56,7 @@ export default function DialogSelect(props) {
   };
 
   let content;
+  let count = 0;
 
   if (isLogged && services)
     content =
@@ -75,7 +75,7 @@ export default function DialogSelect(props) {
               <em>None</em>
             </MenuItem>
             { Object.keys(services[props.type]).map(key => (
-              <MenuItem value={services[props.type][key].value}>{services[props.type][key].label}</MenuItem>
+              <MenuItem key={count++} value={services[props.type][key].value}>{services[props.type][key].label}</MenuItem>
             ))}
           </Select>
         </FormControl>

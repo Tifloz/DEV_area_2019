@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactJson from 'react-json-view';
 
 class AboutContent extends React.Component {
