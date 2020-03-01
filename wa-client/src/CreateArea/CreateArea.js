@@ -10,7 +10,6 @@ import AreaAppBar from "../components/AppBar";
 import AreaFooter from "../components/Footer";
 import api from "../api";
 import DialogSelect from "../components/DialogSelect";
-import TwitterAuth from "../auth/TwitterAuth";
 
 class CreateArea extends React.Component {
 
