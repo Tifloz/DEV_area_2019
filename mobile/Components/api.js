@@ -1,11 +1,8 @@
 import axios from "axios";
-import AsyncStorage from '@react-native-community/async-storage';
-
 const headers = {
-    'Accept': 'application/json',
     "Content-Type": "application/json"
 };
-const burl = "http://192.168.43.137:8080";
+const burl = "http://localhost:8080";
 
 export default {
     signIn: function(email, password) {
@@ -46,9 +43,21 @@ export default {
                  headers: headers
             });
     },
+    createArea: function(userId, action, reaction) {
+        return axios.post(
+            `${burl}/user/${userId}/create-area`,
+            {
+              action: action,
+              reaction: reaction,
+            },
+            {
+              headers: headers
+            }
+        );
+    },
 
     getAreasByUserId: function() {
-        const user_id = AsyncStorage.getItem("token");
+        const user_id = localStorage.getItem("token");
         return axios.get(
             `${burl}/user/${user_id}/areas`,
             {
@@ -73,9 +82,10 @@ export default {
     },
 
     isAuth: function() {
-        return AsyncStorage.getItem("token") !== null;
+        return localStorage.getItem("token") !== null;
     },
     logout: function() {
-        AsyncStorage.clear();
+        localStorage.clear();
+        window.location.reload();
     },
 };
