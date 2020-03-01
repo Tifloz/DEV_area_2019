@@ -11,6 +11,7 @@ import AddIcon from '@material-ui/icons/AddBox';
 import AreaAppBar from "../components/AppBar";
 import AreaFooter from "../components/Footer";
 import api from "../api";
+import DialogSelect from "../components/DialogSelect";
 
 class CreateArea extends React.Component {
 
@@ -42,7 +43,7 @@ class CreateArea extends React.Component {
                 <main>
                     {/* Hero unit */}
                     <div>
-                        <Container maxWidth="sm">
+                        <Container maxWidth="sm" >
                             <Typography component="h1" variant="h2" align="center" className={classes.title} gutterBottom>
                                 Create your own.
                             </Typography>
@@ -53,23 +54,33 @@ class CreateArea extends React.Component {
                                 <Typography component="h1" variant="h2"  color="textPrimary" gutterBottom className={classes.typo}>
                                     IF
                                 </Typography>
-                                <Button
-                                    align="left"
-                                    startIcon={<AddIcon style={{ fontSize: '90px' }}/>}
-                                    className={classes.typo}
-                                >
-                                    THIS
-                                </Button>
+                                <DialogSelect
+                                  value={"THIS"}
+                                  type={"actions"}
+                                />
+                                {/*<TransitionsModal value={"THIS"}/>*/}
+                                {/*<Button*/}
+                                {/*    align="left"*/}
+                                {/*    startIcon={<AddIcon style={{ fontSize: '90px' }}/>}*/}
+                                {/*    className={classes.typo}*/}
+                                {/*>*/}
+                                {/*    THIS*/}
+                                {/*</Button>*/}
                                 <Typography component="h1" variant="h2" align="left" color="textPrimary" gutterBottom className={classes.typo}>
                                     THEN
                                 </Typography>
-                                <Button
-                                    align="left"
-                                    startIcon={<AddIcon style={{ fontSize: '90px' }}/>}
-                                    className={classes.typo}
-                                >
-                                    THAT
-                                </Button>
+                                <DialogSelect
+                                  value={"THAT"}
+                                  type={"reactions"}
+                                />
+                                {/*<TransitionsModal value={"THAT"}/>*/}
+                                {/*<Button*/}
+                                {/*    align="left"*/}
+                                {/*    startIcon={<AddIcon style={{ fontSize: '90px' }}/>}*/}
+                                {/*    className={classes.typo}*/}
+                                {/*>*/}
+                                {/*    THAT*/}
+                                {/*</Button>*/}
                             </div>
 
 
@@ -81,7 +92,7 @@ class CreateArea extends React.Component {
                                         </Button>
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="contained" color="success" onClick={ this.getMore }>
+                                        <Button variant="contained" onClick={ this.getMore }>
                                             Validate
                                         </Button>
                                     </Grid>
