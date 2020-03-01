@@ -9,30 +9,27 @@
     "test": "jest"
   },
   "dependencies": {
-    "expo-cli": "^3.13.1",
-    "global": "^4.4.0",
+    "@react-native-community/async-storage": "^1.8.1",
+    "@react-navigation/bottom-tabs": "^5.1.0",
+    "@react-navigation/native": "^5.0.8",
+    "axios": "^0.19.2",
     "native-base": "^2.13.8",
     "react": "16.8.1",
     "react-native": "0.61.2",
-    "react-native-elements": "^1.2.7",
+    "react-native-async-storage": "0.0.1",
     "react-native-gesture-handler": "^1.6.0",
-    "react-native-google-signin": "^2.1.1",
     "react-native-reanimated": "^1.7.0",
+    "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.2.0",
-    "react-native-webview": "^7.6.0",
-    "react-navigation": "^4.2.2",
-    "react-navigation-tabs": "^2.8.2",
-    "redux": "^4.0.5"
+    "react-native-vector-icons": "^6.6.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/runtime": "^7.8.4",
+    "@babel/core": "^7.5.0",
+    "@babel/runtime": "^7.5.0",
     "@react-native-community/eslint-config": "^0.0.3",
-    "axios": "^0.19.2",
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
     "metro-react-native-babel-preset": "^0.51.1",
-    "react-navigation-stack": "^1.10.3",
     "react-test-renderer": "16.8.1"
   },
   "jest": {
