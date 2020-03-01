@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import AddIcon from "@material-ui/icons/AddBox";
 import { createAreaStyles } from "../styles/styles";
 import api from "../api";
+import TwitterAuth from "../auth/TwitterAuth";
 
 export default function DialogSelect(props) {
   const classes = createAreaStyles();
@@ -19,6 +20,7 @@ export default function DialogSelect(props) {
   const [result, setResult] = React.useState('');
   const [name, setName] = React.useState('');
   const [services, setServices] = React.useState(null);
+  const [isLogged, setIsLogged] = React.useState(false);
 
   React.useEffect(() => {
     api.getAllServices().then((res) => {
@@ -28,6 +30,13 @@ export default function DialogSelect(props) {
       console.log(err)
     })
   }, []);
+
+  React.useEffect(() => {
+    if (localStorage.twitter_token)
+      setIsLogged(true);
+    else
+      setIsLogged(false);
+  });
 
   const handleChange = event => {
     setResult(event.target.value);
@@ -40,6 +49,31 @@ export default function DialogSelect(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  let content;
+
+  if (isLogged && services)
+    content =
+      <form className={classes.container}>
+        <FormControl className={classes.formControl}>
+          <InputLabel id="twitter_services">{props.type}</InputLabel>
+          <Select
+            labelId="twitter_services"
+            id="twitter_services"
+            value={result}
+            onChange={handleChange}
+            input={<Input />}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={services[props.type][0].value}>{services[props.type][0].label}</MenuItem>
+            <MenuItem value={services[props.type][1].value}>{services[props.type][1].label}</MenuItem>
+          </Select>
+        </FormControl>
+      </form>;
+  else
+    content = <TwitterAuth/>;
 
   return (
     <div>
@@ -54,36 +88,17 @@ export default function DialogSelect(props) {
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>{name}</DialogTitle>
         <DialogContent>
-          { services &&
-          <form className={classes.container}>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="twitter_services">{props.type}</InputLabel>
-              <Select
-                labelId="twitter_services"
-                id="twitter_services"
-                value={result}
-                onChange={handleChange}
-                input={<Input />}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={services[props.type][0].value}>{services[props.type][0].label}</MenuItem>
-                <MenuItem value={services[props.type][1].value}>{services[props.type][1].label}</MenuItem>
-              </Select>
-            </FormControl>
-          </form>
-          }
+          {content}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Ok
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <DialogActions>
+      <Button onClick={handleClose} color="primary">
+        Cancel
+      </Button>
+      <Button onClick={handleClose} color="primary">
+        Ok
+      </Button>
+    </DialogActions>
+        </Dialog>
+      </div>
   );
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -7,11 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom"
-import AddIcon from '@material-ui/icons/AddBox';
 import AreaAppBar from "../components/AppBar";
 import AreaFooter from "../components/Footer";
 import api from "../api";
 import DialogSelect from "../components/DialogSelect";
+import TwitterAuth from "../auth/TwitterAuth";
 
 class CreateArea extends React.Component {
 
@@ -58,14 +57,7 @@ class CreateArea extends React.Component {
                                   value={"THIS"}
                                   type={"actions"}
                                 />
-                                {/*<TransitionsModal value={"THIS"}/>*/}
-                                {/*<Button*/}
-                                {/*    align="left"*/}
-                                {/*    startIcon={<AddIcon style={{ fontSize: '90px' }}/>}*/}
-                                {/*    className={classes.typo}*/}
-                                {/*>*/}
-                                {/*    THIS*/}
-                                {/*</Button>*/}
+                                {/*<TwitterAuth/>*/}
                                 <Typography component="h1" variant="h2" align="left" color="textPrimary" gutterBottom className={classes.typo}>
                                     THEN
                                 </Typography>
@@ -73,17 +65,7 @@ class CreateArea extends React.Component {
                                   value={"THAT"}
                                   type={"reactions"}
                                 />
-                                {/*<TransitionsModal value={"THAT"}/>*/}
-                                {/*<Button*/}
-                                {/*    align="left"*/}
-                                {/*    startIcon={<AddIcon style={{ fontSize: '90px' }}/>}*/}
-                                {/*    className={classes.typo}*/}
-                                {/*>*/}
-                                {/*    THAT*/}
-                                {/*</Button>*/}
                             </div>
-
-
                             <div className={classes.heroButtons}>
                                 <Grid container spacing={2} justify="center">
                                     <Grid item>
