@@ -1,44 +1,70 @@
 import React from 'react';
-import axios from 'axios';
-import { Header, Title } from 'native-base';
 import {
-  Text, View,
+  Text, View, Button, StatusBar
 } from 'react-native';
+import api from './api';
+import Home from './Home';
+import New from './New';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {Icon} from 'native-base'
 
+const Tab = createBottomTabNavigator(); 
+
+// eslint-disable-next-line react/prefer-stateless-function
 export default class Main extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      persons: {}
-    };
+  constructor(props) {
+    super(props)
   }
-  async componentDidMount() {
-    try {
-      const persons = await axios.get(
-        'https://api.imgur.com/3/gallery/hot/viral/day/1?showViral={{showViral}}&mature={{showMature}}&album_previews={{albumPreviews}}', {
-          'headers': {
-            'Authorization': 'Client-ID 4024d2a2fe8e4ce'
-          }
-        });
-      this.setState({ persons: persons.data.data });
-    }
-    catch {
-    }
+
+  handleLogout = () => {
+    api.logout()
+    this.props.onLogoutPress()
+    return (<View></View>)
   }
 
   render() {
-    return(
-      <View>
-        <Header>
-          <Title style={styles.title}>AREA</Title>
-        </Header>
-      </View>
+    return (
+      // eslint-disable-next-line react/jsx-filename-extension
+      <>
+      <NavigationContainer>
+          <Tab.Navigator
+            initialRouteName="MyAreas"
+            tabBarOptions={{
+            activeTintColor: 'black',
+          }}>
+            <Tab.Screen
+              name="MyAreas"
+              component={Home}
+              options={{
+                tabBarLabel: 'My Areas',
+                tabBarIcon: ({ focused }) => {
+                  return (focused) ? (<Icon name="albums" size={25} style={{color: 'black'}} />) : (<Icon name="albums" size={25} style={{color: 'grey'}}/>)
+                },
+              }}/>
+            <Tab.Screen
+              name="New Area"
+              component={New}
+              options={{
+                tabBarLabel: 'New',
+                tabBarIcon: ({ focused }) => {
+                  return (focused) ? (<Icon name="add" size={25} style={{color: 'black'}} />) : (<Icon name="add" size={25} style={{color: 'grey'}}/>)
+              },
+              }}
+            />
+            <Tab.Screen
+              name="quit"
+              component={this.handleLogout}
+              options={{
+                tabBarLabel: 'Quit',
+                tabBarIcon: ({ focused }) => {
+                  return (focused) ? (<Icon name="exit" size={25} style={{color: 'black'}} />) : (<Icon name="exit" size={25} style={{color: 'grey'}}/>)
+              },
+              }}
+            />
+          </Tab.Navigator>
+      </NavigationContainer>
+      </>
     );
   }
 }
-
-const styles = {
-  title: {
-    marginTop: 13,
-  }
-};

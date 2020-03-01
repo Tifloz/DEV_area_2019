@@ -1,4 +1,4 @@
-package com.newapp;
+package com.dev_area_2019;
 
 import android.app.Application;
 import android.content.Context;
