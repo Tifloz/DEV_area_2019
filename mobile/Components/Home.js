@@ -16,19 +16,23 @@ let getCard = () => {
     </CardItem>
     <CardItem bordered>
       <Body>
-        <Text>
-          NativeBase is a free and open source framework that enable
-          developers to build
-          high-quality mobile apps using React Native iOS and Android
-          apps
-          with a fusion of ES6.
-        </Text>
-          <GoogleSigninButton
-            style={{ width: 192, height: 52 }}
-            size={GoogleSigninButton.Size.Wide}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={() => {console.log('ok')}}
-          />
+        <View>
+          <Text>
+            NativeBase is a free and open source framework that enable
+            developers to build
+            high-quality mobile apps using React Native iOS and Android
+            apps
+            with a fusion of ES6.
+          </Text>
+            <View style={{alignItems: 'center', }}>
+              <GoogleSigninButton
+                style={{ width: 192, height: 60 }}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Dark}
+                onPress={() => {console.log('ok')}}
+              />
+            </View>
+          </View>
       </Body>
     </CardItem>
     <CardItem footer bordered>
