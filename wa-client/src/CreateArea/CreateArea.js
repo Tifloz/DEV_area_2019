@@ -57,7 +57,6 @@ class CreateArea extends React.Component {
                                   value={"THIS"}
                                   type={"actions"}
                                 />
-                                {/*<TwitterAuth/>*/}
                                 <Typography component="h1" variant="h2" align="left" color="textPrimary" gutterBottom className={classes.typo}>
                                     THEN
                                 </Typography>
