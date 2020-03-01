@@ -17,11 +17,26 @@ class CreateArea extends React.Component {
         super(props);
         this.state = {
             getMore: false,
+            actions: "",
+            reactions: "",
         };
     }
 
     getMore = (e) => {
         this.setState({getMore : true});
+    };
+
+    handleValueChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    handleSubmit = (e) => {
+        console.log(this.state);
+        api.createArea(localStorage.token, this.state.actions, this.state.reactions).then(r => {
+            console.log(r);
+        })
     };
 
     render() {
@@ -55,6 +70,7 @@ class CreateArea extends React.Component {
                                 <DialogSelect
                                   value={"THIS"}
                                   type={"actions"}
+                                  onValueChange={this.handleValueChange}
                                 />
                                 <Typography component="h1" variant="h2" align="left" color="textPrimary" gutterBottom className={classes.typo}>
                                     THEN
@@ -62,6 +78,7 @@ class CreateArea extends React.Component {
                                 <DialogSelect
                                   value={"THAT"}
                                   type={"reactions"}
+                                  onValueChange={this.handleValueChange}
                                 />
                             </div>
                             <div className={classes.heroButtons}>
@@ -72,7 +89,7 @@ class CreateArea extends React.Component {
                                         </Button>
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="contained" onClick={ this.getMore }>
+                                        <Button variant="contained" onClick={ this.handleSubmit }>
                                             Validate
                                         </Button>
                                     </Grid>
