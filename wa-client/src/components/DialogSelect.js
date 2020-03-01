@@ -50,6 +50,10 @@ export default function DialogSelect(props) {
     setOpen(false);
   };
 
+  const onTwitterSuccess = () => {
+    setIsLogged(true);
+  }
+
   let content;
 
   if (isLogged && services)
@@ -73,7 +77,7 @@ export default function DialogSelect(props) {
         </FormControl>
       </form>;
   else
-    content = <TwitterAuth/>;
+    content = <TwitterAuth handleSuccess={onTwitterSuccess}/>;
 
   return (
     <div>

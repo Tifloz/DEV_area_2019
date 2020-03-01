@@ -1,7 +1,7 @@
 import React from "react";
 import TwitterLogin from "react-twitter-auth"
 
-export default function TwitterAuth() {
+export default function TwitterAuth(props) {
   const [token, setToken] = React.useState("");
   const [user, setUser] = React.useState(null);
 
@@ -13,6 +13,7 @@ export default function TwitterAuth() {
         setToken(token);
         setUser(user);
       }
+      props.handleSuccess()
     });
   };
 
