@@ -157,17 +157,13 @@ exports.createUserArea = (req, res) => {
     if (user === null)
       return data.result(res, 400, "User not existing")
     let area = {
-      "name": req.body.area_name,
-      "description": req.body.description,
       "user_id": req.params.user_id,
       "event": {
-        "service": req.body.service_action,
-        "logo": servicesJson[req.body.service_action]["url"],
+        "service": "Twitter",
         "action": req.body.action,
       },
       "trigger": {
-        "logo": servicesJson[req.body.service_trigger]["url"],
-        "service": req.body.service_trigger,
+        "service": "Mail",
         "reaction": req.body.reaction,
       }
     }
