@@ -1,6 +1,7 @@
 const database = require('./database.js')
 let data = require('./data.js')
 const servicesJson = require('../services.json');
+var nodemailer = require('nodemailer');
 
 /**
  * @returns {status} json response
@@ -151,6 +152,48 @@ exports.getUserAreaEvent = (req, res) => {
     })
 }
 
+exports.sendMail = (email, event) => {
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'testdelarea@gmail.com',
+      pass: 'EPITECH59'
+    }
+  });
+  var mailOptions = {
+    from: 'testdelarea',
+    to: email,
+    subject: 'Your event was triggered: ' + event,
+    text: 'Go to check it!'
+  };
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}
+
+exports.addListenerWebhook = (email, userActivityWebhook) => {
+  userActivityWebhook.subscribe({
+      userId: '[TWITTER USER ID]',
+      accessToken: '[TWITTER USER ACCESS TOKEN]',
+      accessTokenSecret: '[TWITTER USER ACCESS TOKEN SECRET]'
+  })
+  .then(function (userActivity) {
+      userActivity
+      .on('favorite', (data) => sendMail(email, "favorite"))
+      .on ('tweet_create', (data) => sendMail(email, "a tweet was created"))
+      .on ('follow', (data) => sendMail(email, "you have been followed"))
+      .on ('mute', (data) => sendMail(email, "a mute occur"))
+      .on ('revoke', (data) => sendMail(email, "a revoke occur"))
+      .on ('direct_message', (data) => sendMail(email, "a message was received"))
+      .on ('direct_message_indicate_typing', (data) => sendMail(email, "somebody want to talks to u"))
+      .on ('direct_message_mark_read', (data) => sendMail(email, "She read your message .. but not answered"))
+      .on ('tweet_delete', (data) => sendMail(email, "your tweet was deleted"))
+  });
+}
 exports.createUserArea = (req, res) => {
   database.getDocument('User', req.params.user_id)
   .then((user) => {
