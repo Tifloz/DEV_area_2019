@@ -2,6 +2,7 @@ const database = require('./database.js')
 let data = require('./data.js')
 const servicesJson = require('../services.json');
 var nodemailer = require('nodemailer');
+const twitterWebhooks = require('twitter-webhooks');
 
 /**
  * @returns {status} json response
@@ -152,6 +153,25 @@ exports.getUserAreaEvent = (req, res) => {
     })
 }
 
+
+exports.getTwitterHook = () => {
+    const TWITTER_CONSUMER_KEY = "bXqO9wUB8OhAohA0ZFDS67B2I";
+    const TWITTER_CONSUMER_SECRET = "cdcNS9TEfB4qJ2rsrjIP3eK5LfPPhHeQ5V9zzFx9pmjMFAI03P";
+    const ACCESS_TOKEN =  "1233426003965497345-NC2RmcotSlzDFDf0Jda4gYxzS0na9r"
+    const ACCESS_TOKEN_SECRET = "pofcQJAPuv5LeTKfJLLD8HICVQenyJyHAZMo7uCLxQPOq"
+    const url = "https://45560951.ngrok.io"
+    const userActivityWebhook = twitterWebhooks.userActivity({
+        serverUrl: url,
+        route: url + '/auth/twitter-hook',
+        consumerKey: TWITTER_CONSUMER_KEY,
+        consumerSecret: TWITTER_CONSUMER_SECRET,
+        accessToken: ACCESS_TOKEN,
+        accessTokenSecret: ACCESS_TOKEN_SECRET,
+        environment: '../.env'
+    });
+    return userActivityWebhook
+}
+
 exports.sendMail = (email, event) => {
   var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -175,23 +195,20 @@ exports.sendMail = (email, event) => {
   });
 }
 
-exports.addListenerWebhook = (email, userActivityWebhook) => {
+exports.addListenerTwitter = (email, action, twitterUser) => {
+  twitterUser = []
+  twitterUser['userId'] = req.body.userId
+  twitterUser['accessToken'] = req.body.accessToken
+  twitterUser['accessTokenSecret'] = req.body.accessTokenSecret
+  userActivityWebhook = this.getTwitterHook()
   userActivityWebhook.subscribe({
-      userId: '[TWITTER USER ID]',
-      accessToken: '[TWITTER USER ACCESS TOKEN]',
-      accessTokenSecret: '[TWITTER USER ACCESS TOKEN SECRET]'
+      userId: twitterUser['userId'],
+      accessToken: twitterUser['accessToken'],
+      accessTokenSecret: twitterUser['accessTokenSecret']
   })
   .then(function (userActivity) {
       userActivity
-      .on('favorite', (data) => sendMail(email, "favorite"))
-      .on ('tweet_create', (data) => sendMail(email, "a tweet was created"))
-      .on ('follow', (data) => sendMail(email, "you have been followed"))
-      .on ('mute', (data) => sendMail(email, "a mute occur"))
-      .on ('revoke', (data) => sendMail(email, "a revoke occur"))
-      .on ('direct_message', (data) => sendMail(email, "a message was received"))
-      .on ('direct_message_indicate_typing', (data) => sendMail(email, "somebody want to talks to u"))
-      .on ('direct_message_mark_read', (data) => sendMail(email, "She read your message .. but not answered"))
-      .on ('tweet_delete', (data) => sendMail(email, "your tweet was deleted"))
+      .on(action, (data) => sendMail(email, "event: " + action))
   });
 }
 exports.createUserArea = (req, res) => {
@@ -213,6 +230,13 @@ exports.createUserArea = (req, res) => {
       }
     }
     database.createDocument('Area', undefined, area)
+    // if (count(req.body) > 5) {
+    //   twitterUser = []
+    //   twitterUser['userId'] = req.body.userId
+    //   twitterUser['accessToken'] = req.body.accessToken
+    //   twitterUser['accessTokenSecret'] = req.body.accessTokenSecret
+    //   this.addListenerTwitter(user['email'], req.body.action, twitterUser)
+    // }
     return data.result(res, 200, {'message': 'Areas successfully created'})
   }).catch((e) => {
     console.log('error: createAreas: ', e.message)

@@ -14,6 +14,7 @@ const TwitterTokenStrategy = require('passport-twitter-token');
 /** Twitter keys **/
 const TWITTER_CONSUMER_KEY = "bXqO9wUB8OhAohA0ZFDS67B2I";
 const TWITTER_CONSUMER_SECRET = "cdcNS9TEfB4qJ2rsrjIP3eK5LfPPhHeQ5V9zzFx9pmjMFAI03P";
+// const twitter = require('./setup/twitter')
 
 /** Init passport for Twitter **/
 passport.use(new TwitterTokenStrategy({
@@ -31,6 +32,7 @@ firebaseSetup.InitializeFirebase()
 const server = express()
 
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// twitter.registerActivityWebhook(server)
 
 /** define CORS */
 // Définition des CORS
