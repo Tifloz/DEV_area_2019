@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from "@material-ui/icons/AddBox";
 import { createAreaStyles } from "../styles/styles";
-import TwitterService from "../createArea/TwitterService";
+import TwitterService from "../CreateArea/TwitterService";
 
 export default function DialogSelect(props) {
   const classes = createAreaStyles();

@@ -41,22 +41,21 @@ function App() {
             }}
             />
 
-        <Route exact path="/createArea" component={() => {
-          return (
-            <CreateArea classes={createAreaClasses}/>
-          )
-        }}
-        />
+            <Route exact path="/createArea" component={() => {
+                return (
+                    <CreateArea classes={createAreaClasses}/>
+                )
+            }}
+            />
 
-        <Route exact path="/about" component={() => {
-          return (
-            <AboutContent/>
-          )
-        }}
-        />
-
-      </Router>
-  );
+            <Route exact path="/about" component={() => {
+              return (
+                <AboutContent/>
+              )
+            }}
+            />
+        </Router>
+    );
 }
 
 export default App;

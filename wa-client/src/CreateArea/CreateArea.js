@@ -31,7 +31,6 @@ class CreateArea extends React.Component {
                 isLogged: true
             })
         }).catch(err => {
-            alert(err.data.err);
             this.setState({
                 isLogged: false
             })
@@ -43,14 +42,12 @@ class CreateArea extends React.Component {
     };
 
     handleValueChange = (e) => {
-        console.log(e.target);
         this.setState({
             [e.target.name]: e.target.value,
         });
     };
 
     handleSubmit = (e) => {
-        console.log(this.state);
         if (this.state.actions !== "" && this.state.reactions !== "") {
             api.createArea(localStorage.token, this.state.actions, this.state.reactions).then(r => {
                 this.setState({getMore: true});

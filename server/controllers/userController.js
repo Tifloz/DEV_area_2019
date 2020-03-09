@@ -290,5 +290,5 @@ exports.getCurrentUser = (req, res) => {
       console.log(err)
     })
   } else
-    return data.result(res, 200, {err: 'No user signed in'})
+    return data.result(res, 400, {err: 'No user signed in'})
 }

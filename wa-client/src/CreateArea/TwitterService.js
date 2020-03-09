@@ -17,11 +17,8 @@ export default function TwitterService(props) {
 
   React.useEffect(() => {
     if (props.user && props.user.twitter_token !== "") {
-      console.log(props.user);
       setIsLogged(true);
       api.getAllServices().then((res) => {
-        // setName(res.data.twitter.name);
-        console.log(res);
         setServices(res.data.twitter);
       }).catch((err) => {
         console.log(err)
