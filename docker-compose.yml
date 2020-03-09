@@ -19,6 +19,10 @@ services:
     depends_on:
       - client_mobile
       - server
+    volumes:
+      - /app/node_modules
+      - ./wa-client:/app
+      - apk:/var/www/:ro
     ports:
       - "8081:8081"
     logging:
@@ -30,8 +34,7 @@ services:
   client_mobile:
     build: mobile
     volumes:
-      - ./:/client
-      - /client/node_modules
+      - apk:/usr/src/app/android/app/build/outputs/apk/:rw
     logging:
       driver: "json-file"
       options:
@@ -40,6 +43,6 @@ services:
     restart: on-failure
 
 volumes:
-  client:
+  apk:
 networks:
   main:
