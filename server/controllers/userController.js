@@ -254,6 +254,13 @@ exports.getUserArea = (req, res) =>  {
     })
 }
 
+exports.deleteUserArea = (req, res) =>  {
+  let area_id = req.params.area_id;
+
+  database.deleteDocument("Area", req.body.area_id);
+  return data.result(res, 200, {msg: 'area_deleted'})
+}
+
 exports.getUserTwitterToken = (req, res) =>
 {
   database.getDocument('User', req.params.user_id).then((user) => {
