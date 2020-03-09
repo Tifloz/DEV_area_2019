@@ -3,7 +3,7 @@ import React from 'react';
 import Dashboard from './dashboard/Dashboard';
 import SignIn from "./auth/AuthPage";
 import SignUp from "./register/RegisterPage";
-import CreateArea from "./CreateArea/CreateArea";
+import CreateArea from "./createArea/CreateArea";
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import AboutContent from './components/AboutContent'
 import { authStyles, dashboardStyles, createAreaStyles } from "./styles/styles"

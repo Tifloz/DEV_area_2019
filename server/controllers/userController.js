@@ -272,3 +272,16 @@ exports.putUserTwitterToken = (req, res) => {
       return data.result(res, 200, "User twitter token updated")
     })
 }
+
+exports.getCurrentUser = (req, res) => {
+  const user = database.currentUser();
+
+  if (user) {
+    database.getDocument('User', user.uid).then(userInfos => {
+      return data.result(res, 200, {user: userInfos})
+    }).catch(err => {
+      console.log(err)
+    })
+  } else
+    return data.result(res, 200, {err: 'No user signed in'})
+}

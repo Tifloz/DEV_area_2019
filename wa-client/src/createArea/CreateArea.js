@@ -19,7 +19,23 @@ class CreateArea extends React.Component {
             getMore: false,
             actions: "",
             reactions: "",
+            user: null,
+            isLogged: true,
         };
+    }
+
+    componentDidMount() {
+        api.getCurrentUser().then(res => {
+            this.setState({
+                user: res.data.user ? res.data.user : null,
+                isLogged: true
+            })
+        }).catch(err => {
+            alert(err.data.err);
+            this.setState({
+                isLogged: false
+            })
+        })
     }
 
     getMore = (e) => {
@@ -27,12 +43,14 @@ class CreateArea extends React.Component {
     };
 
     handleValueChange = (e) => {
+        console.log(e.target);
         this.setState({
             [e.target.name]: e.target.value,
         });
     };
 
     handleSubmit = (e) => {
+        console.log(this.state);
         if (this.state.actions !== "" && this.state.reactions !== "") {
             api.createArea(localStorage.token, this.state.actions, this.state.reactions).then(r => {
                 this.setState({getMore: true});
@@ -48,12 +66,11 @@ class CreateArea extends React.Component {
     render() {
         const { classes } = this.props;
 
-        if (this.state.getMore) {
-            return <Redirect to='/dashboard'/>;
-        }
-        if (!api.isAuth()) {
+        if (this.state.getMore)
+            return <Redirect to={'/dashboard'}/>;
+
+        if (!this.state.isLogged)
             return (<Redirect to={"/"}/>);
-        }
 
         return (
             <React.Fragment>
@@ -77,6 +94,7 @@ class CreateArea extends React.Component {
                                   value={"THIS"}
                                   type={"actions"}
                                   onValueChange={this.handleValueChange}
+                                  user={this.state.user}
                                 />
                                 <Typography component="h1" variant="h2" align="left" color="textPrimary" gutterBottom className={classes.typo}>
                                     THEN
@@ -85,6 +103,7 @@ class CreateArea extends React.Component {
                                   value={"THAT"}
                                   type={"reactions"}
                                   onValueChange={this.handleValueChange}
+                                  user={this.state.user}
                                 />
                             </div>
                             <div className={classes.heroButtons}>

@@ -9,6 +9,17 @@ import LineWeightIcon from '@material-ui/icons/LineWeight';
 import api from '../api'
 
 export default class AreaAppBar extends React.Component {
+    handleLogout = () => {
+        api.logout().then(res => {
+            if (res.status === 200) {
+                localStorage.clear();
+                window.location.reload();
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    };
+
     render = () => {
         const { classes } = this.props;
         return (
@@ -28,7 +39,7 @@ export default class AreaAppBar extends React.Component {
                 </div>
                 <div className={classes.grow} />
                 <div className={classes.sectionDesktop}>
-                    <IconButton color="inherit" onClick={api.logout}>
+                    <IconButton color="inherit" onClick={this.handleLogout}>
                         <Badge color="secondary">
                             <PowerSettingsNew/>
                         </Badge>
