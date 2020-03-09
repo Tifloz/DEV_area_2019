@@ -21,8 +21,6 @@ services:
       - server
     ports:
       - "8081:8081"
-    volumes:
-      - client:/usr/share/nginx/html:ro
     logging:
       driver: "json-file"
       options:
