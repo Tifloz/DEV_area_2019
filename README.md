@@ -43,12 +43,10 @@ AREA requires [Docker](https://www.docker.com/)
 $ docker-compose up --build
 ```
 
-
 ### API Documentation
 
 We used [Swagger](https://swagger.io/) that is an open-source software framework backed by a large ecosystem of tools that helps developers design, build, document, and consume RESTful web services.
 The following link provides the API Structure for our project AREA : http://localhost:8080/api-docs/#/Users/post_user_signUp
-
 
 ### Development
 
