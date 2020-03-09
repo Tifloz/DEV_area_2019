@@ -1,13 +1,16 @@
-FROM node:10
 
-WORKDIR /usr/src/app
+FROM node:alpine as builder 
 
-COPY package*.json ./
+ENV NODE_VERSION 11.10.1
 
-RUN npm install --silent
-
+WORKDIR /app
+COPY ./package.json ./
+RUN npm install
 COPY . .
+RUN npm run build
 
+FROM nginx
 EXPOSE 8081
 
-CMD ["npm", "start"]
+COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/build /usr/share/nginx/html
