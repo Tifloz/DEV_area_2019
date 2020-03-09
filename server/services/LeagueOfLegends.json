@@ -1,8 +1,0 @@
-{
-  "Name": "League of Legends",
-  "Actions": {
-    "Get all versions": "https://ddragon.leagueoflegends.com/api/versions.json",
-    "Get champions for the specified version": "http://ddragon.leagueoflegends.com/cdn/{version}/data/fr_FR/champion.json",
-    "Get all champions available for free": "https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations"
-  }
-}
