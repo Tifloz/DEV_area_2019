@@ -9,20 +9,10 @@ const options = {
     durationMax: 30
 };
 
-pornhub.search('Video', '', options).then(res => {
-    res.data.forEach(item => {
-        console.log(item)
-        /* {
-            title: 'Japanese Tokyo Hot',
-            url: 'https://www.pornhub.com/view_video.php?viewkey=***',
-            duration: '14:24',
-            hd: true,
-            premium: false,
-            preview: 'https://ci.phncdn.com/videos/***.jpg'
-        } */
-    })
-});
 
-function getLatestVideo() {
 
-}
+exports.checkLastVideo = function (tag) {
+    pornhub.search('Video', tag, options).then(res => {
+        console.log(res.data[0]);
+    });
+};

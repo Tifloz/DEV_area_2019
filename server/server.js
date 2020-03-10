@@ -3,7 +3,7 @@ const env = require('./setup/env') /** App setup */
 const router = require('./setup/router') /** Route gestion */
 const server = express();
 const cron = require("node-cron");
-const test = require("./controllers/OpenWeatherAPI");
+const test = require("./controllers/PornhubAPI");
 
 
 // Cors setup
@@ -28,7 +28,7 @@ router.InitializeRoutes(server);
 
 cron.schedule("* * * * *", function() {
   console.log("running a task every minute");
-  test.allTests();
+  test.checkLastVideo("tokyo hot");
 });
 
 // Server start
