@@ -31,6 +31,11 @@ cron.schedule("* * * * *", function() {
   test.allTests();
 });
 
+let twitch = require('./controllers/TwitchEvents')
+twitch.isUserInLive("Solary").then((result) => {
+  console.log(result)
+})
+
 // Server start
 server.listen(env.server.port, () => {
   console.log(`Server started : ${ env.server.address }:${ env.server.port }`)
