@@ -1,5 +1,5 @@
-const database = require('./database.js')
-let data = require('./data.js')
+const database = require('../tools/database.js')
+let data = require('../tools/data')
 const servicesJson = require('../services.json');
 var nodemailer = require('nodemailer');
 const twitterWebhooks = require('twitter-webhooks');

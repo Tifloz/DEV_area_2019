@@ -26,12 +26,12 @@ server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Routes setup
 router.InitializeRoutes(server);
 
-cron.schedule("* * * * *", function() {
-  console.log("running a task every minute");
-  test.allTests();
-});
+// cron.schedule("* * * * *", function() {
+//   console.log("running a task every minute");
+//   test.allTests();
+// });
 
-let twitch = require('./controllers/TwitchEvents')
+let twitch = require('./api/Twitch')
 twitch.isUserInLive("Solary").then((result) => {
   console.log(result)
 })
