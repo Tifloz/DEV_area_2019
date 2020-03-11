@@ -1,4 +1,4 @@
-const database = require('../tools/database.js')
+const database = require('../tools/firebase')
 let data = require('../tools/data')
 const servicesJson = require('../services.json');
 const twitterWebhooks = require('twitter-webhooks');
@@ -115,6 +115,8 @@ exports.getUserAreas = (req, res) => {
   let user_id = req.params.user_id
 
   database.getDocumentWhere("Area", "user_id", user_id).then((result) => {
+    if (result === null)
+      result = []
     data.result(res, 200, result)
   }).catch((e) => {
     data.result(res, 200, [])

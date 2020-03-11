@@ -5,7 +5,6 @@ const server = express();
 const cron = require("node-cron");
 const test = require("./controllers/OpenWeatherAPI");
 
-
 // Cors setup
 const cors = require('./setup/cors')
 cors.initalizeCors(server)
@@ -36,8 +35,8 @@ router.InitializeRoutes(server);
 //   console.log(result)
 // })
 
-// let mailer = require('./tools/mailer')
-// mailer.sendMail('lucas.duboisse@epitech.eu', "tu pue", "ton slip tout sal la")
+const events = require('./tools/event')
+events.test();
 
 // Server start
 server.listen(env.server.port, () => {
