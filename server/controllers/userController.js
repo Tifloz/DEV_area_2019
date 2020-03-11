@@ -54,7 +54,8 @@ exports.SignUp = (req, res) => {
     'email': email,
     'first_name': req.body.fName,
     'last_name': req.body.lName,
-    'twitter_token': ""
+    'twitter_token': "",
+    'discord_wb': ''
   }
   database.SignUp(email, password)
     .then((status) => {
@@ -248,6 +249,27 @@ exports.getUserTwitterToken = (req, res) =>
   })
   .catch((e) => {
     return data.result(res, 200, {'twitter_token': ""})
+  })
+}
+
+
+exports.setUserDiscordWb = (req, res) =>
+{
+  database.getDocument('User', req.params.user_id)
+    .then((user) => {
+      user['discord_wb'] = req.body.discord_wb
+      database.updateDocument('User', req.params.user_id, user)
+      return data.result(res, 200, "User discord wb updated")
+    })
+}
+
+exports.getUserDiscordWb = (req, res) =>
+{
+  database.getDocument('User', req.params.user_id).then((user) => {
+    return data.result(res, 200, {'discord_wb': user['discord_wb']})
+  })
+  .catch((e) => {
+    return data.result(res, 200, {'discord_wb': ""})
   })
 }
 

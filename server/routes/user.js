@@ -19,8 +19,12 @@ router.get('/:user_id/areas', userController.getUserAreas)
 router.get('/:user_id/area/:area_id', userController.getUserArea)
 router.post('/:user_id/create-area', userController.createUserArea)
 router.delete('/:user_id/delete-area/:area_id', userController.deleteUserArea)
+
 router.get('/:user_id/twitter', userController.getUserTwitterToken)
     .put('/:user_id/twitter', userController.putUserTwitterToken)
+
+router.get('/:user_id/discord', userController.getUserDiscordWb)
+    .put('/:user_id/discord', userController.setUserDiscordWb)
 
 router.get('/getCurrentUser', userController.getCurrentUser)
 
