@@ -19,7 +19,22 @@ class CreateArea extends React.Component {
             getMore: false,
             actions: "",
             reactions: "",
+            user: null,
+            isLogged: true,
         };
+    }
+
+    componentDidMount() {
+        api.getCurrentUser().then(res => {
+            this.setState({
+                user: res.data.user ? res.data.user : null,
+                isLogged: true
+            })
+        }).catch(err => {
+            this.setState({
+                isLogged: false
+            })
+        })
     }
 
     getMore = (e) => {
@@ -48,12 +63,11 @@ class CreateArea extends React.Component {
     render() {
         const { classes } = this.props;
 
-        if (this.state.getMore) {
-            return <Redirect to='/dashboard'/>;
-        }
-        if (!api.isAuth()) {
+        if (this.state.getMore)
+            return <Redirect to={'/dashboard'}/>;
+
+        if (!this.state.isLogged)
             return (<Redirect to={"/"}/>);
-        }
 
         return (
             <React.Fragment>
@@ -77,6 +91,7 @@ class CreateArea extends React.Component {
                                   value={"THIS"}
                                   type={"actions"}
                                   onValueChange={this.handleValueChange}
+                                  user={this.state.user}
                                 />
                                 <Typography component="h1" variant="h2" align="left" color="textPrimary" gutterBottom className={classes.typo}>
                                     THEN
@@ -85,6 +100,7 @@ class CreateArea extends React.Component {
                                   value={"THAT"}
                                   type={"reactions"}
                                   onValueChange={this.handleValueChange}
+                                  user={this.state.user}
                                 />
                             </div>
                             <div className={classes.heroButtons}>

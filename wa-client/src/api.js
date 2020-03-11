@@ -5,6 +5,14 @@ const headers = {
 const burl = "http://localhost:8080";
 
 export default {
+    getCurrentUser: function() {
+      return axios.get(
+        `${burl}/user/getCurrentUser`,
+        {
+          headers: headers
+        }
+      )
+    },
     signIn: function(email, password) {
         return axios.post(
             `${burl}/user/signIn`,
@@ -55,7 +63,17 @@ export default {
             }
         );
     },
-
+    linkTwitterAccount: function(token, userId) {
+      return axios.put(
+        `${burl}/user/${userId}/twitter`,
+        {
+          twitter_token: token,
+        },
+        {
+          headers: headers
+        }
+      )
+    },
     getAreasByUserId: function() {
         const user_id = localStorage.getItem("token");
         return axios.get(
@@ -72,7 +90,6 @@ export default {
                  headers: headers
             });
     },
-
     getAllTasks: function(area_id) {
         return axios.get(
             `${burl}/user/area/${area_id}/event`,
@@ -80,12 +97,14 @@ export default {
                  headers: headers
             });
     },
-
     isAuth: function() {
         return localStorage.getItem("token") !== null;
     },
     logout: function() {
-        localStorage.clear();
-        window.location.reload();
+      return axios.get(
+        `${burl}/user/signOut`,
+        {
+          headers: headers
+        });
     },
 };

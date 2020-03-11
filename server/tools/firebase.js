@@ -115,11 +115,11 @@ exports.getDocumentWhere = async (collection_name, where_value, value) =>
   let data = []
 
   if (where_value === undefined || value === undefined)
-    return []
+    return null
   return ref.where(where_value, '==', value).get()
     .then(snapshot => {
       if (snapshot.empty)
-        return [];
+        return null;
       snapshot.forEach(doc => {
         let tmp = doc.data()
         tmp['id'] = doc.id
@@ -128,7 +128,7 @@ exports.getDocumentWhere = async (collection_name, where_value, value) =>
       return data
     })
     .catch(err => {
-      return []
+      return null
     });
 }
 

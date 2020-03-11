@@ -1,5 +1,5 @@
-const database = require('./database.js');
-const data = require('./data.js');
+const database = require('../tools/firebase');
+const data = require('../tools/data');
 const servicesJson = require('../services.json');
 
 /**

@@ -25,7 +25,6 @@ class Dashboard extends React.Component {
         };
     }
 
-
     handleRedirect = () => {
         console.log('handleRedirect');
         this.setState({
@@ -58,7 +57,7 @@ class Dashboard extends React.Component {
             return (<Redirect to={"/"}/>);
         }
         if (this.state.createArea)
-            return (<Redirect to={"/createArea"}/>);
+            return (<Redirect to={"/CreateArea"}/>);
         return (
             <React.Fragment>
                 <CssBaseline/>
