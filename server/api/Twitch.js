@@ -1,5 +1,4 @@
 const api = require('../tools/api')
-const request = require('request');
 const client_id = "lnq7m0rol8a9iro4exmm0pxwjhji59"
 
 exports.findTwitchId = (TwitchChannel) =>
