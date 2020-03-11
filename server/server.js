@@ -3,8 +3,7 @@ const env = require('./setup/env') /** App setup */
 const router = require('./setup/router') /** Route gestion */
 const server = express();
 const cron = require("node-cron");
-const test = require("./controllers/PornhubAPI");
-
+const test = require("./controllers/OpenWeatherAPI");
 
 // Cors setup
 const cors = require('./setup/cors')
@@ -26,10 +25,18 @@ server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Routes setup
 router.InitializeRoutes(server);
 
-cron.schedule("* * * * *", function() {
-  console.log("running a task every minute");
-  test.checkLastVideo("tokyo hot");
-});
+// cron.schedule("* * * * *", function() {
+//   console.log("running a task every minute");
+//   test.allTests();
+// });
+
+// let twitch = require('./api/Twitch')
+// twitch.isUserInLive("Solary").then((result) => {
+//   console.log(result)
+// })
+
+const events = require('./tools/event')
+events.test();
 
 // Server start
 server.listen(env.server.port, () => {

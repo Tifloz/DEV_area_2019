@@ -4,7 +4,7 @@ import Dashboard from './dashboard/Dashboard';
 import SignIn from "./auth/AuthPage";
 import SignUp from "./register/RegisterPage";
 import CreateArea from "./CreateArea/CreateArea";
-import {Route, BrowserRouter as Router} from 'react-router-dom'
+import { Route, BrowserRouter as Router } from 'react-router-dom'
 import AboutContent from './components/AboutContent'
 import {authStyles, dashboardStyles, createAreaStyles} from "./styles/styles"
 import ClientApk from "./components/ClientApk";
@@ -48,16 +48,12 @@ function App() {
             }}
             />
 
-            <Route exact path="/about.json" component={() => {
-                return (
-                    <AboutContent/>
-                )
+            <Route exact path="/about" component={() => {
+              return (
+                <AboutContent/>
+              )
             }}
             />
-
-            <Route exact path="/client.apk" component={ClientApk}
-            />
-
         </Router>
     );
 }

@@ -22,4 +22,6 @@ router.delete('/:user_id/delete-area/:area_id', userController.deleteUserArea)
 router.get('/:user_id/twitter', userController.getUserTwitterToken)
     .put('/:user_id/twitter', userController.putUserTwitterToken)
 
+router.get('/getCurrentUser', userController.getCurrentUser)
+
 module.exports = router
