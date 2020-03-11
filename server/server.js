@@ -31,10 +31,13 @@ router.InitializeRoutes(server);
 //   test.allTests();
 // });
 
-let twitch = require('./api/Twitch')
-twitch.isUserInLive("Solary").then((result) => {
-  console.log(result)
-})
+// let twitch = require('./api/Twitch')
+// twitch.isUserInLive("Solary").then((result) => {
+//   console.log(result)
+// })
+
+// let mailer = require('./tools/mailer')
+// mailer.sendMail('lucas.duboisse@epitech.eu', "tu pue", "ton slip tout sal la")
 
 // Server start
 server.listen(env.server.port, () => {

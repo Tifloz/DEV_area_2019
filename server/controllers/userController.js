@@ -1,8 +1,8 @@
 const database = require('../tools/database.js')
 let data = require('../tools/data')
 const servicesJson = require('../services.json');
-var nodemailer = require('nodemailer');
 const twitterWebhooks = require('twitter-webhooks');
+const mailer = require('../tools/mailer')
 
 /**
  * @returns {status} json response
@@ -172,28 +172,6 @@ exports.getTwitterHook = () => {
     return userActivityWebhook
 }
 
-exports.sendMail = (email, event) => {
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'testdelarea@gmail.com',
-      pass: 'EPITECH59'
-    }
-  });
-  var mailOptions = {
-    from: 'testdelarea',
-    to: email,
-    subject: 'Your event was triggered: ' + event,
-    text: 'Go to check it!'
-  };
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
-}
 
 exports.addListenerTwitter = (email, action, twitterUser) => {
   twitterUser = []
@@ -208,7 +186,7 @@ exports.addListenerTwitter = (email, action, twitterUser) => {
   })
   .then(function (userActivity) {
       userActivity
-      .on(action, (data) => sendMail(email, "event: " + action))
+      .on(action, (data) => mailer.sendMail(email, "event: " + action, "Go check it!"))
   });
 }
 exports.createUserArea = (req, res) => {
