@@ -2,21 +2,26 @@ import {StyleSheet} from 'react-native'
 
 export default StyleSheet.create({
   
-  statusbar: {
-    backgroundColor: 'black',
-  },
-
   button: {
-        color: 'black',
+    color: 'black',
   },
 
-  topBar: {
-    padding: 20,
-    flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: '#e8e8e8',
-    maxHeight: 70,
-    paddingVertical: 15
+  text: {
+    color: 'black',
+    fontSize: 82,
+    fontWeight: 'bold',
+    textAlignVertical: 'center'
   },
+
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  icon: {
+    fontSize: 82,
+    color: 'dimgrey',
+  }
 });

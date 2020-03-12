@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import api from './api';
 import styles from '../styles/Home';
+import Header from './Header';
 import { Card, CardItem, Body, Text } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import { act } from 'react-test-renderer';
@@ -64,6 +65,7 @@ export default class Home extends React.Component {
         this.setState({areas: areas})
       }
       ).catch((error) => {
+        console.log('Here is an error')
         console.log(error)
       })
     });
@@ -73,14 +75,7 @@ export default class Home extends React.Component {
     return (
       // eslint-disable-next-line react/jsx-filename-extension
       <>
-        <StatusBar backgroundColor={styles.statusbar.backgroundColor}></StatusBar>
-        <View style={ styles.topBar }>
-          <Text style={{ fontSize: 27 }}>My Areas</Text>
-          <Image
-            style={{ width: 42, height: 42}}
-            source={require('../img/area-logo.jpg')}
-          />
-        </View>
+        <Header title="My Areas" />
         <View style={{ marginTop: 5, flexDirection: 'column', flex: 1}}>
           <ScrollView style={{ marginHorizontal: 5, flexDirection: 'column'}}>
             { this.state.areas }
