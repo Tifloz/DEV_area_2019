@@ -5,4 +5,11 @@ export default StyleSheet.create({
   button: {
         color: 'black',
   },
+
+  bodyCard: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
 });

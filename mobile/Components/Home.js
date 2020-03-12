@@ -5,7 +5,7 @@ import {
 import api from './api';
 import styles from '../styles/Home';
 import Header from './Header';
-import { Card, CardItem, Body, Text } from 'native-base';
+import { Card, CardItem, Body, Text, Thumbnail } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import { act } from 'react-test-renderer';
 import { ThemeProvider } from '@react-navigation/native';
@@ -24,17 +24,18 @@ export default class Home extends React.Component {
     }
   }
 
-  getAreaCard(i, id, action, aservice, reaction, rservice) {
+  getAreaCard(i, id, action, aservice, reaction, rservice, img) {
     let card =  <Card key={id}>
                   <CardItem header bordered>
                     <Text>Area n°{i}</Text>
                   </CardItem>
                   <CardItem bordered>
-                    <Body>
+                    <Body style={styles.bodyCard}>
                       <Text>
                         Action: {action} [{aservice}]{"\n"}
                         Reaction: {reaction} [{rservice}]
                       </Text>
+                      <Thumbnail source={{uri: img}}></Thumbnail>
                     </Body>
                   </CardItem>
                   <CardItem footer bordered>
@@ -59,7 +60,7 @@ export default class Home extends React.Component {
         result.data.forEach(area => {
           console.log('new area')
           console.log(area)
-          areas.push(this.getAreaCard(i, area.id, area.event.action, area.event.service, area.trigger.reaction, area.trigger.service));
+          areas.push(this.getAreaCard(i, area.id, area.event.action, area.event.service, area.trigger.reaction, area.trigger.service, area.img));
           i++;
         })
         this.setState({areas: areas})
