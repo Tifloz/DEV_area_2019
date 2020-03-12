@@ -79,7 +79,10 @@ export default class Home extends React.Component {
         <Header title="My Areas" />
         <View style={{ marginTop: 5, flexDirection: 'column', flex: 1}}>
           <ScrollView style={{ marginHorizontal: 5, flexDirection: 'column'}}>
-            { this.state.areas }
+            { this.state.areas.length > 0 && this.state.areas}
+            { this.state.areas.length == 0 &&
+                <Text style={styles.noAreaText}>No areas to display.</Text>
+            }
           </ScrollView>
         </View>
       </>

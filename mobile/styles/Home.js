@@ -11,5 +11,12 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+
+  noAreaText: {
+    textAlign: 'center',
+    color: 'grey',
+    fontSize: 16,
+    paddingTop: 250
   }
 });
