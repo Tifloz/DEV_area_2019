@@ -10,7 +10,8 @@ export default StyleSheet.create({
     color: 'black',
     fontSize: 82,
     fontWeight: 'bold',
-    textAlignVertical: 'center'
+    textAlignVertical: 'center',
+    padding: 5,
   },
 
   container: {

@@ -39,7 +39,7 @@ export default class Home extends React.Component {
                     </Body>
                   </CardItem>
                   <CardItem footer bordered>
-                    <Text>{id}</Text>
+                    <Text style={styles.idAreaText}>{id}</Text>
                   </CardItem>
                 </Card>
     return card

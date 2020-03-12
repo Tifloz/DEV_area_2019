@@ -18,5 +18,10 @@ export default StyleSheet.create({
     color: 'grey',
     fontSize: 16,
     paddingTop: 250
+  },
+
+  idAreaText: {
+    fontSize: 10,
+    color: 'grey'
   }
 });
