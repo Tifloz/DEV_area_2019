@@ -4,9 +4,17 @@ import AsyncStorage from '@react-native-community/async-storage';
 const headers = {
     "Content-Type": "application/json"
 };
-const burl = "http://localhost:8080";
+const burl = "http://192.168.43.137:8080";
 
 export default {
+    getCurrentUser: function() {
+      return axios.get(
+        `${burl}/user/getCurrentUser`,
+        {
+          headers: headers
+        }
+      )
+    },
     signIn: function(email, password) {
         return axios.post(
             `${burl}/user/signIn`,
@@ -57,9 +65,20 @@ export default {
             }
         );
     },
+    linkTwitterAccount: function(token, userId) {
+      return axios.put(
+        `${burl}/user/${userId}/twitter`,
+        {
+          twitter_token: token,
+        },
+        {
+          headers: headers
+        }
+      )
+    },
+    getAreasByUserId: async function() {
+        const user_id = await AsyncStorage.getItem("token");
 
-    getAreasByUserId: function(user_id) {
-        console.log(AsyncStorage.getItem("token"))
         return axios.get(
             `${burl}/user/${user_id}/areas`,
             {
@@ -74,7 +93,6 @@ export default {
                  headers: headers
             });
     },
-
     getAllTasks: function(area_id) {
         return axios.get(
             `${burl}/user/area/${area_id}/event`,
@@ -82,11 +100,16 @@ export default {
                  headers: headers
             });
     },
-
-    isAuth: function() {
-        return AsyncStorage.getItem("token") !== null;
+ 
+    isAuth: async function() {
+        return await AsyncStorage.getItem("token") !== null;
     },
+  
     logout: function() {
-        AsyncStorage.clear();
+      return axios.get(
+        `${burl}/user/signOut`,
+        {
+          headers: headers
+        });
     },
 };

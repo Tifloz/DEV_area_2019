@@ -4,7 +4,8 @@ import {
 } from 'react-native';
 import api from './api';
 import styles from '../styles/Home';
-import { Card, CardItem, Body, Text } from 'native-base';
+import Header from './Header';
+import { Card, CardItem, Body, Text, Thumbnail } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import { act } from 'react-test-renderer';
 import { ThemeProvider } from '@react-navigation/native';
@@ -23,21 +24,22 @@ export default class Home extends React.Component {
     }
   }
 
-  getAreaCard(i, id, action, aservice, reaction, rservice) {
+  getAreaCard(i, id, action, aservice, reaction, rservice, img) {
     let card =  <Card key={id}>
                   <CardItem header bordered>
                     <Text>Area n°{i}</Text>
                   </CardItem>
                   <CardItem bordered>
-                    <Body>
+                    <Body style={styles.bodyCard}>
                       <Text>
                         Action: {action} [{aservice}]{"\n"}
                         Reaction: {reaction} [{rservice}]
                       </Text>
+                      <Thumbnail source={{uri: img}}></Thumbnail>
                     </Body>
                   </CardItem>
                   <CardItem footer bordered>
-                    <Text>{id}</Text>
+                    <Text style={styles.idAreaText}>{id}</Text>
                   </CardItem>
                 </Card>
     return card
@@ -58,12 +60,13 @@ export default class Home extends React.Component {
         result.data.forEach(area => {
           console.log('new area')
           console.log(area)
-          areas.push(this.getAreaCard(i, area.id, area.event.action, area.event.service, area.trigger.reaction, area.trigger.service));
+          areas.push(this.getAreaCard(i, area.id, area.event.action, area.event.service, area.trigger.reaction, area.trigger.service, area.img));
           i++;
         })
         this.setState({areas: areas})
       }
       ).catch((error) => {
+        console.log('Here is an error')
         console.log(error)
       })
     });
@@ -73,17 +76,13 @@ export default class Home extends React.Component {
     return (
       // eslint-disable-next-line react/jsx-filename-extension
       <>
-        <StatusBar backgroundColor={styles.statusbar.backgroundColor}></StatusBar>
-        <View style={ styles.topBar }>
-          <Text style={{ fontSize: 27 }}>My Areas</Text>
-          <Image
-            style={{ width: 42, height: 42}}
-            source={require('../img/area-logo.jpg')}
-          />
-        </View>
+        <Header title="My Areas" />
         <View style={{ marginTop: 5, flexDirection: 'column', flex: 1}}>
           <ScrollView style={{ marginHorizontal: 5, flexDirection: 'column'}}>
-            { this.state.areas }
+            { this.state.areas.length > 0 && this.state.areas}
+            { this.state.areas.length == 0 &&
+                <Text style={styles.noAreaText}>No areas to display.</Text>
+            }
           </ScrollView>
         </View>
       </>

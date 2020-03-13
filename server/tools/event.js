@@ -6,10 +6,11 @@ const cron = require("node-cron")
 const twitch = require('../api/Twitch')
 const weather = require('../api/OpenWeather')
 const pornhub = require('../api/Pornhub')
+const discord = require('../controllers/DiscordWebhook')
 
 exports.isAreaOnEvent = async (area) => {
     if (area['event'] === undefined)
-        return
+        return;
     let service = area['event']['service']
     let action = area['event']['action']
     let serviceActions = {
@@ -17,17 +18,24 @@ exports.isAreaOnEvent = async (area) => {
             'isInLive': twitch.isUserInLive
         },
         'openweather': {
-            'isnegativetemp': weather.isNegativeTemp,
-            'isCloudy': weather.isCloudy
+            'isNegativeTemp': weather.isNegativeTemp,
+            'isPositiveTemp': !weather.isNegativeTemp,
+            'isCloudy': weather.isCloudy,
+            'isSunny': !weather.isCloudy,
+            'importantHumidity': weather.importantHumidity,
+            'notImportantHumidity': !weather.importantHumidity,
         },
         'pornhub': {
-
+        'newVideo': pornhub.checkLastVideo
         }
-    }
+    };
     let serviceReactions = {
         'gmail': {
             'send_mail': mailer.sendMail
         },
+        'discord':{
+            'send_message' : discord.sendToWH()
+        }
     }
     let obj = "l'évènement " + action + " à été trigger!";
     let message = "Met nous un bon grade stp !"
