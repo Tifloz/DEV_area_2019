@@ -1,8 +1,8 @@
 const api = require('../tools/api')
 const KEY = 'AIzaSyDIAnIjssl1frALsG1ePwwj4TBBZGxrSfQ';
 
-exports.getChannelInfos = async (channelId) => {
-    let url = 'https://www.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id=' + channelId + '&key=' + KEY;
+exports.getChannelInfosById = async (channelId) => {
+    let url = 'https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=' + channelId + '&key=' + KEY;
     return api.makeRequest(url, "GET", {}).then((result) => {
         console.log(result)
         return result
@@ -11,6 +11,18 @@ exports.getChannelInfos = async (channelId) => {
         return false
     })
 };
+
+exports.getChannelInfosByUsername = async (channelUsername) => {
+    let url = 'https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=' + channelUsername + '&key=' + KEY;
+    return api.makeRequest(url, "GET", {}).then((result) => {
+        console.log(result)
+        return result
+    }).catch((err) => {
+        console.log(err)
+        return false
+    })
+};
+
 
 // export function buildApiRequest(requestMethod, path, params, properties) {
 //     params = removeEmptyParams(params);
