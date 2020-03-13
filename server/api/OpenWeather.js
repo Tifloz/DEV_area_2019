@@ -24,6 +24,15 @@ exports.isCloudy = function () {
     });
 };
 
+exports.importantHumidity = function() {
+    weather.getHumidity(function (err, hum) {
+        if (hum > 50)
+            return true;
+        else
+            return false;
+    });
+};
+
 exports.allTests = function () {
 
 // get all the JSON file returned from server (rich of info)
