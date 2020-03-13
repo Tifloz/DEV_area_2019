@@ -34,7 +34,7 @@ export function buildApiRequest(requestMethod, path, params, properties) {
 }
 
 export function buildChannelRequest(channelId) {
-    return create(GET,
+    return buildApiRequest(GET,
         '/youtube/v3/channels',
         {
             part: 'snippet,statistics',
