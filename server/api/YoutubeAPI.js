@@ -12,8 +12,29 @@ export default axios.create({
     }
 })
 
+export function buildApiRequest(requestMethod, path, params, properties) {
+    params = removeEmptyParams(params);
+    let request;
+    if (properties) {
+        let resource = createResource(properties);
+        request = window.gapi.client.request({
+            'body': resource,
+            'method': requestMethod,
+            'path': path,
+            'params': params
+        });
+    } else {
+        request = window.gapi.client.request({
+            'method': requestMethod,
+            'path': path,
+            'params': params
+        });
+    }
+    return request;
+}
+
 export function buildChannelRequest(channelId) {
-    return buildApiRequest(GET,
+    return create(GET,
         '/youtube/v3/channels',
         {
             part: 'snippet,statistics',
