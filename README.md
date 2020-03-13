@@ -61,6 +61,7 @@ The project consist two interfaces :
     - Technologies Used :
       - We used Node JS for the Web server background, same as the web view.
       - And for the front side, we used React Native.
+      - For the APK file, the downloaded file can be found on the localhost link from the web client : localhost:8081/client-apk.
 
 #### Authentication
 
