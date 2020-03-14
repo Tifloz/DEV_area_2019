@@ -11,39 +11,56 @@ const youtubr = require('../api/YoutubeAPI')
 exports.isAreaOnEvent = async (area, email) => {
     if (area['event'] === undefined)
         return
-    let service = area['event']['service']
+    let service_action = area['event']['service']
     let action = area['event']['action']
+    let service_reaction = area['trigger']['service']
+    let reaction = area['trigger']['reaction'];
     let serviceActions = {
         'twitch': {
             'isInLive': twitch.isUserInLive
         },
         'youtube': {
             'isNewVideo': youtube.isNewVideoUpload
-        }
-    }
-    let serviceReactions = {
-        'gmail': {
-            'send_mail': mailer.sendMail
         },
-    }
-    if (serviceActions[service] === undefined) {
-        console.log('Service ', service, ' or action ', action, ' not founded');
-        console.log('Please add your action/service to services.json or inside serviceActions');
-        return;
-    } else {
-        toTrigger = await serviceActions[service][action]()
-        console.log('area to trigger: ', toTrigger);
-        if (toTrigger) {
+        'openweather': {
+                'isNegativeTemp': weather.isNegativeTemp,
+                'isPositiveTemp': !weather.isNegativeTemp,
+                'isCloudy': weather.isCloudy,
+                'isSunny': !weather.isCloudy,
+                'importantHumidity': weather.importantHumidity,
+                'notImportantHumidity': !weather.importantHumidity
+            },
+            'pornhub': {
+                'newVideo': pornhub.checkLastVideo
+            }
+        }
+    let serviceReactions = {
+            'gmail': {
+                'send_mail': mailer.sendMail
+            },
+        }
+    if(serviceActions[service_action] === undefined) {
+            console.log('Service ', service_action, ' or action ', action, ' not founded');
+    console.log('Please add your action/service to services.json or inside serviceActions');
+    return;
+} else {
+    toTrigger = await serviceActions[service_action][action]()
+    if (toTrigger) {
+        if (service_reaction == "gmail") {
             let subject = "l'évènement " + action + " à été trigger!";
             let message = "Met nous un bon grade stp !"
             serviceReactions['gmail']['send_mail'](email, subject, message)
-            console.log('area triggered: ', area);
+        } else {
+            serviceReactions[service_reaction][reaction]();
         }
+        console.log('service event: ', service_action, ', ', action);
+        console.log('reaction triggered: ', service_reaction);
     }
+}
 }
 
 exports.userArea = (user) => {
-    database.getDocumentWhere('Area', 'user_id',  user['id'])
+    database.getDocumentWhere('Area', 'user_id', user['id'])
         .then((areas) => {
             if (areas === null || areas === undefined)
                 return;
