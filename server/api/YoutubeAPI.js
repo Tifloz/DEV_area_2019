@@ -11,6 +11,18 @@ exports.getChannelInfosById = async (channelId) => {
     })
 };
 
+exports.getChannelIdByUsername = async (channelUsername) => {
+    let url = 'https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=' + channelUsername + '&key=' + KEY;
+    return api.makeRequest(url, "GET", {}).then((channelInfos) => {
+        if (!channelInfos || channelInfos.items.length == 0)
+            return (false)
+        return channelInfos.items[0].id
+    }).catch((err) => {
+        console.log(err)
+        return false
+    })
+};
+
 exports.getChannelInfosByUsername = async (channelUsername) => {
     let url = 'https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=' + channelUsername + '&key=' + KEY;
     return api.makeRequest(url, "GET", {}).then((result) => {
@@ -31,6 +43,13 @@ exports.getChannelUploads = async (channelId) => {
     })
 };
 
+exports.isNewVideoUploadByUsername = async (channelUsername) => {
+    let id = await this.getChannelIdByUsername(channelUsername)
+    let result = await this.isNewVideoUpload(id)
+
+    return result
+}
+
 exports.isNewVideoUpload = async (channelId) => {
     let channelInfos = await this.getChannelInfosById(channelId);
     const today = new Date()
@@ -45,7 +64,6 @@ exports.isNewVideoUpload = async (channelId) => {
             return (false)
         lastVideo =  res.items[0];
         publishedAt = new Date(lastVideo.snippet.publishedAt)
-        console.log(publishedAt)
        if (publishedAt.getDate() == today.getDate()
        &&  publishedAt.getMonth() == today.getMonth()
        &&  publishedAt.getFullYear() == today.getFullYear())
