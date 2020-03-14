@@ -6,6 +6,7 @@ const cron = require("node-cron")
 const twitch = require('../api/Twitch')
 const weather = require('../api/OpenWeather')
 const pornhub = require('../api/Pornhub')
+const youtubr = require('../api/YoutubeAPI')
 
 exports.isAreaOnEvent = async (area, email) => {
     if (area['event'] === undefined)
@@ -16,6 +17,9 @@ exports.isAreaOnEvent = async (area, email) => {
         'twitch': {
             'isInLive': twitch.isUserInLive
         },
+        'youtube': {
+            'isNewVideo': youtube.isNewVideoUpload
+        }
     }
     let serviceReactions = {
         'gmail': {
