@@ -11,6 +11,18 @@ exports.getChannelInfosById = async (channelId) => {
     })
 };
 
+exports.getChannelIdByUsername = async (channelUsername) => {
+    let url = 'https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=' + channelUsername + '&key=' + KEY;
+    return api.makeRequest(url, "GET", {}).then((channelInfos) => {
+        if (!channelInfos || channelInfos.items.length == 0)
+            return (false)
+        return channelInfos.items[0].id
+    }).catch((err) => {
+        console.log(err)
+        return false
+    })
+};
+
 exports.getChannelInfosByUsername = async (channelUsername) => {
     let url = 'https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=' + channelUsername + '&key=' + KEY;
     return api.makeRequest(url, "GET", {}).then((result) => {
@@ -31,56 +43,32 @@ exports.getChannelUploads = async (channelId) => {
     })
 };
 
+exports.isNewVideoUploadByUsername = async (channelUsername) => {
+    let id = await this.getChannelIdByUsername(channelUsername)
+    let result = await this.isNewVideoUpload(id)
+
+    return result
+}
+
 exports.isNewVideoUpload = async (channelId) => {
     let channelInfos = await this.getChannelInfosById(channelId);
-    const today = new Date()
+    let lastVideo;
+    let publishedAt;
+    const today = new Date();
+    let res;
 
     if (!channelInfos || channelInfos.items.length == 0)
         return (false)
-    let res = await this.getChannelUploads(channelInfos.items[0].contentDetails.relatedPlaylists.uploads)//.then((res) => {
-    let lastVideo;
-    let publishedAt;
-
-        if (!res || res.items.length == 0)
-            return (false)
-        lastVideo =  res.items[0];
-        publishedAt = new Date(lastVideo.snippet.publishedAt)
-        console.log(publishedAt)
-       if (publishedAt.getDate() == today.getDate()
+    res = await this.getChannelUploads(channelInfos.items[0].contentDetails.relatedPlaylists.uploads)
+    
+    if (!res || res.items.length == 0)
+        return (false)
+    lastVideo =  res.items[0];
+    publishedAt = new Date(lastVideo.snippet.publishedAt)
+    if (publishedAt.getDate() == today.getDate()
        &&  publishedAt.getMonth() == today.getMonth()
        &&  publishedAt.getFullYear() == today.getFullYear())
-            return (true)
-        else
-            return (false)
+        return (true)
+    else
+        return (false)
 }
-
-// export function buildApiRequest(requestMethod, path, params, properties) {
-//     params = removeEmptyParams(params);
-//     let request;
-//     if (properties) {
-//         let resource = createResource(properties);
-//         request = window.gapi.client.request({
-//             'body': resource,
-//             'method': requestMethod,
-//             'path': path,
-//             'params': params
-//         });
-//     } else {
-//         request = window.gapi.client.request({
-//             'method': requestMethod,
-//             'path': path,
-//             'params': params
-//         });
-//     }
-//     return request;
-// }
-
-// export function buildChannelRequest(channelId) {
-//     return buildApiRequest(GET,
-//         '/youtube/v3/channels',
-//         {
-//             part: 'snippet,statistics',
-//             id: channelId,
-//             fields: 'kind,items(id,snippet(description,thumbnails/medium,title),statistics/subscriberCount)'
-//         }, null);
-// }

@@ -46,8 +46,15 @@ class AboutContent extends React.Component {
                         reactions: [{
                             name: "send_message",
                             description: "Send a message to thje webhook specified"
-                        }]
-                    }]
+                        }],
+                    }, {
+                        name:"Youtube",
+                        actions: [{
+                            name: "new_video_channel",
+                            description: "A new video of a channel is uploaded"
+                        }],
+                    },  {
+                    }],
                 },
             }
         ;
