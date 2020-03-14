@@ -9,32 +9,48 @@ class AboutContent extends React.Component {
 
     render() {
         const jsonData = {
-            client: {
-                host: window.location.hostname,
-            },
-            server: {
-                current_time: Math.floor(Date.now() / 1000),
-                services: [{
-                    name: 'weather',
-                    widgets: [{
-                        name: 'city_temperature',
-                        description: 'Display temperature for a city',
-                        params: [{
-                            name: 'city',
-                            type: 'string',
+                client: {
+                    host: window.location.hostname,
+                },
+                server: {
+                    current_time: Math.floor(Date.now() / 1000),
+                    services: [{
+                        name: "OpenWeather",
+                        actions: [{
+                            name: "humidity_sup",
+                            description: "The humidity is superior to 50 %"
+                        }, {
+                            name: "humidity_inf",
+                            description: "The humidity is inferior to 50 %"
+                        }, {
+                            name: "temp_pos",
+                            description: "The temperature is positive"
+                        }, {
+                            name: "temp_neg",
+                            description: "The temperature is negative"
+                        }, {
+                            name: "cloudy_weather",
+                            description: "The weather is cloudy"
+                        }, {
+                            name: "clear_weather",
+                            description: "The weather is clear"
+                        }]
+                    }, {
+                        name: "Pornhub",
+                        actions: [{
+                            name: "new_video",
+                            description: "A new video with the specified tag is uploaded"
                         }],
-                    },
-                        {
-                            name: 'city_wind_speed',
-                            description: 'Display the speed of the wind for a city',
-                            params: [{
-                                name: 'city',
-                                type: 'sting',
-                            }],
-                        }],
-                }],
-            },
-        };
+                    }, {
+                        name: "Discord",
+                        reactions: [{
+                            name: "send_message",
+                            description: "Send a message to thje webhook specified"
+                        }]
+                    }]
+                },
+            }
+        ;
         return (
             <ReactJson src={jsonData}/>
         );
