@@ -1,7 +1,7 @@
 {
     "twitter": {
         "name": "Twitter",
-        "logo":"data:image/png;base64,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",
+        "logo": "data:image/png;base64,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",
         "actions": {
             "0": {
                 "value": "favorite",
@@ -46,5 +46,31 @@
                 "label": "Send a mail on your address"
             }
         }
+    },
+    "twitch": {
+        "name": "twitch",
+        "logo": "https://www.presse-citron.net/wordpress_prod/wp-content/uploads/2019/03/twitch.jpg",
+        "actions": {
+            "0": {
+                "value": "isInLive",
+                "label": "When solary in live"
+            }
+        },
+        "reactions": {
+            "0": {
+                "value": "send",
+                "label": "Send a mail on your address"
+            }
+        }
+    },
+    "youtube": {
+        "name": "youtube",
+        "logo": "https://cdn.1min30.com/wp-content/uploads/2017/03/YouTube-logo.jpg",
+        "actions": {
+            "0": {
+                "value": "isNewVideo",
+                "label": "When Video is uploaded on Channel"
+            }
+        }
     }
-  }
+}

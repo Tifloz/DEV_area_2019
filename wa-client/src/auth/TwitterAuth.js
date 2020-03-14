@@ -11,13 +11,13 @@ export default function TwitterAuth(props) {
           console.log(res);
           props.handleSuccess()
         }).catch(err => {
-          console.log(err)
+          console.error(err)
         })
     });
   };
 
   const onFailed = (error) => {
-    console.log(error);
+    console.error(error);
   };
 
   return (
