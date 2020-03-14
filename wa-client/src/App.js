@@ -15,7 +15,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import { AuthContext } from "./context/auth"
 
 function App() {
-  const classes = authStyles();
   const dashboardClasses = dashboardStyles();
   const createAreaClasses = createAreaStyles();
 
@@ -49,32 +48,13 @@ function App() {
             />
             )
         }}/>
-        {/*<PrivateRoute path={"/createArea"} component={() => {*/}
-        {/*  return (*/}
-        {/*    <CreateArea classes={createAreaStyles}/>*/}
-        {/*  );*/}
-        {/*}}*/}
-        {/*/>*/}
-        {/*<Route exact path="/dashboard" component={() => {*/}
-        {/*    return (*/}
-        {/*        <Dashboard classes={dashboardClasses}/>*/}
-        {/*    )*/}
-        {/*}}*/}
-        {/*/>*/}
-
-        {/*<Route exact path="/createArea" component={() => {*/}
-        {/*    return (*/}
-        {/*        <CreateArea classes={createAreaClasses}/>*/}
-        {/*    )*/}
-        {/*}}*/}
-        {/*/>*/}
-
-        <Route exact path="/about" component={() => {
+        <PrivateRoute path={"/createArea"} component={() => {
           return (
-            <AboutContent/>
-            )
+            <CreateArea classes={createAreaClasses}/>
+          );
         }}
         />
+        <Route exact path="/about" component={AboutContent}/>
       </Router>
     </AuthContext.Provider>
   );
