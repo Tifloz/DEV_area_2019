@@ -46,5 +46,21 @@
                 "label": "Send a mail on your address"
             }
         }
+    },
+    "twitch": {
+        "name": "twitch",
+        "logo":"https://www.presse-citron.net/wordpress_prod/wp-content/uploads/2019/03/twitch.jpg",
+        "actions": {
+            "0": {
+                "value": "isInLive",
+                "label": "When solary in live"
+            }
+        },
+        "reactions": {
+            "0": {
+                "value": "send",
+                "label": "Send a mail on your address"
+            }
+        }
     }
   }

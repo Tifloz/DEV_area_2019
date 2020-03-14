@@ -7,7 +7,7 @@ const twitch = require('../api/Twitch')
 const weather = require('../api/OpenWeather')
 const pornhub = require('../api/Pornhub')
 
-exports.isAreaOnEvent = async (area) => {
+exports.isAreaOnEvent = async (area, email) => {
     if (area['event'] === undefined)
         return
     let service = area['event']['service']
@@ -16,31 +16,26 @@ exports.isAreaOnEvent = async (area) => {
         'twitch': {
             'isInLive': twitch.isUserInLive
         },
-        'openweather': {
-            'isnegativetemp': weather.isNegativeTemp,
-            'isCloudy': weather.isCloudy
-        },
-        'pornhub': {
-
-        }
     }
     let serviceReactions = {
         'gmail': {
             'send_mail': mailer.sendMail
         },
     }
-    let obj = "l'évènement " + action + " à été trigger!";
-    let message = "Met nous un bon grade stp !"
     if (serviceActions[service] === undefined) {
-        console.log('service ', service, ' not added yet')
+        console.log('Service ', service, ' or action ', action, ' not founded');
+        console.log('Please add your action/service to services.json or inside serviceActions');
         return;
+    } else {
+        toTrigger = await serviceActions[service][action]()
+        console.log('area to trigger: ', toTrigger);
+        if (toTrigger) {
+            let subject = "l'évènement " + action + " à été trigger!";
+            let message = "Met nous un bon grade stp !"
+            serviceReactions['gmail']['send_mail'](email, subject, message)
+            console.log('area triggered: ', area);
+        }
     }
-    if (serviceActions[service][action] === undefined) {
-        console.log('action ', action, ' for service ', service, ' not added yet')
-        return;
-    }
-    if (serviceActions[service][action]())
-        serviceReactions['gmail']['send_mail'](user['email'], obj , message)
 }
 
 exports.userArea = (user) => {
@@ -49,23 +44,18 @@ exports.userArea = (user) => {
             if (areas === null || areas === undefined)
                 return;
             areas.forEach(area => {
-                this.isAreaOnEvent(area)
+                this.isAreaOnEvent(area, user['email'])
             })
         })
 }
 
-exports.test = () => {
-    database.getAllDocuments('User').then((users) => {
-        users.forEach(user => {
-            this.userArea(user)
-        });
-    })
-}
-
-exports.listenToEvents = () => {
-    cron.schedule("* * * * *", function() {
-        database.getAllDocuments('Area').then((value) => {
-            console.log(value)
+exports.catchEvents = () => {
+    cron.schedule("* * * * *", () => {
+        console.log('Begin to catch events')
+        database.getAllDocuments('User').then((users) => {
+            users.forEach(user => {
+                this.userArea(user)
+            });
         })
     });
 }

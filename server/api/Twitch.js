@@ -12,8 +12,9 @@ exports.findTwitchId = (TwitchChannel) =>
         })
 }
 
-exports.isUserInLive = async (streamer) =>
+exports.isUserInLive = async () =>
 {
+    let streamer = "solary";
     let streamer_id = await this.findTwitchId(streamer)
     if (streamer_id == false)
         return false;
