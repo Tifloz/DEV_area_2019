@@ -24,7 +24,7 @@ server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 router.InitializeRoutes(server);
 
 const events = require('./tools/event')
-events.test();
+events.catchEvents();
 
 // Server start
 server.listen(env.server.port, () => {
