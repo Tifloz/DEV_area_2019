@@ -9,10 +9,11 @@ import Copyright from "../components/Copyright";
 import RegisterForm from "./RegisterForm";
 import { Redirect } from "react-router-dom"
 import { authStyles } from "../styles/styles";
+import { useTheme } from "@material-ui/core";
 
 export default function SignUp() {
   const [redirect, setRedirect] = useState(false);
-  const classes = authStyles();
+  const classes = authStyles(useTheme);
 
   if (redirect)
     return (<Redirect to={"/dashboard"}/>);
