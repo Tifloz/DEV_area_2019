@@ -44,6 +44,11 @@ FOR using Discord reaction, thanks to come to this server : https://discord.gg/N
 $ docker-compose build && docker-compose up
 ```
 
+FOR the mobile, try this command :
+```sh
+$  docker-compose build client_mobile && docker-compose up client_mobile
+```
+
 ### API Documentation
 
 We used [Swagger](https://swagger.io/) that is an open-source software framework backed by a large ecosystem of tools that helps developers design, build, document, and consume RESTful web services.
@@ -63,6 +68,10 @@ The project consist two interfaces :
       - We used Node JS for the Web server background, same as the web view.
       - And for the front side, we used React Native.
       - For the APK file, the downloaded file can be found on the localhost link from the web client : localhost:8081/client.apk
+
+
+#### File about.json
+  - The following link provides the file about.json for our project AREA : http://localhost:8081/about.json
 
 #### Authentication
 
