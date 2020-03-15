@@ -12,6 +12,7 @@ import DialogSelect from "./DialogSelect";
 import { createAreaStyles } from "../styles/styles";
 import { useAuth } from "../context/auth";
 import { useTheme } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 
 export default function CreateArea() {
     const [redirect, setRedirect] = useState(false);
@@ -21,6 +22,7 @@ export default function CreateArea() {
     const [services, setServices] = useState(null);
     const { clearToken } = useAuth();
     const classes = createAreaStyles(useTheme);
+    const [discordtoken, setDiscordtoken] = useState("");
 
     useEffect(() => {
         api.getCurrentUser().then(res => {
@@ -41,6 +43,11 @@ export default function CreateArea() {
             console.error(err);
         })
     }, []);
+
+    const handleDiscordSubmit = (e) => {
+        e.preventDefault();
+        console.log("faire appelle a l'api")
+    };
 
     const handleSubmit = () => {
         if (event && trigger) {
@@ -126,6 +133,31 @@ export default function CreateArea() {
                       </Grid>
                   </Container>
               </main>
+              <form onSubmit={handleDiscordSubmit}>
+                  <TextField
+                      value={discordtoken}
+                      onChange={(e) => {
+                          setDiscordtoken(e.target.value)
+                      }}
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="discordtoken"
+                      label="Discord Token"
+                      name="discordtoken"
+                      autoComplete="discordtoken"
+                      autoFocus
+                  />
+                  <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  >
+                  Envoyer
+              </Button>
+              </form>
               <AreaFooter classes={classes}/>
           </React.Fragment>
         );
