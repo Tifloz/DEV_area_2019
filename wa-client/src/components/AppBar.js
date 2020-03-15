@@ -29,7 +29,7 @@ export default function AreaAppBar(props) {
       <AppBar position="relative" className={classes.appBar}>
           <Toolbar>
               <div>
-                  <IconButton color="inherit" >
+                  <IconButton color="inherit" href={"/"} >
                       <Badge color="secondary">
                           <LineWeightIcon/>
                       </Badge>
