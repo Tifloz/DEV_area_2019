@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ReactJson from 'react-json-view';
 
 class AboutContent extends React.Component {
@@ -14,38 +15,79 @@ class AboutContent extends React.Component {
             },
             server: {
                 current_time: Math.floor(Date.now() / 1000),
-                services: [{
+                services: [
+                    {
                     name: "OpenWeather",
-                    actions: [{
-                        name: "humidity_sup",
-                        description: "The humidity is superior to 50 %"
-                    }, {
-                        name: "humidity_inf",
-                        description: "The humidity is inferior to 50 %"
-                    }, {
-                        name: "temp_pos",
-                        description: "The temperature is positive"
-                    }, {
-                        name: "temp_neg",
-                        description: "The temperature is negative"
-                    }, {
-                        name: "cloudy_weather",
-                        description: "The weather is cloudy"
-                    }, {
-                        name: "clear_weather",
-                        description: "The weather is clear"
-                    }]
+                    actions: [
+                        {
+                            name: "humidity_sup",
+                            description: "The humidity is superior to 50 %"
+                        },
+                        {
+                            name: "humidity_inf",
+                            description: "The humidity is inferior to 50 %"
+                        }, {
+                            name: "temp_pos",
+                            description: "The temperature is positive"
+                        }, {
+                            name: "temp_neg",
+                            description: "The temperature is negative"
+                        }, {
+                            name: "cloudy_weather",
+                            description: "The weather is cloudy"
+                        }, {
+                            name: "clear_weather",
+                            description: "The weather is clear"
+                        }
+                    ],
+                    reactions: [
+                        {
+                            name: "Discord",
+                            reactions: [{
+                                name: "send_message",
+                                description: "Send a message to the webhook specified"
+                            }],
+                        },
+                        , {
+                            name: "Gmail",
+                            reactions: [{
+                                name: "send_mail",
+                                description: "send an email on user's mail"
+                            }],
+                        }
+                    ]
                 }, {
                     name: "Pornhub",
                     actions: [{
                         name: "new_video",
                         description: "A new video with the specified tag is uploaded"
                     }],
+                    reactions: [{
+                        name: "Discord",
+                        reactions: [{
+                            name: "send_message",
+                            description: "Send a message to the webhook specified"
+                        }],
+                    },
+                    , {
+                        name: "Gmail",
+                        reactions: [{
+                            name: "send_mail",
+                            description: "send an email on user's mail"
+                        }],
+                    } ]
                 }, {
                     name: "Discord",
                     reactions: [{
                         name: "send_message",
-                        description: "Send a message to thje webhook specified"
+                        description: "Send a message to the webhook specified"
+                    }],
+                },
+                , {
+                    name: "Gmail",
+                    reactions: [{
+                        name: "send_mail",
+                        description: "send an email on user's mail"
                     }],
                 }, {
                     name: "Twitch",
@@ -53,16 +95,20 @@ class AboutContent extends React.Component {
                         name: "isInLive",
                         description: "When solary in live"
                     }],
-                    reactions: [{
-                        name: "send",
-                        description: "Send a mail on your address"
-                    }, {
-                        name: "Youtube",
-                        actions: [{
-                            name: "new_video_channel",
-                            description: "A new video of a channel is uploaded"
+                    reactions: [ {
+                        name: "Discord",
+                        reactions: [{
+                            name: "send_message",
+                            description: "Send a message to the webhook specified"
                         }],
-                    }],
+                    },
+                    , {
+                        name: "Gmail",
+                        reactions: [{
+                            name: "send_mail",
+                            description: "send an email on user's mail"
+                        }],
+                    } ],
                 }],
             },
         };
