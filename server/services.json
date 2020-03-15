@@ -42,8 +42,12 @@
         },
         "reactions": {
             "0": {
-                "value": "send",
+                "value": "send_mail",
                 "label": "Send a mail on your address"
+            },
+            "1": {
+                "value": "send_message",
+                "label": "Send a message on your Discord Webhook"
             }
         }
     },
@@ -58,8 +62,12 @@
         },
         "reactions": {
             "0": {
-                "value": "send",
+                "value": "send_mail",
                 "label": "Send a mail on your address"
+            },
+            "1": {
+                "value": "send_message",
+                "label": "Send a message on your Discord Webhook"
             }
         }
     },
@@ -70,6 +78,16 @@
             "0": {
                 "value": "isNewVideo",
                 "label": "When Video is uploaded on Channel"
+            }
+        },
+        "reactions": {
+            "0": {
+                "value": "send_mail",
+                "label": "Send a mail on your address"
+            },
+            "1": {
+                "value": "send_message",
+                "label": "Send a message on your Discord Webhook"
             }
         }
     },
@@ -104,7 +122,7 @@
         },
         "reactions": {
             "0": {
-                "value": "send",
+                "value": "send_mail",
                 "label": "Send a mail on your address"
             },
             "1": {
@@ -124,7 +142,7 @@
         },
         "reactions": {
             "0": {
-                "value": "send",
+                "value": "send_mail",
                 "label": "Send a mail on your address"
             },
             "1": {
