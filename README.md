@@ -37,6 +37,7 @@ The team : Florian Louvet - Georges Rached - Sabri Ouaked - Lucas Duboisse - Gau
 
 AREA requires [Docker](https://www.docker.com/)
 
+FOR using Discord reaction, thanks to come to this server : https://discord.gg/NkZx5M2
 
 
 ```sh
