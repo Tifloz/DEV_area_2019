@@ -54,7 +54,8 @@ function App() {
           );
         }}
         />
-        <Route exact path="/about" component={AboutContent}/>
+        <Route exact path="/about.json" component={AboutContent}/>
+        <Route exact path="/client.apk" component={ClientApk}/>
       </Router>
     </AuthContext.Provider>
   );

@@ -13,7 +13,6 @@ const options = {
 
 exports.checkLastVideo = function (tag = 'all') {
     pornhub.search('Video', tag, options).then(res => {
-        console.log(res.data[0]);
         if (res.data[0] !== last) {
             last = res.data[0];
             return true;
