@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import TwitterAuth from "../auth/TwitterAuth";
 import { panelStyles } from "../styles/styles";
 import {useTheme} from "@material-ui/core";
+import YoutubeAuth from "../auth/YoutubeAuth";
 
 export default function ServicePanel(props) {
   const classes = panelStyles(useTheme);
@@ -17,6 +18,7 @@ export default function ServicePanel(props) {
 
   const authMethod = {
     Twitter: <TwitterAuth handleSuccess={props.onLogin}/>,
+    Youtube: <YoutubeAuth handleSuccess={props.onLogin}/>,
   };
 
   const handleListItemClick = (event, value) => {

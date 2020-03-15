@@ -20,6 +20,7 @@ export default function DialogSelect(props) {
     if (props.user) {
       setIsLogged({
         Twitter: props.user.twitter_token !== "",
+        Youtube: props.user.google_token !== "",
       })
     }
   }, [props.user]);

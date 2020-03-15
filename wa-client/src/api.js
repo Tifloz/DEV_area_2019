@@ -74,6 +74,17 @@ export default {
         }
       )
     },
+    linkGoogleAccount: function(token, userId) {
+      return axios.put(
+        `${burl}/user/${userId}/googleLink`,
+        {
+          twitter_token: token,
+        },
+        {
+          headers: headers
+        }
+      )
+    },
     getAreasByUserId: function() {
         const user_id = localStorage.getItem("token");
         return axios.get(

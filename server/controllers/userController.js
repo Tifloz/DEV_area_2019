@@ -281,3 +281,12 @@ exports.getCurrentUser = (req, res) => {
   } else
     return data.result(res, 400, {err: 'No user signed in'})
 }
+
+exports.linkGoogleAccount = (req, res) => {
+  database.getDocument('User', req.params.user_id)
+    .then((user) => {
+      user['google_token'] = req.body.twitter_token
+      database.updateDocument('User', req.params.user_id, user)
+      return data.result(res, 200, "User twitter token updated")
+    })
+}
