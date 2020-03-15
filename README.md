@@ -69,6 +69,10 @@ The project consist two interfaces :
       - And for the front side, we used React Native.
       - For the APK file, the downloaded file can be found on the localhost link from the web client : localhost:8081/client.apk
 
+
+#### File about.json
+  - The following link provides the file about.json for our project AREA : http://localhost:8081/about.json
+
 #### Authentication
 
 The project consist three ways of authentication for the Web view :
