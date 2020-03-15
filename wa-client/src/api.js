@@ -97,9 +97,6 @@ export default {
                  headers: headers
             });
     },
-    isAuth: function() {
-        return localStorage.getItem("token") !== null;
-    },
     logout: function() {
       return axios.get(
         `${burl}/user/signOut`,

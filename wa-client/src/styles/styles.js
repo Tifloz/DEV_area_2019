@@ -134,8 +134,6 @@ const createAreaStyles = makeStyles(theme => ({
     //flexDirection: 'column',
     //justifyContent: 'flex-start',
     //backgroundColor: 'rgba(0,0,0,0.07)'
-    // TODO icone = add_box
-
   },
   typo: {
     fontSize: '6.0em',
@@ -199,4 +197,20 @@ const createAreaStyles = makeStyles(theme => ({
   },
 }));
 
-export { authStyles, dashboardStyles, createAreaStyles};
+const panelStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    padding: '2px',
+  },
+  rootList: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(20),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
+
+export { authStyles, dashboardStyles, createAreaStyles, panelStyles };

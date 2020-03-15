@@ -48,7 +48,7 @@
         }
     },
     "twitch": {
-        "name": "twitch",
+        "name": "Twitch",
         "logo": "https://www.presse-citron.net/wordpress_prod/wp-content/uploads/2019/03/twitch.jpg",
         "actions": {
             "0": {
@@ -64,7 +64,7 @@
         }
     },
     "youtube": {
-        "name": "youtube",
+        "name": "Youtube",
         "logo": "https://cdn.1min30.com/wp-content/uploads/2017/03/YouTube-logo.jpg",
         "actions": {
             "0": {
@@ -74,7 +74,7 @@
         }
     },
     "openweather": {
-        "name:": "openweather",
+        "name": "Openweather",
         "logo": "data:image/png;base64,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",
         "actions": {
             "0": {
@@ -114,7 +114,7 @@
         }
     },
     "pornhub": {
-        "name:": "pornhub",
+        "name": "Pornhub",
         "logo": "https://www.numerama.com/content/uploads/2017/06/pornhub.jpg",
         "actions": {
             "0": {

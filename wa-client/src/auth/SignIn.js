@@ -10,10 +10,11 @@ import Box from "@material-ui/core/Box";
 import Copyright from "../components/Copyright";
 import { Redirect } from "react-router-dom"
 import { authStyles } from "../styles/styles";
+import { useTheme } from "@material-ui/core";
 
 export default function SignIn() {
   const [logged, setLogged] = useState(false);
-  const classes = authStyles();
+  const classes = authStyles(useTheme);
 
   if (logged)
     return (<Redirect to={"/dashboard"}/>);
