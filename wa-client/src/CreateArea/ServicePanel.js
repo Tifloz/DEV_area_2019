@@ -16,6 +16,10 @@ export default function ServicePanel(props) {
   const [isLogged, setIsLogged] = useState(false);
   let index = 0;
 
+  const authMethod = {
+    Twitter: <TwitterAuth handleSuccess={() => {setIsLogged(true)}}/>,
+  };
+
   useEffect(() => {
     if (props.user.twitter_token !== "")
       setIsLogged(true)
@@ -23,7 +27,7 @@ export default function ServicePanel(props) {
 
   const handleListItemClick = (event, value) => {
     setSelected(value);
-    props.onValueChange(value);
+    props.onValueChange(value, props.service.name);
   };
 
   return (
@@ -36,29 +40,28 @@ export default function ServicePanel(props) {
         >
           <Typography className={classes.heading}>{props.service.name}</Typography>
         </ExpansionPanelSummary>
-            {/*{ ComponentMap[props.service.name] }*/}
-            { isLogged ?
-              <div className={classes.rootList}>
-                <List component="nav" aria-label="main mailbox folders">
-                  { props.service[props.type] && Object.keys(props.service[props.type]).map(key => {
-                    const value = props.service[props.type][key].value;
+        { isLogged ?
+          <div className={classes.rootList}>
+            <List component="nav" aria-label="main mailbox folders">
+              { props.service[props.type] && Object.keys(props.service[props.type]).map(key => {
+                const value = props.service[props.type][key].value;
 
-                    return (
-                      <ListItem
-                        key={index++}
-                        button
-                        selected={selected === value}
-                        onClick={ event => handleListItemClick(event, value)}
-                      >
-                        <ListItemText primary={props.service[props.type][key].label} />
-                      </ListItem>
-                    );
-                  }) }
-                </List>
-              </div>
-              :
-              <TwitterAuth handleSuccess={() => {setIsLogged(true)}}/>
-            }
+                return (
+                  <ListItem
+                    key={index++}
+                    button
+                    selected={selected === value}
+                    onClick={ event => handleListItemClick(event, value)}
+                  >
+                    <ListItemText primary={props.service[props.type][key].label} />
+                  </ListItem>
+                );
+              }) }
+            </List>
+          </div>
+          :
+          authMethod[props.service.name]
+        }
       </ExpansionPanel>
     </div>
   );

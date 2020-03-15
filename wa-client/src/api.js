@@ -51,12 +51,12 @@ export default {
                  headers: headers
             });
     },
-    createArea: function(userId, action, reaction) {
+    createArea: function(userId, event, trigger) {
         return axios.post(
             `${burl}/user/${userId}/create-area`,
             {
-              action: action,
-              reaction: reaction,
+              event: event,
+              trigger: trigger,
             },
             {
               headers: headers
