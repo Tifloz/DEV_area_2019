@@ -74,12 +74,12 @@ exports.userArea = (user) => {
 }
 
 exports.catchEvents = () => {
-    // cron.schedule("* * * * *", () => {
+    cron.schedule("* * * * *", () => {
         console.log('Begin to catch events')
         database.getAllDocuments('User').then((users) => {
             users.forEach(user => {
                 this.userArea(user)
             });
         })
-    // });
+     });
 }
