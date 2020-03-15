@@ -199,25 +199,12 @@ exports.createUserArea = (req, res) => {
       return data.result(res, 400, "User not existing")
     let area = {
       "user_id": req.params.user_id,
-      "name": "Area Twitter",
-      "img": servicesJson.twitter.logo,
-      "event": {
-        "service": "Twitter",
-        "action": req.body.action,
-      },
-      "trigger": {
-        "service": "Mail",
-        "reaction": req.body.reaction,
-      }
+      "name": "Area "+ req.body.event.service,
+      "img": servicesJson[req.body.event.service.toLowerCase()]['logo'],
+      "event": req.body.event,
+      "trigger": req.body.trigger
     }
     database.createDocument('Area', undefined, area)
-    // if (count(req.body) > 5) {
-    //   twitterUser = []
-    //   twitterUser['userId'] = req.body.userId
-    //   twitterUser['accessToken'] = req.body.accessToken
-    //   twitterUser['accessTokenSecret'] = req.body.accessTokenSecret
-    //   this.addListenerTwitter(user['email'], req.body.action, twitterUser)
-    // }
     return data.result(res, 200, {'message': 'Areas successfully created'})
   }).catch((e) => {
     console.log('error: createAreas: ', e.message)
