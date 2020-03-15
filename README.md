@@ -41,7 +41,13 @@ FOR using Discord reaction, thanks to come to this server : https://discord.gg/N
 
 
 ```sh
-$ docker-compose up --build
+$ docker-compose build && docker-compose up
+```
+
+FOR the Dockerfile in the mobile directory : 
+
+```sh
+$ docker-compose build client_mobile && docker-compose up client_mobile
 ```
 
 ### API Documentation
@@ -62,7 +68,7 @@ The project consist two interfaces :
     - Technologies Used :
       - We used Node JS for the Web server background, same as the web view.
       - And for the front side, we used React Native.
-      - For the APK file, the downloaded file can be found on the localhost link from the web client : localhost:8081/client-apk.
+      - For the APK file, the downloaded file can be found on the localhost link from the web client : localhost:8081/client.apk
 
 #### Authentication
 

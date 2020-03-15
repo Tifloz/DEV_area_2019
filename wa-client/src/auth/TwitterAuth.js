@@ -8,8 +8,7 @@ export default function TwitterAuth(props) {
     response.json().then(() => {
       if (token)
         api.linkTwitterAccount(token, localStorage['token']).then(res => {
-          console.log(res);
-          props.handleSuccess()
+          props.handleSuccess("Twitter", true)
         }).catch(err => {
           console.error(err)
         })

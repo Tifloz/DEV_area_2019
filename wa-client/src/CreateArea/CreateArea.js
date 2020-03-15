@@ -51,7 +51,6 @@ export default function CreateArea() {
 
     const handleSubmit = () => {
         if (event && trigger) {
-            console.log(event, trigger);
             api.createArea(localStorage.token, event, trigger).then(res => {
                 if (res.status === 200) {
                     setRedirect(true);

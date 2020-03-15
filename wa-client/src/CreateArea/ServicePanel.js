@@ -13,17 +13,11 @@ import {useTheme} from "@material-ui/core";
 export default function ServicePanel(props) {
   const classes = panelStyles(useTheme);
   const [selected, setSelected] = useState("");
-  const [isLogged, setIsLogged] = useState(false);
   let index = 0;
 
   const authMethod = {
-    Twitter: <TwitterAuth handleSuccess={() => {setIsLogged(true)}}/>,
+    Twitter: <TwitterAuth handleSuccess={props.onLogin}/>,
   };
-
-  useEffect(() => {
-    if (props.user.twitter_token !== "")
-      setIsLogged(true)
-  }, [props.user]);
 
   const handleListItemClick = (event, value) => {
     setSelected(value);
@@ -40,7 +34,7 @@ export default function ServicePanel(props) {
         >
           <Typography className={classes.heading}>{props.service.name}</Typography>
         </ExpansionPanelSummary>
-        { isLogged ?
+        { props.isLogged ?
           <div className={classes.rootList}>
             <List component="nav" aria-label="main mailbox folders">
               { props.service[props.type] && Object.keys(props.service[props.type]).map(key => {
