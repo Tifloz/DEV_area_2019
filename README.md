@@ -44,12 +44,6 @@ FOR using Discord reaction, thanks to come to this server : https://discord.gg/N
 $ docker-compose build && docker-compose up
 ```
 
-FOR the Dockerfile in the mobile directory : 
-
-```sh
-$ docker-compose build client_mobile && docker-compose up client_mobile
-```
-
 ### API Documentation
 
 We used [Swagger](https://swagger.io/) that is an open-source software framework backed by a large ecosystem of tools that helps developers design, build, document, and consume RESTful web services.
