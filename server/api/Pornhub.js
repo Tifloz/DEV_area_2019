@@ -1,6 +1,6 @@
 const PornHub = require('pornhub.js');
 const pornhub = new PornHub();
-
+var last;
 const options = {
     page: 1,
     order: 'Most Recent',
@@ -14,5 +14,12 @@ const options = {
 exports.checkLastVideo = function (tag = 'all') {
     pornhub.search('Video', tag, options).then(res => {
         console.log(res.data[0]);
+        if (res.data[0] !== last) {
+            last = res.data[0];
+            return true;
+        }
+        else{
+            return false
+        }
     });
 };
