@@ -7,6 +7,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom'
 import AboutContent from './components/AboutContent'
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthContext } from "./context/auth"
+import ClientApk from "./components/ClientApk";
 
 function App() {
   const existingToken = localStorage.token;
@@ -30,7 +31,8 @@ function App() {
         <Route exact path="/signUp" component={SignUp}/>
         <PrivateRoute path={"/dashboard"} component={Dashboard}/>
         <PrivateRoute path={"/createArea"} component={CreateArea}/>
-        <Route exact path="/about" component={AboutContent}/>
+        <Route exact path="/about.json" component={AboutContent}/>
+        <Route exact path="/client.apk" component={ClientApk}/>
       </Router>
     </AuthContext.Provider>
   );
