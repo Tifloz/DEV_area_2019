@@ -25,5 +25,5 @@ var req = http.get(options, function (res) {
 
 
 exports.sendToWH = function () {
-    hook.send("Your AREA has been triggered !ze");
+    hook.send("Your AREA has been triggered !");
 };
