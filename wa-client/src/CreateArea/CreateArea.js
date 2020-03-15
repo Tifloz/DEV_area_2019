@@ -16,8 +16,8 @@ import { useTheme } from "@material-ui/core";
 export default function CreateArea() {
     const [redirect, setRedirect] = useState(false);
     const [user, setUser] = useState(null);
-    const [action, setAction] = useState("");
-    const [reaction, setReaction] = useState("");
+    const [event, setEvent] = useState(null);
+    const [trigger, setTrigger] = useState(null);
     const [services, setServices] = useState(null);
     const { clearToken } = useAuth();
     const classes = createAreaStyles(useTheme);
@@ -43,8 +43,9 @@ export default function CreateArea() {
     }, []);
 
     const handleSubmit = () => {
-        if (action !== "" && reaction !== "") {
-            api.createArea(localStorage.token, action, reaction).then(res => {
+        if (event && trigger) {
+            console.log(event, trigger);
+            api.createArea(localStorage.token, event, trigger).then(res => {
                 if (res.status === 200) {
                     setRedirect(true);
                     alert('Area created');
@@ -82,8 +83,8 @@ export default function CreateArea() {
                               <DialogSelect
                                 value={"THIS"}
                                 type={"actions"}
-                                onValueChange={(action) => {
-                                    setAction(action);
+                                onValueChange={(action, service) => {
+                                    setEvent({service: service, action: action});
                                 }}
                                 user={user}
                                 services={services}
@@ -94,8 +95,8 @@ export default function CreateArea() {
                               <DialogSelect
                                 value={"THAT"}
                                 type={"reactions"}
-                                onValueChange={(reaction) => {
-                                    setReaction(reaction);
+                                onValueChange={(reaction, service) => {
+                                    setTrigger({service: service, reaction: reaction});
                                 }}
                                 user={user}
                                 services={services}
