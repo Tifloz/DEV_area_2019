@@ -28,4 +28,6 @@ router.get('/:user_id/discord', userController.getUserDiscordWb)
 
 router.get('/getCurrentUser', userController.getCurrentUser)
 
+router.put('/:user_id/googleLink', userController.linkGoogleAccount)
+
 module.exports = router
