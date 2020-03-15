@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,7 +13,16 @@ export default function DialogSelect(props) {
   const theme = useTheme();
   const classes = createAreaStyles(theme);
   const [open, setOpen] = useState(false);
+  const [isLogged, setIsLogged] = useState(null);
   let index = 0;
+
+  useEffect(() => {
+    if (props.user) {
+      setIsLogged({
+        Twitter: props.user.twitter_token !== "",
+      })
+    }
+  }, [props.user]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,6 +30,12 @@ export default function DialogSelect(props) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleLogin = (name, value) => {
+    setIsLogged({
+      [name]: value,
+    })
   };
 
   return (
@@ -42,7 +57,9 @@ export default function DialogSelect(props) {
       >
         <DialogTitle>{props.type}</DialogTitle>
         <DialogContent dividers={true}>
-          { props.services && Object.keys(props.services).map((key) => {
+          { props.services && isLogged && Object.keys(props.services).map((key) => {
+            const log = isLogged[props.services[key].name] === undefined ? true : isLogged[props.services[key].name];
+
             return (
               <ServicePanel
                 key={index++}
@@ -50,6 +67,8 @@ export default function DialogSelect(props) {
                 user={props.user}
                 type={props.type}
                 onValueChange={props.onValueChange}
+                isLogged={log}
+                onLogin={handleLogin}
               />
               );
           }) }
