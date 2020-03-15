@@ -17,13 +17,13 @@ var req = http.get(options, function (res) {
         var body = Buffer.concat(bodyChunks);
         console.log(body);
         if (body != null)
-            hook = new webhook.Webhook("https://discordapp.com/api/webhooks/674651298229911553/-lHOyUOJT5yBxbli2FswE6mtdgHiFdEwbteLe9PidtWM0O1kbcU-W-UKsH5I4SGdjT7e");
+            hook = new webhook.Webhook("https://discordapp.com/api/webhooks/688833200193011819/fbYmFUwTvbzAz-mvLH-kZ518C8C2rC7FR4lVGw8iwd0uUlOZfMIrOwJFNGzQgrcrmGYB");
         else
-            hook = new webhook.Webhook("https://discordapp.com/api/webhooks/674651298229911553/-lHOyUOJT5yBxbli2FswE6mtdgHiFdEwbteLe9PidtWM0O1kbcU-W-UKsH5I4SGdjT7e")
+            hook = new webhook.Webhook("https://discordapp.com/api/webhooks/688833200193011819/fbYmFUwTvbzAz-mvLH-kZ518C8C2rC7FR4lVGw8iwd0uUlOZfMIrOwJFNGzQgrcrmGYB")
     })
 });
 
 
 exports.sendToWH = function () {
-    hook.send("Hello there!");
+    hook.send("Your AREA has been triggered !ze");
 };
