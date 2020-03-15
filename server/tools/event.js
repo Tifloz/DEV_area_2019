@@ -74,7 +74,8 @@ exports.userArea = (user) => {
 }
 
 exports.catchEvents = () => {
-    cron.schedule("* * * * *", () => {
+    //excecute every 5 minutes
+    cron.schedule("*/5 * * * *", () => {
         console.log('Begin to catch events')
         database.getAllDocuments('User').then((users) => {
             users.forEach(user => {
